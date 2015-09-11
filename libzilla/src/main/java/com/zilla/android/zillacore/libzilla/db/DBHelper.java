@@ -26,6 +26,8 @@ import com.zilla.android.zillacore.libzilla.file.FileHelper;
 import java.util.ArrayList;
 
 /**
+ * Basic class to deal db's create and upgrade.
+ * <br>
  * 数据库基础类，处理数据库的创建和升级
  *
  * @author ze.chen
@@ -35,9 +37,6 @@ public final class DBHelper extends SQLiteOpenHelper {
     private static DBHelper helper = null;
     private DBUpgradeListener dbUpgradeListener;
 
-    /**
-     * 数据库名称
-     */
     private DBHelper(Context context, String name, CursorFactory factory,
                      int version) {
         super(context, name, factory, version);
@@ -48,11 +47,13 @@ public final class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * init db
+     * <br>
      * 系统初始化时构造
      *
      * @param app application
-     * @param dbName dbName
-     * @param version version of the db
+     * @param dbName dbName from system.properties file
+     * @param version version of the db from system.properties file
      */
     public static void init(Application app, String dbName, int version) {
         helper = new DBHelper(app, dbName, null, version);
@@ -66,6 +67,8 @@ public final class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * whe upgrade ,you can add your upgrade sql in upgrade.sql file.
+     * <br>
      * 数据库升级时，根据配置文件中的配置信息进行升级，可以涉及到添加字段,具体升级配置在res/raw/system.properties文件中定义
      */
     @Override
@@ -85,6 +88,8 @@ public final class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * an interfance for create and upgrade callback
+     * <br>
      * 数据库初始化和升级回调接口
      */
     public interface DBUpgradeListener {
@@ -94,6 +99,8 @@ public final class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * execute local sql;upgrade.sql
+     * <br>
      * 执行本地SQL语句
      * @param db the SQLiteDatabase
      */

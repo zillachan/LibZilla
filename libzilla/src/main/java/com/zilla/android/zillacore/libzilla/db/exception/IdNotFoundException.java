@@ -16,17 +16,19 @@ limitations under the License.
 package com.zilla.android.zillacore.libzilla.db.exception;
 
 /**
- * ID注解没有找到异常
+ * Id annotation not found for the model.
+ * <br>
+ * Id注解没有找到异常
  * Created by chenze on 14-2-21.
  */
 public class IdNotFoundException extends Exception {
 
     public IdNotFoundException() {
-        super("Id 主键没有找到，请确认模型是否加入了@Id注解");
+        super("Id annotation can't find，make sure you add the @Id annotation for the model.");
     }
 
     public IdNotFoundException(String detailMessage) {
-        super(detailMessage);
+        super("Id annotation can't find，make sure you add the @Id annotation for the model."+detailMessage);
     }
 
     public IdNotFoundException(String detailMessage, Throwable throwable) {

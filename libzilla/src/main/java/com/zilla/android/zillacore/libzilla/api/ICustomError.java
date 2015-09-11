@@ -16,7 +16,7 @@ limitations under the License.
 package com.zilla.android.zillacore.libzilla.api;
 
 /**
- * 自定义错误，实体Bean实现该接口，来判断是否产生自定义错误
+ * CostomError,When your server return a custom error,you shoud implements the interfance to confige custom error.
  * <p>
  * public class WraperModel implements ICustomError{
  * <p>

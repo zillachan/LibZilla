@@ -17,15 +17,17 @@ package com.zilla.android.zillacore.libzilla.api;
 
 import com.zilla.android.zillacore.libzilla.file.AddressManager;
 import com.zilla.android.zillacore.libzilla.file.PropertiesManager;
+
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 
 /**
+ * Api util
  * Created by zilla on 14-7-17.
  */
 public class ZillaApi {
     /**
-     * 基础的RestAdapter
+     * the basic RestAdapter
      */
     public static RestAdapter SimpleRestAdapter = new RestAdapter.Builder()
             .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -36,10 +38,11 @@ public class ZillaApi {
             .setLogLevel(RestAdapter.LogLevel.FULL)
             .setEndpoint(AddressManager.getHost())
             .build();
+
     /**
-     * 返回自定义的RestAdpater
+     * return a custom RestAdpater
      *
-     * @param url the custom url
+     * @param url                the custom url
      * @param requestInterceptor requestInterceptor
      * @return restAdapter
      */
@@ -53,10 +56,10 @@ public class ZillaApi {
     }
 
     /**
-     * 返回默认的RESTAdapter
+     * return a default RESTAdapter from address.properties file
      *
      * @param requestInterceptor requestInterceptor
-     * @return restAdapter
+     * @return a default restAdapter
      */
     public static RestAdapter getRESTAdapter(RequestInterceptor requestInterceptor) {
         RestAdapter restAdapter = new RestAdapter.Builder()

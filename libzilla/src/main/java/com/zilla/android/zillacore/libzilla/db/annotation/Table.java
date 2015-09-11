@@ -21,6 +21,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * The table annotation for a pojo class,if you don't use,the className will be used.
+ * <br>
  * 表名定义，用于模型类的注释 默认情况下如果模型类不使用Table注释，那么保存到数据库时，使用模型类类名的小写保存入表
  * 如果使用了Table注释，表名则为Table注释所指定的内容
  * 
@@ -30,5 +32,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Table {
-	public String name();
+	public String value();
 }

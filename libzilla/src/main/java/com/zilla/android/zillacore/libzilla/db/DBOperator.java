@@ -21,6 +21,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
+
 import com.github.snowdream.android.util.Log;
 import com.zilla.android.zillacore.libzilla.db.util.AnnotationUtil;
 import com.zilla.android.zillacore.libzilla.db.util.TableHolder;
@@ -32,9 +33,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author ze.chen
+ * Manage the CURD of table,this is a singleton pattern.
+ * now support the sql field type:String,int,float and double.
+ * <br>
  * 管理数据库的增删改查, 该类使用单例，为了防止线程冲突，所有方法改用同步实现
  * 数据库字段类型支持String,int,float,double
+ *
+ * @author ze.chen
  */
 public class DBOperator {
 
@@ -59,7 +64,10 @@ public class DBOperator {
     }
 
     /**
+     * insert a row
+     * <br>
      * 插入一条记录
+     *
      * @param model pojo model
      * @return boolean
      */
@@ -97,7 +105,10 @@ public class DBOperator {
     }
 
     /**
+     * insert multi-row.
+     * <br>
      * 插入多条记录
+     *
      * @param list the list to be saved
      * @return boolean
      */
@@ -131,7 +142,10 @@ public class DBOperator {
     }
 
     /**
+     * delete a row
+     * <br>
      * 根据传入的模型的主键删除记录
+     *
      * @param model the pojo model
      * @return the number of rows affected
      */
@@ -142,7 +156,10 @@ public class DBOperator {
     }
 
     /**
+     * delete all rows
+     * <br>
      * 删除表中的所有数据
+     *
      * @param c Tpye
      * @return boolean
      */
@@ -175,7 +192,10 @@ public class DBOperator {
     }
 
     /**
+     * update a row by model's key
+     * <br>
      * 根据主键更新数据
+     *
      * @param model the pojo model
      * @return boolean
      */
@@ -208,11 +228,14 @@ public class DBOperator {
     }
 
     /**
+     * android's normal update method
+     * <br>
      * 原生更新方法
-     * @param table the table
-     * @param values ContentValues
+     *
+     * @param table       the table
+     * @param values      ContentValues
      * @param whereClause where string
-     * @param whereArgs where list
+     * @param whereArgs   where list
      * @return the number of rows affected
      */
     public synchronized int update(String table, ContentValues values, String whereClause, String[] whereArgs) {
@@ -220,11 +243,14 @@ public class DBOperator {
     }
 
     /**
+     * merge the changes field to the row.
+     * <br>
      * 合并操作，合并该记录中发生变动的字段到该记录。
      * <br>场景：更新记录中的某几个字段
-     * @param model pojo model
+     *
+     * @param model       pojo model
      * @param whereClause where string
-     * @param whereArgs where list
+     * @param whereArgs   where list
      * @return if merge success
      */
     public synchronized boolean merge(Object model, String whereClause, String[] whereArgs) {
@@ -252,8 +278,11 @@ public class DBOperator {
     }
 
     /**
+     * convert a model to contentvalues
+     * <br>
      * 将model转化为ContentValues
-     * @param model pojo model
+     *
+     * @param model  pojo model
      * @param cursor cursor
      * @return ContentValues
      */
@@ -271,8 +300,11 @@ public class DBOperator {
     }
 
     /**
+     * delete all and add all from a list
+     * <br>
      * 删除表中所有数据, 并重新插入数据
-     * @param c Type
+     *
+     * @param c    Type
      * @param list the list to be saved
      * @return boolean
      */
@@ -283,7 +315,10 @@ public class DBOperator {
     }
 
     /**
+     * batch update rows,if the key is empty,insert it.
+     * <br>
      * 批量更新已经存在的数据,如果主键值为空，则插入
+     *
      * @param list the list to be updated
      * @return boolean
      */
@@ -310,8 +345,11 @@ public class DBOperator {
     }
 
     /**
+     * update table rows by table columnName(update if column's value is same)
+     * <br>
      * 根据给定的字段名，批量更新数据库
-     * @param list the list to be updated
+     *
+     * @param list       the list to be updated
      * @param columnName the key column
      * @return boolean
      */
@@ -339,6 +377,8 @@ public class DBOperator {
 
 
     /**
+     * convert cursor to model
+     * <br>
      * 将游标所在位置的记录转化成模型
      *
      * @param cursor cursor
@@ -383,7 +423,10 @@ public class DBOperator {
     }
 
     /**
+     * query all rows from table
+     * <br>
      * 查询表中所有记录，并转化成model数组
+     *
      * @param c Type
      * @return model list
      */
@@ -411,8 +454,11 @@ public class DBOperator {
     }
 
     /**
+     * query one row form table by key
+     * <br>
      * 查询单条记录
-     * @param c Type
+     *
+     * @param c  Type
      * @param id id
      * @return Object 没有查找到返回null
      */
@@ -443,8 +489,11 @@ public class DBOperator {
     }
 
     /**
+     * query first row by the given condition
+     * <br>
      * 根据条件查询一条记录
-     * @param c Type
+     *
+     * @param c         Type
      * @param selection where string
      * @param condition where list
      * @return Object 没有查找到返回null
@@ -460,11 +509,14 @@ public class DBOperator {
     }
 
     /**
+     * query rows form table DESC
+     * <br>
      * 数据库查询, 默认情况下采用ID降序排列
-     * @param c Type
+     *
+     * @param c         Type
      * @param selection where string
      * @param condition where list
-     * @param limit limit
+     * @param limit     limit
      * @return model list
      */
     public synchronized <T> List<T> query(Class<T> c, String selection, String[] condition, String limit) {
@@ -496,7 +548,10 @@ public class DBOperator {
     }
 
     /**
+     * close cursor
+     * <br>
      * 关闭游标
+     *
      * @param cursor the cursor to be closed
      */
     private synchronized void closeCursor(Cursor cursor) {
@@ -507,6 +562,8 @@ public class DBOperator {
     }
 
     /**
+     * close db
+     * <br>
      * 关闭数据库
      */
     public synchronized void close() {
@@ -515,6 +572,7 @@ public class DBOperator {
     }
 
     /**
+     * judge if table is exist.
      * 从sqlit_master中查询该表是否存在，如果缓存记录存在、sqlite_master表中存在 或者新建表，返回true
      *
      * @param c Type
@@ -549,6 +607,8 @@ public class DBOperator {
     }
 
     /**
+     * auto update table field by model,when db version upgrade.
+     * <br>
      * 版本升级时，如果模型改动，自动升级数据库表
      *
      * @param c Type
@@ -583,6 +643,8 @@ public class DBOperator {
     }
 
     /**
+     * filter,be called before CURD
+     * <br>
      * 过滤器，在执行CURD之前调用该方法
      *
      * @param c Type
@@ -592,6 +654,8 @@ public class DBOperator {
     }
 
     /**
+     * create table.
+     * <br>
      * 创建表
      *
      * @param c Type
@@ -637,7 +701,10 @@ public class DBOperator {
 
 
     /**
+     * return rowid of current table.
+     * <br>
      * 返回插入的自增字段的值
+     *
      * @return the rowid of table
      */
     private synchronized int getLast_insert_rowid() {
@@ -658,6 +725,8 @@ public class DBOperator {
     }
 
     /**
+     * convert model field to table field type.
+     * <br>
      * 将模型字段类型对应到数据库字段上
      *
      * @param field field

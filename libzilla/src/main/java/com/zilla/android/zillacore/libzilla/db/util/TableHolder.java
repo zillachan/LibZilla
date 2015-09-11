@@ -18,6 +18,8 @@ package com.zilla.android.zillacore.libzilla.db.util;
 import java.util.ArrayList;
 
 /**
+ * Table cache class
+ * <br>
  * 表信息缓存记录
  * @author zilla
  *
@@ -27,6 +29,8 @@ public class TableHolder {
 	public static ArrayList<String> tableList = new ArrayList<String>();
 	
 	/**
+	 * add tableName to cache
+	 * <br>
 	 * 添加表信息到缓存中
 	 * @param tableName tableName
 	 */
@@ -38,6 +42,8 @@ public class TableHolder {
 	}
 	
 	/**
+	 * Judge if the tableName has exist in the sqlite db.
+	 * <br>
 	 * 判断数据库中是否存在该表
 	 * @param tableName tableName
 	 * @return if the tableName exist
