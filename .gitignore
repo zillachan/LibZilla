@@ -59,3 +59,4 @@ proguard/
 /.idea/
 .DS_Store
 *.iml
+local.properties

@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
@@ -15,9 +18,9 @@ android {
         release {
             try {
                 storeFile file("myapp.jks")
-                storePassword KEYSTORE_PASSWORD
+                storePassword properties.getProperty("keystore.password")
                 keyAlias "thekey"
-                keyPassword KEY_PASSWORD
+                keyPassword properties.getProperty("key.password")
             }
             catch (ex) {
                 throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
