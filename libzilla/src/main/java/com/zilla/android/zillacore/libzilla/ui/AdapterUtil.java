@@ -208,6 +208,7 @@ public class AdapterUtil<T> {
     protected Object getConstructorInstance(Class c, View view) {
         try {
             Constructor ctor = c.getDeclaredConstructor(View.class);
+            ctor.setAccessible(true);
             return ctor.newInstance(view);
         } catch (Exception e) {
             Log.e(e.getMessage());
