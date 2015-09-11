@@ -8,7 +8,7 @@ ext {
     libraryDescription = 'An Android Util Library'
     siteUrl = 'https://github.com/zillachan/LibZilla'
     gitUrl = 'https://github.com/zillachan/LibZilla.git'
-    libraryVersion = '1.0.0'
+    libraryVersion = VERSION_NAME
     developerId = 'zilla'
     developerName = 'zillachan'
     developerEmail = 'zillachan@gmail.com'
