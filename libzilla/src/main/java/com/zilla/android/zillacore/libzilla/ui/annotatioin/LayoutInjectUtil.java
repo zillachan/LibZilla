@@ -33,6 +33,6 @@ public class LayoutInjectUtil {
             Log.d("Can not find annotation 'InjectLayout' on "+container.getClass().getName()+".");
             return 0;
         }
-        return injectLayout.layout();
+        return injectLayout.value();
     }
 }

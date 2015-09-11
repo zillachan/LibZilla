@@ -34,8 +34,8 @@ public class ZillaExpandableAdapter<T, Child> extends BaseExpandableListAdapter 
 
     protected int parentResId = 0;
     protected int childResId = 0;
-    protected Class<AbsViewHolder> parentViewHolder;
-    protected Class<AbsViewHolder> childViewHolder;
+    protected Class<?> parentViewHolder;
+    protected Class<?> childViewHolder;
 
     protected Context context;
     protected LayoutInflater inflater;

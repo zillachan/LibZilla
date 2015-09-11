@@ -1,0 +1,16 @@
+<resources xmlns:ripple="http://schemas.android.com/apk/res-auto">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppTheme.Base">
+        <item name="android:colorAccent">@color/appTheme</item>
+        <!-- 状态栏颜色 -->
+        <item name="android:colorPrimaryDark">@color/appThemeDeep</item>
+        <item name="android:navigationBarColor">@color/appThemeDeep</item>
+    </style>
+
+    <style name="AppTheme.FullScreen" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+</resources>

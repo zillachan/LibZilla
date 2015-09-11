@@ -1,0 +1,3 @@
+-- DROP TABLE IF EXISTS "FrontModel";
+-- CREATE TABLE "FrontModel" ("id" INTEGER NOT NULL,"src" TEXT,"des" TEXT,"state" integer,PRIMARY KEY("id"));
+-- INSERT INTO "FrontModel" VALUES (1, 'aaa', 'desdes', 1);
