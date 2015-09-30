@@ -41,11 +41,6 @@ public class Zilla {
 
     public static DisplayMetrics DM;
 
-    /**
-     * 应用程序时候启动了主页
-     */
-    public static boolean ISRunning = false;
-
     public Zilla() {
 
     }

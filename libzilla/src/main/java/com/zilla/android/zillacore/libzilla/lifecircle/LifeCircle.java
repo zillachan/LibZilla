@@ -16,6 +16,7 @@ limitations under the License.
 package com.zilla.android.zillacore.libzilla.lifecircle;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.github.snowdream.android.util.Log;
 import com.zilla.android.zillacore.libzilla.lifecircle.annotation.LifeCircleInject;
@@ -24,8 +25,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 /**
  * 解析injectedSource中的注入字段
@@ -35,22 +40,32 @@ import java.util.List;
  */
 public class LifeCircle {
 
-//    static ClassPool pool = ClassPool.getDefault();
-    /**
-     * ILifeCircle列表
-     */
-    static List<ILifeCircle> callbacks = Collections.synchronizedList(new ArrayList<ILifeCircle>());
+    static WeakHashMap<Object, List> map = new WeakHashMap<>();
 
     /**
      * 载体对象
      *
      * @param injectedSource 父容器(Activity/Fragment)
      */
-    public static void inject(Object injectedSource) {
+    public static void onCreate(Object injectedSource) {
+        List<ILifeCircle> callbacks = Collections.synchronizedList(new ArrayList<ILifeCircle>());
         Class containerClass = injectedSource.getClass();
-        Field[] fields = containerClass.getDeclaredFields();
 
-        if (fields != null && fields.length > 0) {
+        //Field补全
+        Field[] fields1 = containerClass.getFields();
+        Field[] fields2 = containerClass.getDeclaredFields();
+        List<Field> fields = new ArrayList(Arrays.asList(fields1));
+        Set<Field> fieldSet = new HashSet<>();
+        for (Field field : fields) {
+            fieldSet.add(field);
+        }
+        fields.clear();
+        for (Field field : fieldSet) {
+            fields.add(field);
+        }
+        //Field补全}
+
+        if (fields != null && fields.size() > 0) {
             for (Field field : fields) {
                 LifeCircleInject callbackInject = field.getAnnotation(LifeCircleInject.class);
                 if (callbackInject != null) {
@@ -89,91 +104,61 @@ public class LifeCircle {
                 }
             }
         }
+        map.put(injectedSource, callbacks);
         for (ILifeCircle callback : callbacks) {
             callback.onCreate(null);
         }
-
-        callbacks.clear();
     }
-//
-//    /**
-//     * Actiivty生命周期注解
-//     */
-//    class ProxyHandler extends Activity {
-//        @Override
-//        public void onCreate(Bundle savedInstanceState) {
-//            for (ILifeCircle callback : callbacks) {
-//                callback.onCreate(savedInstanceState);
-//            }
-//        }
-//
-//        @Override
-//        public void onResume() {
-//            for (ILifeCircle callback : callbacks) {
-//                callback.onResume();
-//            }
-//        }
-//
-//        @Override
-//        public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//            for (ILifeCircle callback : callbacks) {
-//                callback.onActivityResult(requestCode, resultCode, data);
-//            }
-//        }
-//
-//        @Override
-//        public void onPause() {
-//            for (ILifeCircle callback : callbacks) {
-//                callback.onPause();
-//            }
-//        }
-//
-//        @Override
-//        public void onDestroy() {
-//            for (ILifeCircle callback : callbacks) {
-//                callback.onDestroy();
-//            }
-//        }
-//    }
-//
-//    /**
-//     * Framgment生命周期注解
-//     */
-//    class ProxyFragmentHandler extends Fragment {
-//        @Override
-//        public void onCreate(Bundle savedInstanceState) {
-//            for (ILifeCircle callback : callbacks) {
-//                callback.onCreate(savedInstanceState);
-//            }
-//        }
-//
-//        @Override
-//        public void onResume() {
-//            for (ILifeCircle callback : callbacks) {
-//                callback.onResume();
-//            }
-//        }
-//
-//        @Override
-//        public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//            for (ILifeCircle callback : callbacks) {
-//                callback.onActivityResult(requestCode, resultCode, data);
-//            }
-//        }
-//
-//        @Override
-//        public void onPause() {
-//            for (ILifeCircle callback : callbacks) {
-//                callback.onPause();
-//            }
-//        }
-//
-//        @Override
-//        public void onDestroy() {
-//            for (ILifeCircle callback : callbacks) {
-//                callback.onDestroy();
-//            }
-//        }
-//    }
+
+    /**
+     * clear the inject objects.
+     *
+     * @param injectedSource
+     */
+    public static void onDestory(Object injectedSource) {
+        try {
+            List<ILifeCircle> callbacks = map.get(injectedSource);
+            for (ILifeCircle callback : callbacks) {
+                callback.onDestroy();
+            }
+            callbacks.clear();
+            map.remove(injectedSource);
+        } catch (Exception e) {
+            Log.e(e.getMessage() + "");
+        }
+    }
+
+    public static void onResume(Object injectedSource) {
+        try {
+            List<ILifeCircle> callbacks = map.get(injectedSource);
+            for (ILifeCircle callback : callbacks) {
+                callback.onResume();
+            }
+        } catch (Exception e) {
+            Log.e(e.getMessage() + "");
+        }
+    }
+
+    public static void onActivityResult(Object injectedSource, int requestCode, int resultCode, Intent data) {
+        try {
+            List<ILifeCircle> callbacks = map.get(injectedSource);
+            for (ILifeCircle callback : callbacks) {
+                callback.onActivityResult(requestCode, resultCode, data);
+            }
+        } catch (Exception e) {
+            Log.e(e.getMessage() + "");
+        }
+    }
+
+    public static void onPause(Object injectedSource) {
+        try {
+            List<ILifeCircle> callbacks = map.get(injectedSource);
+            for (ILifeCircle callback : callbacks) {
+                callback.onPause();
+            }
+        } catch (Exception e) {
+            Log.e(e.getMessage() + "");
+        }
+    }
 
 }

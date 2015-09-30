@@ -25,7 +25,7 @@ import java.util.Stack;
 /**
  * 应用生命周期管理类<br>
  * 应用生命周期管理;该类已经被集成到LifeCicleExit;
- * 并被加入了ZillaActivity中，该类对用户透明，不需要开发者调用@LifeCircleInject protected LifeCicleExit lifeCircleExit;
+ * 并被加入了ZillaActivity中，该类对用户透明，不需要开发者调用@LifeCircleInject protected AppExitLife lifeCircleExit;
  *
  * @author ze.chen
  * @version 1.0
@@ -36,6 +36,7 @@ public class AppManager {
     private static AppManager instance;
 
     private AppManager() {
+
     }
 
     /**

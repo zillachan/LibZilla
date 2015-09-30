@@ -15,18 +15,28 @@ limitations under the License.
  */
 package com.zilla.android.zillacore.libzilla.lifecircle.exit;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import com.zilla.android.zillacore.libzilla.Zilla;
 import com.zilla.android.zillacore.libzilla.lifecircle.ILifeCircle;
 
 /**
  * Created by chenze on 13-12-2.
  */
-public class LifeCicleExit implements ILifeCircle {
+public class AppExitLife implements ILifeCircle {
+
+    private Context context;
+
+    public AppExitLife(Context context) {
+        this.context = context;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        AppManager.getAppManager().addActivity(Zilla.ACTIVITY);
+        AppManager.getAppManager().addActivity((Activity) context);
     }
 
     @Override
@@ -46,6 +56,6 @@ public class LifeCicleExit implements ILifeCircle {
 
     @Override
     public void onDestroy() {
-        AppManager.getAppManager().finishActivity(Zilla.ACTIVITY);
+        AppManager.getAppManager().finishActivity((Activity) context);
     }
 }

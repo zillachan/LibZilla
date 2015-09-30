@@ -21,7 +21,7 @@ import android.os.Bundle;
 /**
  * 生命周期管理接口，用于管理注入控件/对象的生命周期。该注释可以用于ZillaFragment和ZillaActivity
  * 用法:@LifeCircleInject
- * 参考:LifeCicleExit
+ * 参考:AppExitLife
  * User: chenze
  * Date: 13-10-11
  * Time: 上午10:17

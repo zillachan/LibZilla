@@ -26,7 +26,7 @@ import android.view.ViewGroup;
 
 import com.zilla.android.zillacore.libzilla.lifecircle.LifeCircle;
 import com.zilla.android.zillacore.libzilla.lifecircle.annotation.LifeCircleInject;
-import com.zilla.android.zillacore.libzilla.lifecircle.exit.LifeCicleExit;
+import com.zilla.android.zillacore.libzilla.lifecircle.exit.AppExitLife;
 import com.zilla.android.zillacore.libzilla.ui.annotatioin.LayoutInjectUtil;
 
 import java.io.Serializable;
@@ -42,7 +42,7 @@ public abstract class BaseFragment extends Fragment {
      * 生命周期管理
      */
     @LifeCircleInject
-    LifeCicleExit lifeCicleExit;
+    AppExitLife lifeCicleExit;
 
     protected View contentView;
 
@@ -59,7 +59,7 @@ public abstract class BaseFragment extends Fragment {
      * @return A new instance of fragment OrderListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BaseFragment newInstance(Class<BaseFragment> fragmentClass,Serializable mParamObj) {
+    public static BaseFragment newInstance(Class<BaseFragment> fragmentClass, Serializable mParamObj) {
         BaseFragment fragment = null;
         try {
             fragment = fragmentClass.newInstance();
@@ -79,7 +79,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         contentView = inflater.inflate(LayoutInjectUtil.getInjectLayoutId(this), container, false);
-        LifeCircle.inject(this);
+        LifeCircle.onCreate(this);
         ButterKnife.inject(contentView);
         initView();
         return contentView;
@@ -89,6 +89,12 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initData();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LifeCircle.onDestory(this);
     }
 
     /**

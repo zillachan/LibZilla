@@ -15,15 +15,22 @@ limitations under the License.
  */
 package com.zilla.libraryzilla;
 
+import com.zilla.android.zillacore.libzilla.lifecircle.annotation.LifeCircleInject;
 import com.zilla.android.zillacore.libzilla.ui.annotatioin.InjectLayout;
 import com.zilla.libraryzilla.common.BaseActivity;
+import com.zilla.libraryzilla.dialog.LoadingDialog;
 
 @InjectLayout(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
 
+    @LifeCircleInject
+    public LoadingDialog loadingDialog;
+
     @Override
     protected void initViews() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        loadingDialog.show();
     }
 
     @Override

@@ -58,10 +58,10 @@ public class AdapterUtil<T> {
                 try{
                     ViewGroup viewGroup = (ViewGroup) convertView;
                     if(viewGroup.getChildCount() == 0){
-                        Log.e("该控件必须有父容器");
+                        Log.e("this view must have a parent layout.");
                     }
                 }catch (Exception e){
-                    Log.e("传入的布局必须为GroupView");
+                    Log.e("ContentView should be a GroupView");
                 }
                 hasGetView = true;
             }

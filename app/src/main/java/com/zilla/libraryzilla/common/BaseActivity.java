@@ -24,7 +24,7 @@ import android.view.MenuItem;
 import com.zilla.android.zillacore.libzilla.Zilla;
 import com.zilla.android.zillacore.libzilla.lifecircle.LifeCircle;
 import com.zilla.android.zillacore.libzilla.lifecircle.annotation.LifeCircleInject;
-import com.zilla.android.zillacore.libzilla.lifecircle.exit.LifeCicleExit;
+import com.zilla.android.zillacore.libzilla.lifecircle.exit.AppExitLife;
 import com.zilla.android.zillacore.libzilla.ui.annotatioin.LayoutInjectUtil;
 import com.zilla.libraryzilla.R;
 
@@ -39,8 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
      * 生命周期管理
      */
     @LifeCircleInject
-    LifeCicleExit lifeCicleExit;
-
+    public AppExitLife lifeCicleExit;
     /**
      * Toobar
      */
@@ -51,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
         super.onCreate(savedInstanceState);
         setContentView(LayoutInjectUtil.getInjectLayoutId(this));
         Zilla.ACTIVITY = this;
-        LifeCircle.inject(this);
+        LifeCircle.onCreate(this);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,10 +62,18 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
 
     public void onResume() {
         super.onResume();
+        LifeCircle.onResume(this);
     }
 
     public void onPause() {
         super.onPause();
+        LifeCircle.onPause(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LifeCircle.onDestory(this);
     }
 
     @Override
