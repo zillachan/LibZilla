@@ -74,32 +74,32 @@ public class DBOperator {
     @SuppressLint("NewApi")
     public synchronized boolean save(Object model) {
         filter(model.getClass());
-        ContentValues value = new ContentValues();
         String tableName = AnnotationUtil.getClassName(model.getClass());
         String key = AnnotationUtil.getClassKey(model.getClass());
         Cursor cursor = database.query(tableName, null, null, null, null, null, null, "1");
-        value = model2ContentValues(model, cursor);
+        ContentValues value = model2ContentValues(model, cursor);
         // 添加异常处理，如果插入冲突，改为update
         try {
             database.insertWithOnConflict(tableName, "", value,
                     SQLiteDatabase.CONFLICT_NONE);//主键冲突策略，替换掉以往的数据
         } catch (SQLiteConstraintException e) {//主键冲突
-            Log.e("插入表'" + tableName + "'数据失败，出现主键冲突,将移除主键后重新插入:" + e.getMessage());
+            Log.d("INSERT'" + tableName + "'failed try remove key again:" + e.getMessage());
             try {
                 value.remove(key);
                 database.insertWithOnConflict(tableName, "", value,
                         SQLiteDatabase.CONFLICT_REPLACE);//主键冲突策略，替换掉以往的数据
-                Log.e("插入表'" + tableName + "'数据成功");
+                Log.i("INSERT'" + tableName + "'success.");
             } catch (SQLiteConstraintException e1) {
-                Log.e("插入表'" + tableName + "'数据失败:" + e1.getMessage());
+                Log.e("INSERT'" + tableName + "'failed:" + e1.getMessage());
             }
         } catch (Exception e) {
 //            update(model);
-            Log.e("插入表'" + tableName + "'数据失败:" + e.getMessage());
+            Log.e("INSERT'" + tableName + "'failed:" + e.getMessage());
         } finally {
             closeCursor(cursor);
         }
         int rowid = getLast_insert_rowid();
+        AnnotationUtil.setKeyValue(model, rowid);
 //        model._id = String.valueOf(rowid);
         return true;
     }

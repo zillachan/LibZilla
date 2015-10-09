@@ -16,9 +16,12 @@ limitations under the License.
 package com.zilla.android.zillacore.libzilla.util;
 
 import android.text.TextUtils;
+
 import com.zilla.android.zillacore.libzilla.file.SharedPreferenceService;
 
 /**
+ * HTTP Basic Authentication <br>
+ * http://en.wikipedia.org/wiki/Basic_authentication_scheme
  * 用户账号管理
  * Created by chenze on 13-12-4.
  */
@@ -74,6 +77,7 @@ public class UserManager {
 
     /**
      * 获取Author
+     *
      * @return author
      */
     public String getAuthor() {

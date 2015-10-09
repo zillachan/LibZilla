@@ -15,26 +15,45 @@ limitations under the License.
  */
 package com.zilla.libraryzilla;
 
-import com.zilla.android.zillacore.libzilla.lifecircle.annotation.LifeCircleInject;
+import android.content.Intent;
+import android.view.View;
+
 import com.zilla.android.zillacore.libzilla.ui.annotatioin.InjectLayout;
+import com.zilla.libraryzilla.api.APIActivity;
 import com.zilla.libraryzilla.common.BaseActivity;
-import com.zilla.libraryzilla.dialog.LoadingDialog;
+import com.zilla.libraryzilla.db.DBTestActivity;
+import com.zilla.libraryzilla.adapter.ListViewTestActivity;
+
+import butterknife.OnClick;
 
 @InjectLayout(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
-
-    @LifeCircleInject
-    public LoadingDialog loadingDialog;
 
     @Override
     protected void initViews() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        loadingDialog.show();
     }
 
     @Override
     protected void initDatas() {
 
+    }
+
+    @OnClick({R.id.goadapter, R.id.godb, R.id.goapi})
+    public void onViewClick(View view) {
+        switch (view.getId()) {
+            case R.id.goadapter:
+                startActivity(new Intent(this, ListViewTestActivity.class));
+                break;
+            case R.id.godb:
+                startActivity(new Intent(this, DBTestActivity.class));
+                break;
+            case R.id.goapi:
+                startActivity(new Intent(this, APIActivity.class));
+                break;
+            default:
+                break;
+        }
     }
 }

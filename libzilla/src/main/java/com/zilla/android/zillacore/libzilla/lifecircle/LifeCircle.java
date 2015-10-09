@@ -54,19 +54,19 @@ public class LifeCircle {
         //Field补全
         Field[] fields1 = containerClass.getFields();
         Field[] fields2 = containerClass.getDeclaredFields();
-        List<Field> fields = new ArrayList(Arrays.asList(fields1));
+
         Set<Field> fieldSet = new HashSet<>();
-        for (Field field : fields) {
+
+        for (Field field : fields1) {
             fieldSet.add(field);
         }
-        fields.clear();
-        for (Field field : fieldSet) {
-            fields.add(field);
+        for (Field field : fields2) {
+            fieldSet.add(field);
         }
         //Field补全}
 
-        if (fields != null && fields.size() > 0) {
-            for (Field field : fields) {
+        if (fieldSet != null && fieldSet.size() > 0) {
+            for (Field field : fieldSet) {
                 LifeCircleInject callbackInject = field.getAnnotation(LifeCircleInject.class);
                 if (callbackInject != null) {
                     Class type = field.getType();

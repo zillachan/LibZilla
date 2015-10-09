@@ -98,10 +98,10 @@ public class AdapterUtil<T> {
             if (dataType == TextView.class) {
                 try {
                     String text = "";
-                    if(modelProperty != null) {
+                    if (modelProperty != null) {
                         text = modelProperty.toString();
                     }
-                    if(TextUtils.isEmpty(text)) text = "";
+                    if (TextUtils.isEmpty(text)) text = "";
                     ((TextView) field.get(holder)).setText(text);
                 } catch (IllegalAccessException e) {
                     Log.e(e.getMessage());
@@ -112,10 +112,10 @@ public class AdapterUtil<T> {
                 try {
                     Button button = (Button) field.get(holder);
                     String text = "";
-                    if(modelProperty != null) {
+                    if (modelProperty != null) {
                         text = modelProperty.toString();
                     }
-                    if(TextUtils.isEmpty(text)) text = "";
+                    if (TextUtils.isEmpty(text)) text = "";
                     button.setText(text);
 
                     button.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +136,7 @@ public class AdapterUtil<T> {
             else if (dataType == CheckBox.class) {
                 try {
                     boolean isChecked = false;
-                    if ("1".equals(modelProperty)) {
+                    if (1 == (Integer) modelProperty) {
                         isChecked = true;
                     } else {
                         isChecked = false;
@@ -177,11 +177,11 @@ public class AdapterUtil<T> {
                 } catch (Exception e) {
                     Log.e(e.getMessage());
                 }
-            }else if (dataType == LinearLayout.class) {//布局，用于控制显示方式，-1移除，0不显示，1，显示
+            } else if (dataType == LinearLayout.class) {//布局，用于控制显示方式，-1移除，0不显示，1，显示
                 try {
-                    int visiable = (Integer) modelProperty;
+                    int visiable = (int) modelProperty;
                     LinearLayout layout = (LinearLayout) field.get(holder);
-                    switch (visiable){
+                    switch (visiable) {
                         case -1:
                             layout.setVisibility(View.GONE);
                             break;

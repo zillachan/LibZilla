@@ -80,7 +80,7 @@ public abstract class BaseFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         contentView = inflater.inflate(LayoutInjectUtil.getInjectLayoutId(this), container, false);
         LifeCircle.onCreate(this);
-        ButterKnife.inject(contentView);
+        ButterKnife.inject(this,contentView);
         initView();
         return contentView;
     }

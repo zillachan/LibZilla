@@ -17,6 +17,7 @@ package com.zilla.android.zillacore.libzilla.db.util;
 
 import android.text.TextUtils;
 
+import com.github.snowdream.android.util.Log;
 import com.zilla.android.zillacore.libzilla.db.annotation.Id;
 import com.zilla.android.zillacore.libzilla.db.annotation.Table;
 
@@ -55,7 +56,41 @@ public class AnnotationUtil {
             }
             if (id != null) { //有ID注解
                 primaryKey = idField.getName();
-            } else { //没有ID注解,默认去找 _id 和 id 为主键，优先寻找 _id
+            } else {
+                throw new RuntimeException("@Id annotation is not found, Please make sure the @Id annotation is added in Model!");
+            }
+        }
+        return primaryKey;
+    }
+
+    /**
+     * set keyvalue of an saved obj
+     * @param obj
+     * @param key
+     * @return
+     */
+    public static String setKeyValue(Object obj,Object key) {
+        String primaryKey = "";
+        Field[] fields = obj.getClass().getDeclaredFields();
+        if (fields != null) {
+            Id id = null;
+            Field idField = null;
+            for (Field field : fields) { //获取ID注解
+                id = field.getAnnotation(Id.class);
+                if (id != null) {
+                    idField = field;
+                    break;
+                }
+            }
+            if (id != null) { //有ID注解
+//                primaryKey = idField.getName();
+                try {
+                    idField.setAccessible(true);
+                    idField.set(obj,key);
+                } catch (IllegalAccessException e) {
+                    Log.e("set key value failed:"+e.getMessage());
+                }
+            } else {
                 throw new RuntimeException("@Id annotation is not found, Please make sure the @Id annotation is added in Model!");
             }
         }
