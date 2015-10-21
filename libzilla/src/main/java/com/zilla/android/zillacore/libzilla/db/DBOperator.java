@@ -20,6 +20,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.text.TextUtils;
 
 import com.github.snowdream.android.util.Log;
@@ -91,6 +92,10 @@ public class DBOperator {
                 Log.i("INSERT'" + tableName + "'success.");
             } catch (SQLiteConstraintException e1) {
                 Log.e("INSERT'" + tableName + "'failed:" + e1.getMessage());
+            }catch (SQLiteException sqLiteException){
+                Log.e("INSERT'" + tableName + "'failed:" + sqLiteException.getMessage());
+            }catch(Exception ex){
+                Log.e("INSERT'" + tableName + "'failed:" + ex.getMessage());
             }
         } catch (Exception e) {
 //            update(model);
