@@ -25,7 +25,7 @@ import com.zilla.android.zillacore.libzilla.Zilla;
 import com.zilla.android.zillacore.libzilla.lifecircle.LifeCircle;
 import com.zilla.android.zillacore.libzilla.lifecircle.annotation.LifeCircleInject;
 import com.zilla.android.zillacore.libzilla.lifecircle.exit.AppExitLife;
-import com.zilla.android.zillacore.libzilla.ui.annotatioin.LayoutInjectUtil;
+import com.zilla.android.zillacore.libzilla.ui.util.LayoutInjectUtil;
 import com.zilla.libraryzilla.R;
 
 import butterknife.ButterKnife;
@@ -74,6 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     protected void onDestroy() {
         super.onDestroy();
         LifeCircle.onDestory(this);
+        ButterKnife.reset(this);
     }
 
     @Override

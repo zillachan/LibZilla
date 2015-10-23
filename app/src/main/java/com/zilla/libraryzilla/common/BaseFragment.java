@@ -27,7 +27,7 @@ import android.view.ViewGroup;
 import com.zilla.android.zillacore.libzilla.lifecircle.LifeCircle;
 import com.zilla.android.zillacore.libzilla.lifecircle.annotation.LifeCircleInject;
 import com.zilla.android.zillacore.libzilla.lifecircle.exit.AppExitLife;
-import com.zilla.android.zillacore.libzilla.ui.annotatioin.LayoutInjectUtil;
+import com.zilla.android.zillacore.libzilla.ui.util.LayoutInjectUtil;
 
 import java.io.Serializable;
 
@@ -95,6 +95,7 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         LifeCircle.onDestory(this);
+        ButterKnife.reset(this);
     }
 
     /**

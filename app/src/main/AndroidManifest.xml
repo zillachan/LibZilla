@@ -36,6 +36,10 @@
         </activity>
         <activity android:name=".api.APIActivity" >
         </activity>
+        <activity
+            android:name=".binding.BindingActivity"
+            android:label="@string/title_activity_binding" >
+        </activity>
     </application>
 
 </manifest>
