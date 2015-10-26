@@ -1,4 +1,11 @@
 ###This is an Android library for fast develope.
+
+##Include
+
+```
+compile 'com.rainim:libzilla:1.0.13'
+```
+
 ##Application
 ```
 1.You need an Application,and onCreate(),you need call 
