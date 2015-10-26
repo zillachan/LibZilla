@@ -320,6 +320,41 @@ static class ViewHolder {
 ```
 This can also support checkbox,button event,linearlayout hide/visiable,image,ratingbar.
 
+##ZillaBinding
+
+An util for binding model value to view
+
+```
+Views:
+
+	@InjectView(R.id.user_id)
+    @InjectBinding("id")
+    TextView userId;
+
+    @InjectView(R.id.user_name)
+    @InjectBinding("name")
+    TextView userName;
+
+    @InjectView(R.id.user_email)
+    @InjectBinding("email")
+    TextView userEmail;
+
+    @InjectView(R.id.user_address)
+    @InjectBinding("address")
+    TextView userAddress;
+    
+Binding:
+
+	user = new User();
+    user.setId(123);
+    user.setName("zilla")
+    user.setEmail("zillachan@gamil.com");
+    user.setAddress("beijing china");
+
+    ZillaBinding.binding(this, user);
+
+```
+
 ##Others
 ###BusProvider
 If you use otto before,then you can understand it easy.
