@@ -21,4 +21,10 @@
         android:layout_height="wrap_content"
         android:text="Go API"
         android:id="@+id/goapi" />
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go Binding"
+            android:id="@+id/gobinding" />
+
 </LinearLayout>

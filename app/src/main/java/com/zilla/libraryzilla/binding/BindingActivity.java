@@ -16,12 +16,11 @@
 
 package com.zilla.libraryzilla.binding;
 
-import android.os.Bundle;
 import android.widget.TextView;
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.zilla.android.zillacore.libzilla.ui.annotatioin.InjectBinding;
 import com.zilla.android.zillacore.libzilla.ui.annotatioin.InjectLayout;
+import com.zilla.android.zillacore.libzilla.ui.util.ZillaBinding;
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.db.po.User;
@@ -54,6 +53,12 @@ public class BindingActivity extends BaseActivity {
 
     @Override
     protected void initDatas() {
+        user = new User();
+        user.setId(123);
+        user.setName("zilla");
+        user.setEmail("zillachan@gamil.com");
+        user.setAddress("beijing china");
 
+        ZillaBinding.binding(this, user);
     }
 }

@@ -20,6 +20,7 @@ import android.view.View;
 
 import com.zilla.android.zillacore.libzilla.ui.annotatioin.InjectLayout;
 import com.zilla.libraryzilla.api.APIActivity;
+import com.zilla.libraryzilla.binding.BindingActivity;
 import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.db.DBTestActivity;
 import com.zilla.libraryzilla.adapter.ListViewTestActivity;
@@ -40,7 +41,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.goadapter, R.id.godb, R.id.goapi})
+    @OnClick({R.id.goadapter, R.id.godb, R.id.goapi,R.id.gobinding})
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.goadapter:
@@ -51,6 +52,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.goapi:
                 startActivity(new Intent(this, APIActivity.class));
+                break;
+            case R.id.gobinding:
+                startActivity(new Intent(this, BindingActivity.class));
                 break;
             default:
                 break;
