@@ -18,9 +18,9 @@ package com.zilla.libraryzilla.binding;
 
 import android.widget.TextView;
 import butterknife.InjectView;
-import com.zilla.android.zillacore.libzilla.ui.annotatioin.InjectBinding;
-import com.zilla.android.zillacore.libzilla.ui.annotatioin.InjectLayout;
-import com.zilla.android.zillacore.libzilla.ui.util.ZillaBinding;
+import zilla.libcore.ui.InjectBinding;
+import zilla.libcore.ui.InjectLayout;
+import zilla.libcore.ui.ZillaBinding;
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.db.po.User;

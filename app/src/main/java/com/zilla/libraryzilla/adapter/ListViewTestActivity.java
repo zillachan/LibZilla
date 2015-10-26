@@ -20,8 +20,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zilla.android.zillacore.libzilla.ui.ZillaAdapter;
-import com.zilla.android.zillacore.libzilla.ui.annotatioin.InjectLayout;
+import zilla.libcore.ui.ZillaAdapter;
+import zilla.libcore.ui.InjectLayout;
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.db.po.User;

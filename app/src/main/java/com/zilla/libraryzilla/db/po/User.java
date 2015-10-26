@@ -16,8 +16,8 @@
 
 package com.zilla.libraryzilla.db.po;
 
-import com.zilla.android.zillacore.libzilla.db.annotation.Id;
-import com.zilla.android.zillacore.libzilla.db.annotation.Table;
+import zilla.libcore.db.Id;
+import zilla.libcore.db.Table;
 
 import java.io.Serializable;
 

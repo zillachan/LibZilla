@@ -24,10 +24,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zilla.android.zillacore.libzilla.lifecircle.LifeCircle;
-import com.zilla.android.zillacore.libzilla.lifecircle.annotation.LifeCircleInject;
-import com.zilla.android.zillacore.libzilla.lifecircle.exit.AppExitLife;
-import com.zilla.android.zillacore.libzilla.ui.util.LayoutInjectUtil;
+import zilla.libcore.lifecircle.LifeCircle;
+import zilla.libcore.lifecircle.LifeCircleInject;
+import zilla.libcore.lifecircle.exit.AppExitLife;
+import zilla.libcore.ui.LayoutInjectUtil;
 
 import java.io.Serializable;
 

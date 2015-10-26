@@ -20,9 +20,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.github.snowdream.android.util.Log;
-import com.zilla.android.zillacore.libzilla.Zilla;
-import com.zilla.android.zillacore.libzilla.api.ZillaApi;
-import com.zilla.android.zillacore.libzilla.db.DBHelper;
+import zilla.libcore.Zilla;
+import zilla.libcore.api.ZillaApi;
+import zilla.libcore.db.DBHelper;
 
 import retrofit.RequestInterceptor;
 

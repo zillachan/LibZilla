@@ -21,11 +21,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.zilla.android.zillacore.libzilla.Zilla;
-import com.zilla.android.zillacore.libzilla.lifecircle.LifeCircle;
-import com.zilla.android.zillacore.libzilla.lifecircle.annotation.LifeCircleInject;
-import com.zilla.android.zillacore.libzilla.lifecircle.exit.AppExitLife;
-import com.zilla.android.zillacore.libzilla.ui.util.LayoutInjectUtil;
+import zilla.libcore.Zilla;
+import zilla.libcore.lifecircle.LifeCircle;
+import zilla.libcore.lifecircle.LifeCircleInject;
+import zilla.libcore.lifecircle.exit.AppExitLife;
+import zilla.libcore.ui.LayoutInjectUtil;
 import com.zilla.libraryzilla.R;
 
 import butterknife.ButterKnife;

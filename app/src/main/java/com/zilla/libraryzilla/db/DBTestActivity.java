@@ -20,10 +20,10 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.github.snowdream.android.util.Log;
-import com.zilla.android.zillacore.libzilla.db.DBOperator;
-import com.zilla.android.zillacore.libzilla.lifecircle.annotation.LifeCircleInject;
-import com.zilla.android.zillacore.libzilla.ui.annotatioin.InjectLayout;
-import com.zilla.android.zillacore.libzilla.util.Util;
+import zilla.libcore.db.DBOperator;
+import zilla.libcore.lifecircle.LifeCircleInject;
+import zilla.libcore.ui.InjectLayout;
+import zilla.libcore.util.Util;
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.db.po.User;

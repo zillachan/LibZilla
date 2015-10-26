@@ -18,7 +18,7 @@ package com.zilla.libraryzilla;
 import android.content.Intent;
 import android.view.View;
 
-import com.zilla.android.zillacore.libzilla.ui.annotatioin.InjectLayout;
+import zilla.libcore.ui.InjectLayout;
 import com.zilla.libraryzilla.api.APIActivity;
 import com.zilla.libraryzilla.binding.BindingActivity;
 import com.zilla.libraryzilla.common.BaseActivity;

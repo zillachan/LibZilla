@@ -17,10 +17,10 @@
 package com.zilla.libraryzilla.api;
 
 import com.github.snowdream.android.util.Log;
-import com.zilla.android.zillacore.libzilla.api.ZillaApi;
-import com.zilla.android.zillacore.libzilla.lifecircle.annotation.LifeCircleInject;
-import com.zilla.android.zillacore.libzilla.ui.annotatioin.InjectLayout;
-import com.zilla.android.zillacore.libzilla.util.Util;
+import zilla.libcore.api.ZillaApi;
+import zilla.libcore.lifecircle.LifeCircleInject;
+import zilla.libcore.ui.InjectLayout;
+import zilla.libcore.util.Util;
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.api.model.Org;
 import com.zilla.libraryzilla.common.BaseActivity;
