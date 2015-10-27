@@ -1,1 +1,1 @@
-include ':app', ':libzilla'
+include ':app', ':libzilla', ':zilla_loading'
