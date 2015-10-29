@@ -3,7 +3,7 @@
 ##Include
 
 ```
-compile 'com.rainim:libzilla:1.0.13'
+compile 'com.rainim:libzilla:1.0.16'
 ```
 
 ##Application
@@ -361,6 +361,29 @@ Binding:
     ZillaBinding.binding(this, user);
 
 ```
+##LoadingDialog
+
+```
+compile 'com.rainim:libzilla:1.0.16@aar'
+```
+How to use:
+
+```
+@LifeCircleInject
+LoadingDialog loadingDialog;
+    
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    LifeCircle.onCreate(this);
+}
+
+Other place call:
+
+loadingDialog.show();
+
+```
+
 
 ##Others
 ###BusProvider
