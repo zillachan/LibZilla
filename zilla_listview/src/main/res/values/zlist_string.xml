@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright (c) 2015. Zilla Chen
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,15 +15,11 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <include layout="@layout/toolbar"></include>
-
-    <ListView
-            android:id="@+id/listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
-</LinearLayout>
+<resources>
+    <string name="zlistview_header_normal">Pull to refresh</string>
+    <string name="zlistview_header_ready">Release to refresh</string>
+    <string name="zlistview_header_loading">Loading\u2026</string>
+    <string name="zlistview_header_last_time">Last update</string>
+    <string name="zlistview_footer_normal">Load more</string>
+    <string name="zlistview_footer_ready">Release to load more</string>
+</resources>

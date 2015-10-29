@@ -18,6 +18,7 @@ package com.zilla.libraryzilla;
 import android.content.Intent;
 import android.view.View;
 
+import com.zilla.libraryzilla.zlistview.ZListViewActivity;
 import zilla.libcore.ui.InjectLayout;
 import com.zilla.libraryzilla.api.APIActivity;
 import com.zilla.libraryzilla.binding.BindingActivity;
@@ -41,7 +42,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.goadapter, R.id.godb, R.id.goapi,R.id.gobinding})
+    @OnClick({R.id.goadapter, R.id.godb, R.id.goapi, R.id.gobinding,R.id.gozlistview})
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.goadapter:
@@ -55,6 +56,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.gobinding:
                 startActivity(new Intent(this, BindingActivity.class));
+                break;
+            case R.id.gozlistview:
+                startActivity(new Intent(this, ZListViewActivity.class));
                 break;
             default:
                 break;

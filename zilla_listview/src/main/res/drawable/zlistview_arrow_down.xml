@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright (c) 2015. Zilla Chen
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,15 +15,9 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <include layout="@layout/toolbar"></include>
-
-    <ListView
-            android:id="@+id/listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
-</LinearLayout>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true" android:drawable="@drawable/zlistview_arrow_down_select" />
+	<item android:state_pressed="true" android:drawable="@drawable/zlistview_arrow_down_select" />
+	<item android:drawable="@drawable/zlistview_arrow_down_unselect" />
+</selector>

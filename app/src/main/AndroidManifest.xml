@@ -40,6 +40,10 @@
             android:name=".binding.BindingActivity"
             android:label="@string/title_activity_binding" >
         </activity>
+        <activity
+                android:name=".zlistview.ZListViewActivity"
+                android:label="@string/title_activity_zlistview" >
+        </activity>
     </application>
 
 </manifest>

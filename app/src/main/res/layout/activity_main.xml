@@ -26,5 +26,10 @@
             android:layout_height="wrap_content"
             android:text="Go Binding"
             android:id="@+id/gobinding" />
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go ZListView"
+            android:id="@+id/gozlistview" />
 
 </LinearLayout>

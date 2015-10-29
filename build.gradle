@@ -1,5 +1,5 @@
 println "-------------------------------------------------"
-println "Build Eclipse with:\n\tbuildToolsVersion = " + BUILD_TOOLS_VERSION
+println "Build Project with:\n\tbuildToolsVersion = " + BUILD_TOOLS_VERSION
 println "\tandroidGradlePluginVersion = " + GRADLE_PLUGIN_VERSION
 println "\tfile.encoding = " + System.properties['file.encoding']
 println "\tCharset.defaultCharset() = " + java.nio.charset.Charset.defaultCharset().toString()

@@ -28,9 +28,6 @@ public class Org implements Serializable {
     private Owner owner;
     private String html_url;
 
-
-
-
     private Permission permissions;
 
     public Org() {
