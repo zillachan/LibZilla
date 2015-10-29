@@ -364,7 +364,7 @@ Binding:
 ##LoadingDialog
 
 ```
-compile 'com.rainim:libzilla:1.0.16@aar'
+compile 'com.rainim:loading:1.0.16@aar'
 ```
 How to use:
 
@@ -384,6 +384,74 @@ loadingDialog.show();
 
 ```
 
+##ZListView
+
+```
+compile 'com.rainim:zlistview:1.0.16@aar'
+```
+How to use:
+
+```
+@InjectLayout(R.layout.activity_zlistviewtest)
+public class ZListViewActivity extends BaseActivity {
+
+    private ZListViewWraper<Org> xListViewWraper;
+    GitHubService service;
+
+    @Override
+    protected void initViews() {
+        service = ZillaApi.NormalRestAdapter.create(GitHubService.class);
+        xListViewWraper = new ZListViewWraper<Org>(getWindow().getDecorView(), R.layout.item_zlistview, ViewHolder.class) {
+            @Override
+            public void loadData() {
+                service.getRepos("octokit", new Callback<List<Org>>() {
+                    @Override
+                    public void success(List<Org> orgs, Response response) {
+                        xListViewWraper.setModelList(orgs);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        xListViewWraper.refreshFail();
+                    }
+                });
+            }
+
+            @Override
+            public void loadMore() {
+                service.getRepos("octokit", new Callback<List<Org>>() {
+                    @Override
+                    public void success(List<Org> orgs, Response response) {
+                        xListViewWraper.addModelList(orgs);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        xListViewWraper.refreshFail();
+                    }
+                });
+            }
+        };
+    }
+
+    @Override
+    protected void initDatas() {
+
+    }
+
+    static class ViewHolder {
+        @InjectView(R.id.item_org_name)
+        TextView name;
+        @InjectView(R.id.item_org_full_name)
+        TextView full_name;
+
+        ViewHolder(View view) {
+            ButterKnife.inject(this, view);
+        }
+    }
+}
+
+```
 
 ##Others
 ###BusProvider
