@@ -78,7 +78,7 @@ public abstract class ZListViewWraper<T> {
      * setXListViewListener
      * @param listViewListener the listener
      */
-    public void setXListViewListener(ZListView.IXListViewListener listViewListener) {
+    public void setXListViewListener(ZListView.IZEventListener listViewListener) {
         zListView.setXListViewListener(listViewListener);
     }
 
@@ -179,7 +179,7 @@ public abstract class ZListViewWraper<T> {
         return zListView.getVisibility();
     }
 
-    class XListViewListener implements ZListView.IXListViewListener {
+    class XListViewListener implements ZListView.IZEventListener {
 
         @Override
         public void onRefresh() {

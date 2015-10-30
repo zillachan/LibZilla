@@ -32,7 +32,7 @@ public class ZListView extends ListView implements OnScrollListener {
     private Scroller mScroller;
     private OnScrollListener mScrollListener;
 
-    private IXListViewListener mListViewListener;
+    private IZEventListener mListViewListener;
 
     private ZListViewHeader mHeaderView;
 
@@ -340,7 +340,7 @@ public class ZListView extends ListView implements OnScrollListener {
         }
     }
 
-    public void setXListViewListener(IXListViewListener l) {
+    public void setXListViewListener(IZEventListener l) {
         mListViewListener = l;
     }
 
@@ -348,7 +348,7 @@ public class ZListView extends ListView implements OnScrollListener {
         public void onXScrolling(View view);
     }
 
-    public interface IXListViewListener {
+    public interface IZEventListener {
         public void onRefresh();
 
         public void onLoadMore();
