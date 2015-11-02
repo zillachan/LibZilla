@@ -15,14 +15,14 @@ limitations under the License.
  */
 package zilla.libcore.util;
 
-import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * Created by zilla on 14-9-10.
  */
 public class UIValueUtil {
 
-    public static String getEditTextValue(EditText editText) {
+    public static String getTextViewValue(TextView editText) {
         String result = "";
         if(editText == null) return result;
         return editText.getText().toString().trim();
