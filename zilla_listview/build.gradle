@@ -17,11 +17,11 @@
 apply plugin: 'com.android.library'
 ext {
     bintrayRepo = 'maven'
-    bintrayName = 'LibZilla_ListView'
+    bintrayName = 'ZListView'
     publishedGroupId = 'com.rainim'
     libraryName = 'ZListView'
     artifact = 'zlistview'
-    libraryDescription = 'An Android Loading Dialog'
+    libraryDescription = 'An Android ListView'
     siteUrl = 'https://github.com/zillachan/LibZilla'
     gitUrl = 'https://github.com/zillachan/LibZilla.git'
     libraryVersion = VERSION_NAME
