@@ -38,7 +38,7 @@ import java.util.WeakHashMap;
  */
 public class LifeCircle {
 
-    static WeakHashMap<Object, List> map = new WeakHashMap<>();
+    static WeakHashMap<Object, List> map = new WeakHashMap<Object, List>();
 
     /**
      * 载体对象
@@ -53,7 +53,7 @@ public class LifeCircle {
         Field[] fields1 = containerClass.getFields();
         Field[] fields2 = containerClass.getDeclaredFields();
 
-        Set<Field> fieldSet = new HashSet<>();
+        Set<Field> fieldSet = new HashSet<Field>();
 
         for (Field field : fields1) {
             fieldSet.add(field);
@@ -84,7 +84,7 @@ public class LifeCircle {
                                     callbacks.add((ILifeCircle) field.get(injectedSource));
                                 } catch (Exception e) {//转成Context
                                     constructor = type.getConstructor(Context.class);
-                                    Method getActivity = injectedSource.getClass().getDeclaredMethod("getActivity");
+                                    Method getActivity = injectedSource.getClass().getMethod("getActivity");
                                     Context context = (Context) getActivity.invoke(injectedSource);
                                     field.set(injectedSource, constructor.newInstance(context));
                                     callbacks.add((ILifeCircle) field.get(injectedSource));
