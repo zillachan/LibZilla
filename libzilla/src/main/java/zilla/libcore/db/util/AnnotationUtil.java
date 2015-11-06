@@ -69,8 +69,7 @@ public class AnnotationUtil {
      * @param key
      * @return
      */
-    public static String setKeyValue(Object obj,Object key) {
-        String primaryKey = "";
+    public static void setKeyValue(Object obj,Object key) {
         Field[] fields = obj.getClass().getDeclaredFields();
         if (fields != null) {
             Id id = null;
@@ -94,7 +93,6 @@ public class AnnotationUtil {
                 throw new RuntimeException("@Id annotation is not found, Please make sure the @Id annotation is added in Model!");
             }
         }
-        return primaryKey;
     }
 
     /**

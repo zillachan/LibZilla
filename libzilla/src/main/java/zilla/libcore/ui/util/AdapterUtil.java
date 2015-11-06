@@ -180,7 +180,7 @@ public class AdapterUtil<T> {
                 }
             } else if (dataType == LinearLayout.class) {//布局，用于控制显示方式，-1移除，0不显示，1，显示
                 try {
-                    int visiable = (int) modelProperty;
+                    int visiable = (Integer) modelProperty;
                     LinearLayout layout = (LinearLayout) field.get(holder);
                     switch (visiable) {
                         case -1:

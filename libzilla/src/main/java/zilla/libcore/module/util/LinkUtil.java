@@ -28,7 +28,7 @@ import java.util.Map;
  */
 public class LinkUtil {
 
-    private static List<String> cache = new ArrayList<>();
+    private static List<String> cache = new ArrayList<String>();
     private static Map<String, String> map = new HashMap<String, String>();
 
     public static void link(Object obj) {

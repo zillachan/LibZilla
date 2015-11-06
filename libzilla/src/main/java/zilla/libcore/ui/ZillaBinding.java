@@ -132,7 +132,7 @@ public class ZillaBinding {
             }
         } else if (dataType == LinearLayout.class) {//布局，用于控制显示方式，-1移除，0不显示，1，显示
             try {
-                int visiable = (int) value;
+                int visiable = (Integer) value;
                 LinearLayout layout = (LinearLayout) field.get(container);
                 switch (visiable) {
                     case -1:
