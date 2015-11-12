@@ -60,6 +60,121 @@ public class ZillaBinding {
         }
     }
 
+    /**
+     * Save container to model
+     *
+     * @param container
+     * @param model
+     */
+    public static void saveModel(Object container, Object model) {
+        Field[] fields = container.getClass().getDeclaredFields();
+        if (fields == null) return;
+        if (model == null) return;
+        for (Field field : fields) {
+            InjectBinding binding = field.getAnnotation(InjectBinding.class);
+            if (binding != null) {
+                field.setAccessible(true);
+                try {
+                    String fieldName = binding.value();
+                    saveValue(field, fieldName, model, container);
+                } catch (Exception e) {
+                    Log.e(e.getMessage());
+                }
+            }
+        }
+    }
+
+    private static void saveValue(Field field, String fieldName, Object model, Object container) {
+        Class<?> dataType = field.getType();//字段类型
+        //TextView
+        if (dataType == TextView.class) {
+            try {
+                String text = (String) ((TextView) field.get(container)).getText();
+                if (TextUtils.isEmpty(text)) text = "";
+                Field modelFiel = model.getClass().getDeclaredField(fieldName);
+                modelFiel.setAccessible(true);
+                modelFiel.set(model, text);
+            } catch (Exception e) {
+                Log.e(e.getMessage());
+            }
+        }
+        // EditText
+        else if (dataType == EditText.class) {
+            try {
+                String text = ((EditText) field.get(container)).getText().toString().trim();
+                if (TextUtils.isEmpty(text)) text = "";
+                Field modelFiel = model.getClass().getDeclaredField(fieldName);
+                modelFiel.setAccessible(true);
+                modelFiel.set(model, text);
+            } catch (Exception e) {
+                Log.e(e.getMessage());
+            }
+        }
+        //Button
+        else if (dataType == Button.class) {
+            try {
+                String text = (String) ((Button) field.get(container)).getText();
+                if (TextUtils.isEmpty(text)) text = "";
+                Field modelFiel = model.getClass().getDeclaredField(fieldName);
+                modelFiel.setAccessible(true);
+                modelFiel.set(model, text);
+            } catch (Exception e) {
+                Log.e(e.getMessage());
+            }
+        }
+        //CheckBox
+        else if (dataType == CheckBox.class) {
+            try {
+                int isChecked = 0;
+                CheckBox checkBox = ((CheckBox) field.get(container));
+                if (checkBox.isChecked()) {
+                    isChecked = 1;
+                }
+                Field modelFiel = model.getClass().getDeclaredField(fieldName);
+                modelFiel.setAccessible(true);
+                modelFiel.set(model, isChecked);
+            } catch (Exception e) {
+                Log.e(e.getMessage());
+            }
+        }
+        //ImageView
+        else if (dataType == ImageView.class) {
+            try {
+                String text = (String) ((ImageView) field.get(container)).getTag();
+                if (TextUtils.isEmpty(text)) text = "";
+                Field modelFiel = model.getClass().getDeclaredField(fieldName);
+                modelFiel.setAccessible(true);
+                modelFiel.set(model, text);
+            } catch (Exception e) {
+                Log.e(e.getMessage());
+            }
+        }
+        //RatingBar
+        else if (dataType == RatingBar.class) {
+            try {
+                RatingBar ratingBar = ((RatingBar) field.get(container));
+                float f = ratingBar.getRating();
+                Field modelFiel = model.getClass().getDeclaredField(fieldName);
+                modelFiel.setAccessible(true);
+                modelFiel.set(model, f);
+
+            } catch (Exception e) {
+                Log.e(e.getMessage());
+            }
+        } else if (dataType == SeekBar.class) {
+            try {
+                SeekBar seekBar = ((SeekBar) field.get(container));
+                int i = seekBar.getProgress();
+                Field modelFiel = model.getClass().getDeclaredField(fieldName);
+                modelFiel.setAccessible(true);
+                modelFiel.set(model, i);
+
+            } catch (Exception e) {
+                Log.e(e.getMessage());
+            }
+        }
+    }
+
     private static void setValue(Field field, Object value, Object container) {
         Class<?> dataType = field.getType();//字段类型
         //TextView
@@ -139,9 +254,19 @@ public class ZillaBinding {
             } catch (Exception e) {
                 Log.e(e.getMessage());
             }
-        } else if (dataType == RatingBar.class) {
+        }
+        //RatingBar
+        else if (dataType == RatingBar.class) {
             try {
                 ((RatingBar) field.get(container)).setRating((Integer) value);
+            } catch (Exception e) {
+                Log.e(e.getMessage());
+            }
+        }
+        //SeekBar
+        else if (dataType == SeekBar.class) {
+            try {
+                ((SeekBar) field.get(container)).setProgress((Integer) value);
             } catch (Exception e) {
                 Log.e(e.getMessage());
             }
