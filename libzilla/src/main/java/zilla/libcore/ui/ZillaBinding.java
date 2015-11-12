@@ -19,8 +19,10 @@ package zilla.libcore.ui;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.*;
+
 import com.github.snowdream.android.util.Log;
 import com.squareup.picasso.Picasso;
+
 import zilla.libcore.Zilla;
 
 import java.io.File;
@@ -69,6 +71,19 @@ public class ZillaBinding {
                 }
                 if (TextUtils.isEmpty(text)) text = "";
                 ((TextView) field.get(container)).setText(text);
+            } catch (Exception e) {
+                Log.e(e.getMessage());
+            }
+        }
+        // EditText
+        else if (dataType == EditText.class) {
+            try {
+                String text = "";
+                if (value != null) {
+                    text = value.toString();
+                }
+                if (TextUtils.isEmpty(text)) text = "";
+                ((EditText) field.get(container)).setText(text);
             } catch (Exception e) {
                 Log.e(e.getMessage());
             }
