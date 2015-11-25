@@ -14,19 +14,10 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <include layout="@layout/toolbar"></include>
-
-    <zilla.libzilla.listview.ZListView
-        android:id="@id/zListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-    </zilla.libzilla.listview.ZListView>
-
-</LinearLayout>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/icon_no_search_results" />
+    </item>
+</layer-list>

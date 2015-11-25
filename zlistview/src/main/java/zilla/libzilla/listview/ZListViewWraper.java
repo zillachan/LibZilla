@@ -19,7 +19,9 @@ package zilla.libzilla.listview;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
+
 import org.joda.time.DateTime;
+
 import zilla.libcore.ui.ZillaAdapter;
 
 import java.util.ArrayList;
@@ -76,6 +78,7 @@ public abstract class ZListViewWraper<T> {
 
     /**
      * setXListViewListener
+     *
      * @param listViewListener the listener
      */
     public void setXListViewListener(ZListView.IZEventListener listViewListener) {
@@ -113,12 +116,17 @@ public abstract class ZListViewWraper<T> {
         } else {
             setPullLoadEnable(true);
         }
+        if (modelList.size() == 0) {
+            zListView.setBackgroundResource(R.drawable.xml_listview_no_data);
+        } else {
+            zListView.setBackgroundResource(R.drawable.transparent);
+        }
     }
 
     /**
      * if preferSize is less than the size of modelList,stop pullLoad
      *
-     * @param modelList list
+     * @param modelList  list
      * @param preferSize the size of a page
      */
     public void setModelList(List<T> modelList, int preferSize) {

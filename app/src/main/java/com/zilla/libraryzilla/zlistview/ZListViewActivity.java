@@ -31,6 +31,7 @@ import zilla.libcore.api.ZillaApi;
 import zilla.libcore.ui.InjectLayout;
 import zilla.libzilla.listview.ZListViewWraper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @InjectLayout(R.layout.activity_zlistviewtest)
@@ -49,6 +50,7 @@ public class ZListViewActivity extends BaseActivity {
                     @Override
                     public void success(List<Org> orgs, Response response) {
                         xListViewWraper.setModelList(orgs);
+                        xListViewWraper.setModelList(new ArrayList<Org>());
                     }
 
                     @Override
