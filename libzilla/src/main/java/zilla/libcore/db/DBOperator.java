@@ -24,6 +24,7 @@ import android.database.sqlite.SQLiteException;
 import android.text.TextUtils;
 
 import com.github.snowdream.android.util.Log;
+
 import zilla.libcore.db.util.AnnotationUtil;
 import zilla.libcore.db.util.TableHolder;
 import zilla.libcore.util.ReflectUtil;
@@ -32,6 +33,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Manage the CURD of table,this is a singleton pattern.
@@ -49,6 +52,11 @@ public class DBOperator {
     private SQLiteDatabase database;
 
     private static boolean isClosed = false;
+
+    /**
+     * ReadWriteLock
+     */
+    ReadWriteLock lock = new ReentrantReadWriteLock();
 
     private DBHelper dbHelper = DBHelper.getInstance();
 
@@ -73,14 +81,19 @@ public class DBOperator {
      * @return boolean
      */
     @SuppressLint("NewApi")
-    public synchronized boolean save(Object model) {
-        filter(model.getClass());
-        String tableName = AnnotationUtil.getClassName(model.getClass());
-        String key = AnnotationUtil.getClassKey(model.getClass());
-        Cursor cursor = database.query(tableName, null, null, null, null, null, null, "1");
-        ContentValues value = model2ContentValues(model, cursor);
-        // 添加异常处理，如果插入冲突，改为update
+    public boolean save(Object model) {
+        lock.writeLock().lock();
+        String tableName = null;
+        String key = null;
+        Cursor cursor = null;
+        ContentValues value = null;
         try {
+            filter(model.getClass());
+            tableName = AnnotationUtil.getClassName(model.getClass());
+            key = AnnotationUtil.getClassKey(model.getClass());
+            cursor = database.query(tableName, null, null, null, null, null, null, "1");
+            value = model2ContentValues(model, cursor);
+            // 添加异常处理，如果插入冲突，改为update
             database.insertWithOnConflict(tableName, "", value,
                     SQLiteDatabase.CONFLICT_NONE);//主键冲突策略，替换掉以往的数据
         } catch (SQLiteConstraintException e) {//主键冲突
@@ -90,11 +103,14 @@ public class DBOperator {
                 database.insertWithOnConflict(tableName, "", value,
                         SQLiteDatabase.CONFLICT_REPLACE);//主键冲突策略，替换掉以往的数据
                 Log.i("INSERT'" + tableName + "'success.");
+
+                int rowid = getLast_insert_rowid();
+                AnnotationUtil.setKeyValue(model, rowid);
             } catch (SQLiteConstraintException e1) {
                 Log.e("INSERT'" + tableName + "'failed:" + e1.getMessage());
-            }catch (SQLiteException sqLiteException){
+            } catch (SQLiteException sqLiteException) {
                 Log.e("INSERT'" + tableName + "'failed:" + sqLiteException.getMessage());
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 Log.e("INSERT'" + tableName + "'failed:" + ex.getMessage());
             }
         } catch (Exception e) {
@@ -102,10 +118,8 @@ public class DBOperator {
             Log.e("INSERT'" + tableName + "'failed:" + e.getMessage());
         } finally {
             closeCursor(cursor);
+            lock.writeLock().unlock();
         }
-        int rowid = getLast_insert_rowid();
-        AnnotationUtil.setKeyValue(model, rowid);
-//        model._id = String.valueOf(rowid);
         return true;
     }
 
@@ -117,16 +131,17 @@ public class DBOperator {
      * @param list the list to be saved
      * @return boolean
      */
-    public synchronized boolean saveList(List<?> list) {
+    public boolean saveList(List<?> list) {
+        lock.writeLock().lock();
         if (list == null || list.size() == 0) {
             return false;
         }
-        Object temp = list.get(0);
-        filter(temp.getClass());
-        String tableName = AnnotationUtil.getClassName(temp.getClass());
         ContentValues values = null;
         Cursor cursor = null;
         try {
+            Object temp = list.get(0);
+            filter(temp.getClass());
+            String tableName = AnnotationUtil.getClassName(temp.getClass());
             cursor = database.query(tableName, null, null, null, null, null, null, "1");
             database.beginTransaction();
             for (int i = 0, l = list.size(); i < l; i++) {
@@ -142,6 +157,7 @@ public class DBOperator {
             Log.e(e.getMessage());
         } finally {
             closeCursor(cursor);
+            lock.writeLock().unlock();
         }
         return true;
     }
@@ -154,10 +170,19 @@ public class DBOperator {
      * @param model the pojo model
      * @return the number of rows affected
      */
-    public synchronized int delete(Object model) {
-        filter(model.getClass());
-        String key = AnnotationUtil.getClassKey(model.getClass());
-        return database.delete(AnnotationUtil.getClassName(model.getClass()), key + " = ? ", new String[]{ReflectUtil.getFieldValue(model, key).toString()});
+    public int delete(Object model) {
+        lock.writeLock().lock();
+        int row = 0;
+        try {
+            filter(model.getClass());
+            String key = AnnotationUtil.getClassKey(model.getClass());
+            row = database.delete(AnnotationUtil.getClassName(model.getClass()), key + " = ? ", new String[]{ReflectUtil.getFieldValue(model, key).toString()});
+        } catch (Exception e) {
+            Log.e("" + e.getMessage());
+        } finally {
+            lock.writeLock().unlock();
+        }
+        return row;
     }
 
     /**
@@ -168,31 +193,58 @@ public class DBOperator {
      * @param c Tpye
      * @return boolean
      */
-    public synchronized int deleteAll(Class c) {
-        filter(c);
-        return database.delete(AnnotationUtil.getClassName(c), null, null);
+    public int deleteAll(Class c) {
+        int rows = 0;
+        lock.writeLock().lock();
+        try {
+            filter(c);
+            rows = database.delete(AnnotationUtil.getClassName(c), null, null);
+        } catch (Exception e) {
+            Log.e("" + e.getMessage());
+        } finally {
+            lock.writeLock().unlock();
+        }
+        return rows;
+
     }
 
-    public synchronized int delete(Class c, String whereClause, String[] whereArgs) {
-        filter(c);
-        return database.delete(AnnotationUtil.getClassName(c), whereClause, whereArgs);
+    public int delete(Class c, String whereClause, String[] whereArgs) {
+        int rows = 0;
+        lock.writeLock().lock();
+        try {
+            filter(c);
+            rows = database.delete(AnnotationUtil.getClassName(c), whereClause, whereArgs);
+        } catch (Exception e) {
+            Log.e("" + e.getMessage());
+        } finally {
+            lock.writeLock().unlock();
+        }
+        return rows;
     }
 
     @SuppressLint("NewApi")
-    private synchronized boolean update(String tableName, Object model, String columnName, Cursor cursor) {
-        filter(model.getClass());
-        String key = columnName;
-        if (TextUtils.isEmpty(key)) {
-            key = AnnotationUtil.getClassKey(model.getClass());
-        }
-        String keyValue = ReflectUtil.getFieldValue(model, key).toString();
-        if (TextUtils.isEmpty(keyValue)) {// 如果更新的主键为空，则插入该条记录
-            save(model);
+    private boolean update(String tableName, Object model, String columnName, Cursor cursor) {
+        lock.writeLock().lock();
+        try {
+            filter(model.getClass());
+            String key = columnName;
+            if (TextUtils.isEmpty(key)) {
+                key = AnnotationUtil.getClassKey(model.getClass());
+            }
+            String keyValue = ReflectUtil.getFieldValue(model, key).toString();
+            if (TextUtils.isEmpty(keyValue)) {// 如果更新的主键为空，则插入该条记录
+                save(model);
+                return false;
+            }
+            ContentValues value = model2ContentValues(model, cursor);
+            value.remove(key);
+            this.database.update(tableName, value, key + " = ? ", new String[]{keyValue});
+        } catch (Exception e) {
+            Log.e("" + e.getMessage());
             return false;
+        } finally {
+            lock.writeLock().unlock();
         }
-        ContentValues value = model2ContentValues(model, cursor);
-        value.remove(key);
-        this.database.update(tableName, value, key + " = ? ", new String[]{keyValue});
         return true;
     }
 
@@ -204,14 +256,18 @@ public class DBOperator {
      * @param model the pojo model
      * @return boolean
      */
-    public synchronized boolean update(Object model) {
-        filter(model.getClass());
-        String tableName = AnnotationUtil.getClassName(model.getClass());
-        String key = AnnotationUtil.getClassKey(model.getClass());
-        String keyValue = ReflectUtil.getFieldValue(model, key).toString();
+    public boolean update(Object model) {
+        lock.writeLock().lock();
+        String tableName = null;
+        String key;
+        String keyValue;
         Cursor cursor = null;
-        ContentValues value = new ContentValues();
+        ContentValues value = null;
         try {
+            filter(model.getClass());
+            tableName = AnnotationUtil.getClassName(model.getClass());
+            key = AnnotationUtil.getClassKey(model.getClass());
+            keyValue = ReflectUtil.getFieldValue(model, key).toString();
             cursor = database.query(tableName, null, null, null, null, null, null, "1");
             value = model2ContentValues(model, cursor);
             // 更新时不能更新主键,这是数据库主键设计原则{
@@ -221,6 +277,7 @@ public class DBOperator {
         } catch (Exception e) {
             Log.e("更新表'" + tableName + "'数据出现异常,将执行添加操作:" + e);
             try {
+
                 database.insertWithOnConflict(tableName, "", value,
                         SQLiteDatabase.CONFLICT_REPLACE);//主键冲突策略，替换掉以往的数据
             } catch (Exception e1) {
@@ -228,6 +285,7 @@ public class DBOperator {
             }
         } finally {
             closeCursor(cursor);
+            lock.writeLock().unlock();
         }
         return true;
     }
@@ -243,8 +301,17 @@ public class DBOperator {
      * @param whereArgs   where list
      * @return the number of rows affected
      */
-    public synchronized int update(String table, ContentValues values, String whereClause, String[] whereArgs) {
-        return this.database.update(table, values, whereClause, whereArgs);
+    public int update(String table, ContentValues values, String whereClause, String[] whereArgs) {
+        lock.writeLock().lock();
+        int row = 0;
+        try {
+            row = this.database.update(table, values, whereClause, whereArgs);
+        } catch (Exception e) {
+            Log.e("" + e.getMessage());
+        } finally {
+            lock.writeLock().unlock();
+        }
+        return row;
     }
 
     /**
@@ -258,7 +325,8 @@ public class DBOperator {
      * @param whereArgs   where list
      * @return if merge success
      */
-    public synchronized boolean merge(Object model, String whereClause, String[] whereArgs) {
+    public boolean merge(Object model, String whereClause, String[] whereArgs) {
+        lock.writeLock().lock();
         Object local = query(model.getClass(), whereClause, whereArgs);
         if (local == null) {
             return save(model);
@@ -278,6 +346,8 @@ public class DBOperator {
         } catch (Exception e) {
             Log.e(e.getMessage());
             return false;
+        } finally {
+            lock.writeLock().unlock();
         }
         return true;
     }
@@ -291,7 +361,7 @@ public class DBOperator {
      * @param cursor cursor
      * @return ContentValues
      */
-    private synchronized ContentValues model2ContentValues(Object model, Cursor cursor) {
+    private ContentValues model2ContentValues(Object model, Cursor cursor) {
         ContentValues value = new ContentValues();
         String[] names = cursor.getColumnNames();
         for (int i = 0, l = names.length; i < l; i++) {
@@ -313,9 +383,17 @@ public class DBOperator {
      * @param list the list to be saved
      * @return boolean
      */
-    public synchronized boolean updateAll(Class<?> c, List<?> list) {
-        deleteAll(c);
-        saveList(list);
+    public boolean updateAll(Class<?> c, List<?> list) {
+        lock.writeLock().lock();
+        try {
+            deleteAll(c);
+            saveList(list);
+        } catch (Exception e) {
+            Log.e(e.getMessage());
+            return false;
+        } finally {
+            lock.writeLock().unlock();
+        }
         return true;
     }
 
@@ -327,7 +405,8 @@ public class DBOperator {
      * @param list the list to be updated
      * @return boolean
      */
-    public synchronized boolean update(List<?> list) {
+    public boolean update(List<?> list) {
+        lock.writeLock().lock();
         if (list == null || list.size() == 0) {
             return false;
         }
@@ -345,6 +424,7 @@ public class DBOperator {
             Log.e(e.getMessage());
         } finally {
             closeCursor(cursor);
+            lock.writeLock().unlock();
         }
         return true;
     }
@@ -358,7 +438,8 @@ public class DBOperator {
      * @param columnName the key column
      * @return boolean
      */
-    public synchronized boolean update(List<?> list, String columnName) {
+    public boolean update(List<?> list, String columnName) {
+        lock.writeLock().lock();
         if (list == null || list.size() == 0) {
             return false;
         }
@@ -376,6 +457,7 @@ public class DBOperator {
             Log.e("Exception", e);
         } finally {
             closeCursor(cursor);
+            lock.writeLock().unlock();
         }
         return true;
     }
@@ -435,7 +517,8 @@ public class DBOperator {
      * @param c Type
      * @return model list
      */
-    public synchronized <T> List<T> queryAll(Class<T> c) {
+    public <T> List<T> queryAll(Class<T> c) {
+        lock.readLock().lock();
         filter(c);
         String tableName = AnnotationUtil.getClassName(c);
         List<T> list = new ArrayList<T>();
@@ -454,6 +537,7 @@ public class DBOperator {
             Log.e("Exception", e);
         } finally {
             closeCursor(cursor);
+            lock.readLock().unlock();
         }
         return list;
     }
@@ -467,7 +551,8 @@ public class DBOperator {
      * @param id id
      * @return Object 没有查找到返回null
      */
-    public synchronized <T> T queryById(Class<T> c, String id) {
+    public <T> T queryById(Class<T> c, String id) {
+        lock.readLock().lock();
         filter(c);
         String tableName = AnnotationUtil.getClassName(c);
         Cursor cursor = null;
@@ -484,13 +569,23 @@ public class DBOperator {
             Log.e("Exception", e);
         } finally {
             closeCursor(cursor);
+            lock.readLock().unlock();
         }
         return result;
     }
 
-    public synchronized <T> List<T> query(Class<T> c, String condition) {
-        filter(c);
-        return query(c, condition, null, null, null);
+    public <T> List<T> query(Class<T> c, String condition) {
+        lock.readLock().lock();
+        List<T> result = null;
+        try {
+            filter(c);
+            result = query(c, condition, null, null, null);
+        } catch (Exception e) {
+            Log.e("Exception", e);
+        } finally {
+            lock.readLock().unlock();
+        }
+        return result;
     }
 
     /**
@@ -503,12 +598,19 @@ public class DBOperator {
      * @param condition where list
      * @return Object 没有查找到返回null
      */
-    public synchronized <T> T query(Class<T> c, String selection, String[] condition) {
-        filter(c);
+    public <T> T query(Class<T> c, String selection, String[] condition) {
+        lock.readLock().lock();
         T result = null;
-        List<T> items = query(c, selection, condition, null, "1");
-        if (items != null && items.size() > 0) {
-            result = items.get(0);
+        try {
+            filter(c);
+            List<T> items = query(c, selection, condition, null, "1");
+            if (items != null && items.size() > 0) {
+                result = items.get(0);
+            }
+        } catch (Exception e) {
+            Log.e("Exception", e);
+        } finally {
+            lock.readLock().unlock();
         }
         return result;
     }
@@ -524,12 +626,23 @@ public class DBOperator {
      * @param limit     limit
      * @return model list
      */
-    public synchronized <T> List<T> query(Class<T> c, String selection, String[] condition, String limit) {
-        filter(c);
-        return query(c, selection, condition, null, limit);
+    public <T> List<T> query(Class<T> c, String selection, String[] condition, String limit) {
+        lock.readLock().lock();
+        List<T> result = null;
+        try {
+            filter(c);
+            result = query(c, selection, condition, null, limit);
+        } catch (Exception e) {
+            Log.e("Exception", e);
+        } finally {
+            lock.readLock().unlock();
+        }
+        return result;
+
     }
 
-    public synchronized <T> List<T> query(Class<T> c, String selection, String[] condition, String orderBy, String limit) {
+    public <T> List<T> query(Class<T> c, String selection, String[] condition, String orderBy, String limit) {
+        lock.readLock().lock();
         filter(c);
         String tableName = AnnotationUtil.getClassName(c);
         List<T> list = new ArrayList<T>();
@@ -548,6 +661,7 @@ public class DBOperator {
             Log.e("Exception", e);
         } finally {
             closeCursor(cursor);
+            lock.readLock().unlock();
         }
         return list;
     }
@@ -559,7 +673,7 @@ public class DBOperator {
      *
      * @param cursor the cursor to be closed
      */
-    private synchronized void closeCursor(Cursor cursor) {
+    private void closeCursor(Cursor cursor) {
         if (cursor != null) {
             cursor.close();
             cursor = null;
@@ -571,7 +685,7 @@ public class DBOperator {
      * <br>
      * 关闭数据库
      */
-    public synchronized void close() {
+    public void close() {
         this.database.close();
         isClosed = true;
     }
@@ -583,7 +697,7 @@ public class DBOperator {
      * @param c Type
      * @return if the table exist
      */
-    public synchronized boolean isTableExist(Class c) {
+    public boolean isTableExist(Class c) {
         String tableName = AnnotationUtil.getClassName(c);
         // 如果已经判断过该表的已经存在
         if (TableHolder.isTableExist(tableName))
@@ -619,6 +733,7 @@ public class DBOperator {
      * @param c Type
      */
     private void upgradeMerge(Class c) {
+        lock.writeLock().lock();
         Cursor cursor = null;
         try {
             String tableName = AnnotationUtil.getClassName(c);
@@ -643,6 +758,7 @@ public class DBOperator {
             Log.e("Exception", e);
         } finally {
             closeCursor(cursor);
+            lock.writeLock().unlock();
         }
 
     }
@@ -654,7 +770,7 @@ public class DBOperator {
      *
      * @param c Type
      */
-    private synchronized void filter(Class c) {
+    private void filter(Class c) {
         isTableExist(c);
     }
 
@@ -712,7 +828,8 @@ public class DBOperator {
      *
      * @return the rowid of table
      */
-    private synchronized int getLast_insert_rowid() {
+    private int getLast_insert_rowid() {
+        lock.readLock().lock();
         String sql = "select last_insert_rowid() newid;";
         Cursor cursor = null;
         int rowid = 0;
@@ -725,6 +842,7 @@ public class DBOperator {
             Log.e("Exception", e);
         } finally {
             closeCursor(cursor);
+            lock.readLock().unlock();
         }
         return rowid;
     }
@@ -737,7 +855,7 @@ public class DBOperator {
      * @param field field
      * @return the type of filed
      */
-    private static synchronized String getType(Field field) {
+    private static String getType(Field field) {
         Class<?> type = field.getType();
         /**
          * 2014/4/9 lori.lin
