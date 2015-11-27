@@ -50,7 +50,7 @@ public class ZListViewActivity extends BaseActivity {
                     @Override
                     public void success(List<Org> orgs, Response response) {
                         xListViewWraper.setModelList(orgs);
-                        xListViewWraper.setModelList(new ArrayList<Org>());
+//                        xListViewWraper.setModelList(new ArrayList<Org>());
                     }
 
                     @Override
