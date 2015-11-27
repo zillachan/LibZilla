@@ -91,6 +91,7 @@ public class DBOperator {
             filter(model.getClass());
             tableName = AnnotationUtil.getClassName(model.getClass());
             key = AnnotationUtil.getClassKey(model.getClass());
+
             cursor = database.query(tableName, null, null, null, null, null, null, "1");
             value = model2ContentValues(model, cursor);
             // 添加异常处理，如果插入冲突，改为update
@@ -118,6 +119,12 @@ public class DBOperator {
             Log.e("INSERT'" + tableName + "'failed:" + e.getMessage());
         } finally {
             closeCursor(cursor);
+
+            // deal foreign key
+            List list = AnnotationUtil.getChildObjs(model);
+            if(list!=null){
+                saveList(list);
+            }
             lock.writeLock().unlock();
         }
         return true;
@@ -180,6 +187,7 @@ public class DBOperator {
         } catch (Exception e) {
             Log.e("" + e.getMessage());
         } finally {
+            //TODO deal foreign key
             lock.writeLock().unlock();
         }
         return row;
@@ -714,7 +722,7 @@ public class DBOperator {
                     return true;
                 }
             }
-            if (createTable(c)) {
+            if (createTable(c, null)) {
                 return true;
             }
         } catch (Exception e) {
@@ -782,37 +790,58 @@ public class DBOperator {
      * @param c Type
      * @return if success
      */
-    public synchronized boolean createTable(Class c) {
+    public synchronized boolean createTable(Class c, String foreignKey) {
         try {
+            String tableName = AnnotationUtil.getClassName(c);
+            String key = AnnotationUtil.getClassKey(c);
+
             StringBuilder sBuilder = new StringBuilder();
             sBuilder.append("CREATE TABLE IF NOT EXISTS ");
-            sBuilder.append(AnnotationUtil.getClassName(c));// 表名
+            sBuilder.append(tableName);// 表名
 //            String[] fields = ReflectUtil.getFields(c);
             Field[] fields = c.getDeclaredFields();
-            String key = AnnotationUtil.getClassKey(c);
+            Class childClass = null;//sub table,when the class contains List<Child> child field.
+
             sBuilder.append(" ( ");
             for (int i = 0, l = fields.length; i < l; i++) {
                 Field field = fields[i];
                 String fieldName = field.getName();
                 if (Modifier.FINAL == field.getModifiers()) break; //如果是final类型的，跳过
+
+                String type = getType(field);
                 if (fieldName.equals(key)) {
-                    String type = getType(field);
                     if ("INTEGER".equals(type)) {
                         sBuilder.append(fieldName).append(" ").append(type).append(" PRIMARY KEY AUTOINCREMENT NOT NULL ");
                     } else {
                         sBuilder.append(fieldName).append(" ").append(type).append(" PRIMARY KEY NOT NULL ");
                     }
+                } else if ("TABLE".equals(type)) {//the type is table
+                    childClass = AnnotationUtil.getChildClass(field);
+                    if (i == l - 1) {
+                        sBuilder.append(" );");
+                    }
+                    continue;
                 } else {
                     sBuilder.append(fieldName).append(" ").append(getType(field));
                 }
                 if (i != l - 1) {
                     sBuilder.append(",");
                 } else {
+                    if (!TextUtils.isEmpty(foreignKey)) {
+                        sBuilder.append(",");
+                        sBuilder.append(foreignKey);
+                    }
                     sBuilder.append(" );");
                 }
             }
             Log.i("createTable==" + sBuilder.toString());
             database.execSQL(sBuilder.toString());
+            //Create sub table
+            if (childClass != null) {
+                String forKey = "CONSTRAINT FOREIGN KEY (" + tableName + "_" + key + ") REFERENCES " + "parent_table(" + key + ")ON DELETE  RESTRICT  ON UPDATE CASCADE";
+                createTable(childClass, forKey);
+
+            }
         } catch (Exception e) {
             Log.e(e.getMessage());
             return false;
@@ -871,6 +900,8 @@ public class DBOperator {
             t = "REAL";
         } else if (type == double.class) {
             t = "REAL";
+        } else if (type == List.class) {
+            t = "TABLE";
         }
         return t;
     }

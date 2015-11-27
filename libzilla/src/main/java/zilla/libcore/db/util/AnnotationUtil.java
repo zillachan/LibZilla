@@ -18,10 +18,14 @@ package zilla.libcore.db.util;
 import android.text.TextUtils;
 
 import com.github.snowdream.android.util.Log;
+
 import zilla.libcore.db.Id;
 import zilla.libcore.db.Table;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -65,11 +69,12 @@ public class AnnotationUtil {
 
     /**
      * set keyvalue of an saved obj
+     *
      * @param obj
      * @param key
      * @return
      */
-    public static void setKeyValue(Object obj,Object key) {
+    public static void setKeyValue(Object obj, Object key) {
         Field[] fields = obj.getClass().getDeclaredFields();
         if (fields != null) {
             Id id = null;
@@ -85,9 +90,9 @@ public class AnnotationUtil {
 //                primaryKey = idField.getName();
                 try {
                     idField.setAccessible(true);
-                    idField.set(obj,key);
+                    idField.set(obj, key);
                 } catch (IllegalAccessException e) {
-                    Log.e("set key value failed:"+e.getMessage());
+                    Log.e("set key value failed:" + e.getMessage());
                 }
             } else {
                 throw new RuntimeException("@Id annotation is not found, Please make sure the @Id annotation is added in Model!");
@@ -111,5 +116,46 @@ public class AnnotationUtil {
             return className.substring(className.lastIndexOf(".") + 1).toLowerCase(Locale.CHINA);
         }
         return table.value();
+    }
+
+    /**
+     * getChildClass
+     *
+     * @param field List<Child> children type
+     * @return thie child class
+     */
+    public static Class getChildClass(Field field) {
+        Type t = field.getGenericType();
+        Type actualType = ((ParameterizedType) t).getActualTypeArguments()[0];
+        Class subclass = null;
+        try {
+            subclass = Class.forName(actualType.getClass().getName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println(subclass.getSimpleName());
+        return subclass;
+    }
+
+    /**
+     * getChildObjs
+     * @param object the obj to save to db
+     * @return the List<Child> value
+     */
+    public static List getChildObjs(Object object) {
+        Field[] fields = object.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            if ("java.util.List".equals(field.getType().getName())) {
+                List list = null;
+                try {
+                    field.setAccessible(true);
+                    list = (List) field.get(object);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                return list;
+            }
+        }
+        return null;
     }
 }

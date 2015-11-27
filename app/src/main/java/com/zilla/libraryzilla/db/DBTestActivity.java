@@ -28,6 +28,7 @@ import zilla.libcore.util.Util;
 
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
+import com.zilla.libraryzilla.db.po.Partment;
 import com.zilla.libraryzilla.db.po.User;
 import com.zilla.libraryzilla.dialog.LoadingDialog;
 
@@ -61,7 +62,8 @@ public class DBTestActivity extends BaseActivity {
 
     @Override
     protected void initDatas() {
-        testDB();
+//        testDB();
+        testOne2Many();
     }
 
 
@@ -82,14 +84,16 @@ public class DBTestActivity extends BaseActivity {
 
                 //save list
                 List<User> userList = new ArrayList<User>();
-                for (int i = 0; i < 100; i++) {
+                for (int i = 0; i < 10; i++) {
                     User u = new User();
                     u.setName("name" + i);
                     u.setEmail("name" + i + "@example.com");
                     u.setAddress("address" + i);
                     userList.add(u);
                 }
+
                 DBOperator.getInstance().saveList(userList);
+
 
                 //Query
                 User user1 = DBOperator.getInstance().query(User.class, "address = ?", new String[]{"address1"});
@@ -114,9 +118,41 @@ public class DBTestActivity extends BaseActivity {
                 List<User> users = DBOperator.getInstance().queryAll(User.class);
                 Log.d("===================================READ_RESULT================================");
                 for (User u : users) {
-                    Log.i("****"+u.toString());
+                    Log.i("****" + u.toString());
                 }
             }
         }).start();
+    }
+
+    private void testOne2Many() {
+        loadingDialog.show("testDB...");
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                DBOperator.getInstance().deleteAll(User.class);
+                Partment partment = new Partment();
+                partment.setName("part1");
+                //save list
+                List<User> userList = new ArrayList<User>();
+                for (int i = 0; i < 10; i++) {
+                    User u = new User();
+                    u.setName("name" + i);
+                    u.setEmail("name" + i + "@example.com");
+                    u.setAddress("address" + i);
+                    userList.add(u);
+                }
+
+                partment.setUsers(userList);
+
+                DBOperator.getInstance().save(partment);
+
+                List<User> users = DBOperator.getInstance().queryAll(User.class);
+                for (User u : users) {
+                    Log.i(u.toString());
+                }
+            }
+        }).start();
+        mHandler.sendEmptyMessage(1);
     }
 }
