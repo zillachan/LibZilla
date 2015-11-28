@@ -20,10 +20,12 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.github.snowdream.android.util.Log;
+
 import zilla.libcore.db.DBOperator;
 import zilla.libcore.lifecircle.LifeCircleInject;
 import zilla.libcore.ui.InjectLayout;
 import zilla.libcore.util.Util;
+
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.db.po.User;
@@ -90,7 +92,7 @@ public class DBTestActivity extends BaseActivity {
                 DBOperator.getInstance().saveList(userList);
 
                 //Query
-                User user1 = DBOperator.getInstance().query(User.class,"address = ?",new String[]{"address1"});
+                User user1 = DBOperator.getInstance().query(User.class, "address = ?", new String[]{"address1"});
                 Log.i("user1:" + user1.toString());
 
                 DBOperator.getInstance().update(user1);
@@ -104,6 +106,17 @@ public class DBTestActivity extends BaseActivity {
             }
         }).start();
 
-
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //query all rows
+                Log.d("===================================READ=======================================");
+                List<User> users = DBOperator.getInstance().queryAll(User.class);
+                Log.d("===================================READ_RESULT================================");
+                for (User u : users) {
+                    Log.i("****"+u.toString());
+                }
+            }
+        }).start();
     }
 }
