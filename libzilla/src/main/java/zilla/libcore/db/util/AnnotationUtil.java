@@ -65,9 +65,8 @@ public class AnnotationUtil {
 
     /**
      * set keyvalue of an saved obj
-     * @param obj
-     * @param key
-     * @return
+     * @param obj obj
+     * @param key key
      */
     public static void setKeyValue(Object obj,Object key) {
         Field[] fields = obj.getClass().getDeclaredFields();

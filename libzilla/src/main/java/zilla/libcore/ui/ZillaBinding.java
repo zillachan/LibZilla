@@ -35,8 +35,8 @@ public class ZillaBinding {
     /**
      * binding the model value to container
      *
-     * @param container
-     * @param model
+     * @param container container
+     * @param model model
      */
     public static void binding(Object container, Object model) {
 
@@ -63,8 +63,8 @@ public class ZillaBinding {
     /**
      * Save container to model
      *
-     * @param container
-     * @param model
+     * @param container container
+     * @param model model
      */
     public static void saveModel(Object container, Object model) {
         Field[] fields = container.getClass().getDeclaredFields();
