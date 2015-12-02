@@ -122,7 +122,7 @@ public class DBOperator {
 
             // deal foreign key
             List list = AnnotationUtil.getChildObjs(model);
-            if(list!=null){
+            if (list != null) {
                 saveList(list);
             }
             lock.writeLock().unlock();
@@ -758,7 +758,7 @@ public class DBOperator {
                         break;
                     }
                 }
-                if (!contains) {//如果数据库表中没有该字段，则添加该字段
+                if (!contains && !"TABLE".equals(getType(field))) {//如果数据库表中没有该字段，则添加该字段
                     database.execSQL("ALTER TABLE " + tableName + " ADD COLUMN " + field.getName() + " " + getType(field));
                 }
             }
