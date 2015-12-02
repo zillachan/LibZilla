@@ -111,7 +111,7 @@ public class LifeCircle {
     /**
      * clear the inject objects.
      *
-     * @param injectedSource
+     * @param injectedSource target
      */
     public static void onDestory(Object injectedSource) {
         try {
