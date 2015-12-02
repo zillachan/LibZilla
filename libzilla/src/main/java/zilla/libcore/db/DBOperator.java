@@ -121,10 +121,13 @@ public class DBOperator {
             closeCursor(cursor);
 
             // deal foreign key
-            List list = AnnotationUtil.getChildObjs(model);
-            if (list != null) {
-                saveList(list);
+            List<List> list = AnnotationUtil.getChildObjs(model);
+            if (list != null && list.size() != 0) {
+                for (int i = 0, l = list.size(); i < l; i++) {
+                    saveList(list.get(i));
+                }
             }
+
             lock.writeLock().unlock();
         }
         return true;
@@ -183,6 +186,11 @@ public class DBOperator {
         try {
             filter(model.getClass());
             String key = AnnotationUtil.getClassKey(model.getClass());
+            //TODO DELETE
+//            List<List> childs = AnnotationUtil.getChildObjs(model);
+//            if (childs != null && childs.size() != 0) {
+//
+//            }
             row = database.delete(AnnotationUtil.getClassName(model.getClass()), key + " = ? ", new String[]{ReflectUtil.getFieldValue(model, key).toString()});
         } catch (Exception e) {
             Log.e("" + e.getMessage());

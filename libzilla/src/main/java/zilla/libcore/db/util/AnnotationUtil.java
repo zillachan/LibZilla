@@ -25,6 +25,7 @@ import zilla.libcore.db.Table;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -139,23 +140,25 @@ public class AnnotationUtil {
 
     /**
      * getChildObjs
+     *
      * @param object the obj to save to db
      * @return the List<Child> value
      */
-    public static List getChildObjs(Object object) {
+    public static List<List> getChildObjs(Object object) {
         Field[] fields = object.getClass().getDeclaredFields();
+        List<List> result = new ArrayList<>();
         for (Field field : fields) {
             if ("java.util.List".equals(field.getType().getName())) {
                 List list = null;
                 try {
                     field.setAccessible(true);
                     list = (List) field.get(object);
+                    result.add(list);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-                return list;
             }
         }
-        return null;
+        return result;
     }
 }
