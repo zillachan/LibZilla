@@ -59,7 +59,7 @@ public abstract class BaseFragment extends Fragment {
      * @return A new instance of fragment OrderListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BaseFragment newInstance(Class<BaseFragment> fragmentClass, Serializable mParamObj) {
+    public static BaseFragment newInstance(Class<? extends BaseFragment> fragmentClass, Serializable mParamObj) {
         BaseFragment fragment = null;
         try {
             fragment = fragmentClass.newInstance();
