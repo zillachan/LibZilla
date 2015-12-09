@@ -37,9 +37,6 @@ public class User implements Serializable {
 
     private String address;
 
-    @M2O("id")
-    private DePartment dePartment;
-
     public User() {
 
     }
@@ -74,14 +71,6 @@ public class User implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public DePartment getDePartment() {
-        return dePartment;
-    }
-
-    public void setDePartment(DePartment dePartment) {
-        this.dePartment = dePartment;
     }
 
     @Override

@@ -32,9 +32,6 @@ public class DePartment implements Serializable {
 
     private String name;
 
-    @O2M("dePartment")
-    private List<User> users;
-
     public DePartment() {
 
     }
@@ -55,20 +52,11 @@ public class DePartment implements Serializable {
         this.name = name;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
     @Override
     public String toString() {
         return "DePartment{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", users=" + users +
                 '}';
     }
 }

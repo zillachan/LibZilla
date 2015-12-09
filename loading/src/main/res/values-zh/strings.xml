@@ -15,6 +15,5 @@
   -->
 
 <resources>
-    <string name="app_name">zilla+dialog</string>
     <string name="dialog_loading">加载中...</string>
 </resources>

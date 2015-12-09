@@ -62,8 +62,7 @@ public class DBTestActivity extends BaseActivity {
 
     @Override
     protected void initDatas() {
-//        testDB();
-        testOne2Many();
+        testDB();
     }
 
 
@@ -122,37 +121,5 @@ public class DBTestActivity extends BaseActivity {
                 }
             }
         }).start();
-    }
-
-    private void testOne2Many() {
-        loadingDialog.show("testDB...");
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                DBOperator.getInstance().deleteAll(User.class);
-                DePartment partment = new DePartment();
-                partment.setName("part1");
-                //save list
-                List<User> userList = new ArrayList<User>();
-                for (int i = 0; i < 10; i++) {
-                    User u = new User();
-                    u.setName("name" + i);
-                    u.setEmail("name" + i + "@example.com");
-                    u.setAddress("address" + i);
-                    userList.add(u);
-                }
-
-                partment.setUsers(userList);
-
-                DBOperator.getInstance().save(partment);
-
-                List<User> users = DBOperator.getInstance().queryAll(User.class);
-                for (User u : users) {
-                    Log.i(u.toString());
-                }
-            }
-        }).start();
-        mHandler.sendEmptyMessage(1);
     }
 }
