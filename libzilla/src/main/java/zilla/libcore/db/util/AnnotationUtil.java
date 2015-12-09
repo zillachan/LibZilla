@@ -69,6 +69,27 @@ public class AnnotationUtil {
     }
 
     /**
+     * get model key value
+     *
+     * @param obj
+     * @return
+     */
+    public static Object getKeyValue(Object obj) {
+        Object value = null;
+        Class c = obj.getClass();
+        String key = getClassKey(c);
+        try {
+            Field keyField = c.getField(key);
+            value = keyField.get(obj);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return value;
+    }
+
+    /**
      * set keyvalue of an saved obj
      *
      * @param obj
@@ -141,7 +162,7 @@ public class AnnotationUtil {
     /**
      * getChildObjs
      *
-     * @param object the obj to save to db
+     * @param object the obj to save to db ,this object contains the property private List<Child> children;
      * @return the List<Child> value
      */
     public static List<List> getChildObjs(Object object) {
@@ -160,5 +181,41 @@ public class AnnotationUtil {
             }
         }
         return result;
+    }
+
+    /**
+     * get the t type of list<T>
+     *
+     * @param parentClass
+     * @return
+     */
+    public static List<Class> getTypeofListChild(Class parentClass) {
+        Field[] fs = parentClass.getDeclaredFields(); // 得到所有的fields
+        List childClass = new ArrayList();
+        for (Field f : fs) {
+            Class fieldClazz = f.getType(); // 得到field的class及类型全路径
+
+            if (fieldClazz.isPrimitive()) continue;  //【1】 //判断是否为基本类型
+
+            if (fieldClazz.getName().startsWith("java.lang")) continue; //getName()返回field的类型全路径；
+
+            if (fieldClazz.isAssignableFrom(List.class)) //【2】
+            {
+                Type fc = f.getGenericType(); // 关键的地方，如果是List类型，得到其Generic的类型
+
+                if (fc == null) continue;
+
+                if (fc instanceof ParameterizedType) // 【3】如果是泛型参数的类型
+                {
+                    ParameterizedType pt = (ParameterizedType) fc;
+
+                    Class genericClazz = (Class) pt.getActualTypeArguments()[0]; //【4】 得到泛型里的class类型对象。
+
+                    childClass.add(genericClazz);
+
+                }
+            }
+        }
+        return childClass;
     }
 }

@@ -28,7 +28,7 @@ import zilla.libcore.util.Util;
 
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
-import com.zilla.libraryzilla.db.po.Partment;
+import com.zilla.libraryzilla.db.po.DePartment;
 import com.zilla.libraryzilla.db.po.User;
 import com.zilla.libraryzilla.dialog.LoadingDialog;
 
@@ -131,7 +131,7 @@ public class DBTestActivity extends BaseActivity {
             @Override
             public void run() {
                 DBOperator.getInstance().deleteAll(User.class);
-                Partment partment = new Partment();
+                DePartment partment = new DePartment();
                 partment.setName("part1");
                 //save list
                 List<User> userList = new ArrayList<User>();

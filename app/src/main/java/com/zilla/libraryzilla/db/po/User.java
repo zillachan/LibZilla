@@ -17,6 +17,7 @@
 package com.zilla.libraryzilla.db.po;
 
 import zilla.libcore.db.Id;
+import zilla.libcore.db.M2O;
 import zilla.libcore.db.Table;
 
 import java.io.Serializable;
@@ -35,6 +36,9 @@ public class User implements Serializable {
     private String email;
 
     private String address;
+
+    @M2O("id")
+    private DePartment dePartment;
 
     public User() {
 
@@ -70,6 +74,14 @@ public class User implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public DePartment getDePartment() {
+        return dePartment;
+    }
+
+    public void setDePartment(DePartment dePartment) {
+        this.dePartment = dePartment;
     }
 
     @Override

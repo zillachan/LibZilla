@@ -20,20 +20,22 @@ import java.io.Serializable;
 import java.util.List;
 
 import zilla.libcore.db.Id;
+import zilla.libcore.db.O2M;
 
 /**
  * Created by zilla on 11/27/15.
  */
-public class Partment implements Serializable {
+public class DePartment implements Serializable {
 
     @Id
     private int id;
 
     private String name;
 
+    @O2M("dePartment")
     private List<User> users;
 
-    public Partment() {
+    public DePartment() {
 
     }
 
@@ -63,7 +65,7 @@ public class Partment implements Serializable {
 
     @Override
     public String toString() {
-        return "Partment{" +
+        return "DePartment{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", users=" + users +

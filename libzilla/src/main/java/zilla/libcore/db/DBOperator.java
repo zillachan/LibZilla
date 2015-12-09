@@ -187,10 +187,13 @@ public class DBOperator {
             filter(model.getClass());
             String key = AnnotationUtil.getClassKey(model.getClass());
             //TODO DELETE
-//            List<List> childs = AnnotationUtil.getChildObjs(model);
-//            if (childs != null && childs.size() != 0) {
-//
-//            }
+            List<List> childs = AnnotationUtil.getChildObjs(model);
+            if (childs != null && childs.size() != 0) {
+                Class childClass = childs.get(0).getClass();
+                for (int i = 0, l = childs.size(); i < l; i++) {
+                    delete(childClass, "", new String[]{String.valueOf(AnnotationUtil.getKeyValue(model))});
+                }
+            }
             row = database.delete(AnnotationUtil.getClassName(model.getClass()), key + " = ? ", new String[]{ReflectUtil.getFieldValue(model, key).toString()});
         } catch (Exception e) {
             Log.e("" + e.getMessage());
@@ -214,6 +217,10 @@ public class DBOperator {
         lock.writeLock().lock();
         try {
             filter(c);
+            List<Class> children = AnnotationUtil.getTypeofListChild(c);
+            for (Class child : children) {
+                deleteAll(child);
+            }
             rows = database.delete(AnnotationUtil.getClassName(c), null, null);
         } catch (Exception e) {
             Log.e("" + e.getMessage());
@@ -221,7 +228,6 @@ public class DBOperator {
             lock.writeLock().unlock();
         }
         return rows;
-
     }
 
     public int delete(Class c, String whereClause, String[] whereArgs) {
@@ -229,6 +235,10 @@ public class DBOperator {
         lock.writeLock().lock();
         try {
             filter(c);
+            List<Class> children = AnnotationUtil.getTypeofListChild(c);
+            for (Class child : children) {
+                delete(child, AnnotationUtil.getClassKey(child) + "=?", new String[]{(String) AnnotationUtil.getKeyValue(c)});
+            }
             rows = database.delete(AnnotationUtil.getClassName(c), whereClause, whereArgs);
         } catch (Exception e) {
             Log.e("" + e.getMessage());
@@ -848,7 +858,6 @@ public class DBOperator {
             if (childClass != null) {
                 String forKey = "CONSTRAINT FOREIGN KEY (" + tableName + "_" + key + ") REFERENCES " + "parent_table(" + key + ")ON DELETE  RESTRICT  ON UPDATE CASCADE";
                 createTable(childClass, forKey);
-
             }
         } catch (Exception e) {
             Log.e(e.getMessage());
@@ -894,6 +903,9 @@ public class DBOperator {
      */
     private static String getType(Field field) {
         Class<?> type = field.getType();
+        M2O m2O = field.getAnnotation(M2O.class);
+        O2M o2M = field.getAnnotation(O2M.class);
+
         /**
          * 2014/4/9 lori.lin
          * 没有使用到该行代码
@@ -904,12 +916,26 @@ public class DBOperator {
             t = "TEXT";
         } else if (type == int.class) {
             t = "INTEGER";
+        } else if (type == long.class) {
+            t = "INTEGER";
         } else if (type == float.class) {
             t = "REAL";
         } else if (type == double.class) {
             t = "REAL";
-        } else if (type == List.class) {
-            t = "TABLE";
+        }
+//        else if (type == List.class) {//TODO 处理1对多等关系
+//            t = "TABLE";
+//        } else {
+//            t = "TABLE";
+//        }
+        else {
+            if (m2O != null) {
+
+            } else if (o2M != null) {
+                t = "TABLE";
+            }else {
+                t = "TABLE";
+            }
         }
         return t;
     }
