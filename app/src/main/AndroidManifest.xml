@@ -41,8 +41,12 @@
             android:label="@string/title_activity_binding" >
         </activity>
         <activity
-                android:name=".zlistview.ZListViewActivity"
-                android:label="@string/title_activity_zlistview" >
+            android:name=".zlistview.ZListViewActivity"
+            android:label="@string/title_activity_zlistview" >
+        </activity>
+        <activity
+            android:name=".validate.ValidateActivity"
+            android:label="@string/title_activity_validate" >
         </activity>
     </application>
 

@@ -18,6 +18,7 @@ package com.zilla.libraryzilla;
 import android.content.Intent;
 import android.view.View;
 
+import com.zilla.libraryzilla.validate.ValidateActivity;
 import com.zilla.libraryzilla.zlistview.ZListViewActivity;
 import zilla.libcore.ui.InjectLayout;
 import com.zilla.libraryzilla.api.APIActivity;
@@ -42,7 +43,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.goadapter, R.id.godb, R.id.goapi, R.id.gobinding,R.id.gozlistview})
+    @OnClick({R.id.goadapter, R.id.godb, R.id.goapi, R.id.gobinding,R.id.gozlistview,R.id.govalidate})
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.goadapter:
@@ -59,6 +60,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.gozlistview:
                 startActivity(new Intent(this, ZListViewActivity.class));
+                break;
+            case R.id.govalidate:
+                startActivity(new Intent(this, ValidateActivity.class));
                 break;
             default:
                 break;
