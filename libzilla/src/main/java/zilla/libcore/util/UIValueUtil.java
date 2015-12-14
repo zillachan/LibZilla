@@ -15,6 +15,7 @@ limitations under the License.
  */
 package zilla.libcore.util;
 
+import android.text.TextUtils;
 import android.widget.TextView;
 
 /**
@@ -26,5 +27,9 @@ public class UIValueUtil {
         String result = "";
         if(editText == null) return result;
         return editText.getText().toString().trim();
+    }
+
+    public static boolean isEmpty(TextView textView){
+        return TextUtils.isEmpty(getTextViewValue(textView));
     }
 }
