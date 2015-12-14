@@ -39,6 +39,10 @@ public class ZillaApi {
             .setEndpoint(AddressManager.getHost())
             .build();
 
+    public static <T> T create(Class<T> service) {
+        return NormalRestAdapter.create(service);
+    }
+
     /**
      * return a custom RestAdpater
      *

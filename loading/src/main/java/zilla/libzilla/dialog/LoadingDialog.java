@@ -36,7 +36,7 @@ public class LoadingDialog implements ILifeCircle,IDialog {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        dialogEntity = new LoadingDialogEntity(context, R.style.CustomProgressDialog);
+        dialogEntity = new LoadingDialogEntity(context, R.style.ZillaLoadingDialogTheme);
 //        dialogEntity = new LoadingDialogEntity(context);
         dialogEntity.setCanceledOnTouchOutside(false);
     }
