@@ -15,11 +15,10 @@ limitations under the License.
  */
 package zilla.libcore.api;
 
-import zilla.libcore.file.AddressManager;
-import zilla.libcore.file.PropertiesManager;
-
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import zilla.libcore.file.AddressManager;
+import zilla.libcore.file.PropertiesManager;
 
 /**
  * Api util
@@ -82,4 +81,5 @@ public class ZillaApi {
         }
         return restAdapter;
     }
+
 }
