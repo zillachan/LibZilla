@@ -326,7 +326,7 @@ public class DBOperator {
      * @return if merge success
      */
     public boolean merge(Object model, String whereClause, String[] whereArgs) {
-        lock.writeLock().lock();
+//        lock.writeLock().lock();
         Object local = query(model.getClass(), whereClause, whereArgs);
         if (local == null) {
             return save(model);
@@ -347,7 +347,7 @@ public class DBOperator {
             Log.e(e.getMessage());
             return false;
         } finally {
-            lock.writeLock().unlock();
+//            lock.writeLock().unlock();
         }
         return true;
     }
@@ -733,7 +733,7 @@ public class DBOperator {
      * @param c Type
      */
     private void upgradeMerge(Class c) {
-        lock.writeLock().lock();
+//        lock.writeLock().lock();
         Cursor cursor = null;
         try {
             String tableName = AnnotationUtil.getClassName(c);
@@ -758,7 +758,7 @@ public class DBOperator {
             Log.e("Exception", e);
         } finally {
             closeCursor(cursor);
-            lock.writeLock().unlock();
+//            lock.writeLock().unlock();
         }
 
     }

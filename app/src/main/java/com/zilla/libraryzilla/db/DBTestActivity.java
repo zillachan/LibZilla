@@ -68,46 +68,46 @@ public class DBTestActivity extends BaseActivity {
 
     private void testDB() {
         loadingDialog.show("testDB...");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //Delete all rows
-                DBOperator.getInstance().deleteAll(User.class);
-
-                //save
-                User user = new User();
-                user.setName("user1");
-                user.setEmail("user1@example.com");
-                user.setAddress("user1 address");
-                DBOperator.getInstance().save(user);
-
-                //save list
-                List<User> userList = new ArrayList<User>();
-                for (int i = 0; i < 10; i++) {
-                    User u = new User();
-                    u.setName("name" + i);
-                    u.setEmail("name" + i + "@example.com");
-                    u.setAddress("address" + i);
-                    userList.add(u);
-                }
-
-                DBOperator.getInstance().saveList(userList);
-
-
-                //Query
-                User user1 = DBOperator.getInstance().query(User.class, "address = ?", new String[]{"address1"});
-                Log.i("user1:" + user1.toString());
-
-                DBOperator.getInstance().update(user1);
-
-                //query all rows
-                List<User> users = DBOperator.getInstance().queryAll(User.class);
-                for (User u : users) {
-                    Log.i(u.toString());
-                }
-                mHandler.sendEmptyMessage(1);
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                //Delete all rows
+//                DBOperator.getInstance().deleteAll(User.class);
+//
+//                //save
+//                User user = new User();
+//                user.setName("user1");
+//                user.setEmail("user1@example.com");
+//                user.setAddress("user1 address");
+//                DBOperator.getInstance().save(user);
+//
+//                //save list
+//                List<User> userList = new ArrayList<User>();
+//                for (int i = 0; i < 10; i++) {
+//                    User u = new User();
+//                    u.setName("name" + i);
+//                    u.setEmail("name" + i + "@example.com");
+//                    u.setAddress("address" + i);
+//                    userList.add(u);
+//                }
+//
+//                DBOperator.getInstance().saveList(userList);
+//
+//
+//                //Query
+//                User user1 = DBOperator.getInstance().query(User.class, "address = ?", new String[]{"address1"});
+//                Log.i("user1:" + user1.toString());
+//
+//                DBOperator.getInstance().update(user1);
+//
+//                //query all rows
+//                List<User> users = DBOperator.getInstance().queryAll(User.class);
+//                for (User u : users) {
+//                    Log.i(u.toString());
+//                }
+//                mHandler.sendEmptyMessage(1);
+//            }
+//        }).start();
 
         new Thread(new Runnable() {
             @Override
