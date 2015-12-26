@@ -21,8 +21,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+
 import com.github.snowdream.android.util.Log;
 import com.squareup.picasso.Picasso;
+
 import zilla.libcore.ui.ZillaAdapter;
 import zilla.libcore.util.ReflectUtil;
 
@@ -55,13 +57,13 @@ public class AdapterUtil<T> {
             holder = convertView.getTag();
         } else {
             convertView = inflater.inflate(resid, parent, false);
-            if(!hasGetView){
-                try{
+            if (!hasGetView) {
+                try {
                     ViewGroup viewGroup = (ViewGroup) convertView;
-                    if(viewGroup.getChildCount() == 0){
+                    if (viewGroup.getChildCount() == 0) {
                         Log.e("this view must have a parent layout.");
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     Log.e("ContentView should be a GroupView");
                 }
                 hasGetView = true;
@@ -75,6 +77,9 @@ public class AdapterUtil<T> {
         Field[] fields = viewHolder.getDeclaredFields();
         for (Field field : fields) {
             Class<?> dataType = field.getType();
+            if (dataType.isAssignableFrom(ImageView.class)) {
+
+            }
             //首先判断item中是否存在该字段
             Object modelProperty = "";
             try {
@@ -95,21 +100,27 @@ public class AdapterUtil<T> {
             } catch (Exception e) {
                 Log.e(e.getMessage());
             }
-            //TextView
-            if (dataType == TextView.class) {
+
+            //CheckBox
+            if (CheckBox.class.isAssignableFrom(dataType)) {
                 try {
-                    String text = "";
-                    if (modelProperty != null) {
-                        text = modelProperty.toString();
+                    boolean isChecked = false;
+                    if (1 == (Integer) modelProperty) {
+                        isChecked = true;
+                    } else {
+                        isChecked = false;
                     }
-                    if (TextUtils.isEmpty(text)) text = "";
-                    ((TextView) field.get(holder)).setText(text);
-                } catch (IllegalAccessException e) {
+                    CheckBox checkBox = ((CheckBox) field.get(holder));
+                    checkBox.setChecked(isChecked);
+                    if (onCheckedChangeListener != null) {
+                        checkBox.setOnCheckedChangeListener(onCheckedChangeListener);
+                    }
+                } catch (Exception e) {
                     Log.e(e.getMessage());
                 }
             }
             //Button
-            else if (dataType == Button.class) {
+            else if (Button.class.isAssignableFrom(dataType)) {
                 try {
                     Button button = (Button) field.get(holder);
                     String text = "";
@@ -133,26 +144,21 @@ public class AdapterUtil<T> {
                     Log.e(e.getMessage());
                 }
             }
-            //CheckBox
-            else if (dataType == CheckBox.class) {
+            //TextView
+            else if (TextView.class.isAssignableFrom(dataType)) {
                 try {
-                    boolean isChecked = false;
-                    if (1 == (Integer) modelProperty) {
-                        isChecked = true;
-                    } else {
-                        isChecked = false;
+                    String text = "";
+                    if (modelProperty != null) {
+                        text = modelProperty.toString();
                     }
-                    CheckBox checkBox = ((CheckBox) field.get(holder));
-                    checkBox.setChecked(isChecked);
-                    if (onCheckedChangeListener != null) {
-                        checkBox.setOnCheckedChangeListener(onCheckedChangeListener);
-                    }
-                } catch (Exception e) {
+                    if (TextUtils.isEmpty(text)) text = "";
+                    ((TextView) field.get(holder)).setText(text);
+                } catch (IllegalAccessException e) {
                     Log.e(e.getMessage());
                 }
             }
             //ImageView
-            else if (dataType == ImageView.class) {
+            else if (ImageView.class.isAssignableFrom(dataType)) {
                 try {
                     android.widget.ImageView img = (android.widget.ImageView) field.get(holder);
                     if (modelProperty.getClass() == String.class) {
@@ -172,16 +178,20 @@ public class AdapterUtil<T> {
                 } catch (Exception e) {
                     Log.e(e.getMessage());
                 }
-            } else if (dataType == RatingBar.class) {
+            }
+            //RatingBar
+            else if (RatingBar.class.isAssignableFrom(dataType)) {
                 try {
                     ((RatingBar) field.get(holder)).setRating((Integer) modelProperty);
                 } catch (Exception e) {
                     Log.e(e.getMessage());
                 }
-            } else if (dataType == LinearLayout.class) {//布局，用于控制显示方式，-1移除，0不显示，1，显示
+            }
+            //ViewGroup
+            else if (ViewGroup.class.isAssignableFrom(dataType)) {//布局，用于控制显示方式，-1移除，0不显示，1，显示
                 try {
                     int visiable = (Integer) modelProperty;
-                    LinearLayout layout = (LinearLayout) field.get(holder);
+                    ViewGroup layout = (ViewGroup) field.get(holder);
                     switch (visiable) {
                         case -1:
                             layout.setVisibility(View.GONE);
