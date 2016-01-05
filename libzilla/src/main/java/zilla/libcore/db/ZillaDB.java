@@ -45,9 +45,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  *
  * @author ze.chen
  */
-public class DBOperator {
+public class ZillaDB {
 
-    private static DBOperator dbOperator;
+    private static ZillaDB zillaDb;
 
     private SQLiteDatabase database;
 
@@ -60,16 +60,16 @@ public class DBOperator {
 
     private DBHelper dbHelper = DBHelper.getInstance();
 
-    private DBOperator() {
+    private ZillaDB() {
         database = dbHelper.getWritableDatabase();
     }
 
-    public static DBOperator getInstance() {
-        if (dbOperator == null || isClosed) {
-            dbOperator = new DBOperator();
+    public static ZillaDB getInstance() {
+        if (zillaDb == null || isClosed) {
+            zillaDb = new ZillaDB();
             isClosed = false;
         }
-        return dbOperator;
+        return zillaDb;
     }
 
     /**

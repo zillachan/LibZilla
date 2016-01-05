@@ -21,18 +21,16 @@ import android.os.Message;
 
 import com.github.snowdream.android.util.Log;
 
-import zilla.libcore.db.DBOperator;
+import zilla.libcore.db.ZillaDB;
 import zilla.libcore.lifecircle.LifeCircleInject;
 import zilla.libcore.ui.InjectLayout;
 import zilla.libcore.util.Util;
 
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
-import com.zilla.libraryzilla.db.po.DePartment;
 import com.zilla.libraryzilla.db.po.User;
 import com.zilla.libraryzilla.dialog.LoadingDialog;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @InjectLayout(R.layout.activity_dbtest)
@@ -72,14 +70,14 @@ public class DBTestActivity extends BaseActivity {
 //            @Override
 //            public void run() {
 //                //Delete all rows
-//                DBOperator.getInstance().deleteAll(User.class);
+//                ZillaDB.getInstance().deleteAll(User.class);
 //
 //                //save
 //                User user = new User();
 //                user.setName("user1");
 //                user.setEmail("user1@example.com");
 //                user.setAddress("user1 address");
-//                DBOperator.getInstance().save(user);
+//                ZillaDB.getInstance().save(user);
 //
 //                //save list
 //                List<User> userList = new ArrayList<User>();
@@ -91,17 +89,17 @@ public class DBTestActivity extends BaseActivity {
 //                    userList.add(u);
 //                }
 //
-//                DBOperator.getInstance().saveList(userList);
+//                ZillaDB.getInstance().saveList(userList);
 //
 //
 //                //Query
-//                User user1 = DBOperator.getInstance().query(User.class, "address = ?", new String[]{"address1"});
+//                User user1 = ZillaDB.getInstance().query(User.class, "address = ?", new String[]{"address1"});
 //                Log.i("user1:" + user1.toString());
 //
-//                DBOperator.getInstance().update(user1);
+//                ZillaDB.getInstance().update(user1);
 //
 //                //query all rows
-//                List<User> users = DBOperator.getInstance().queryAll(User.class);
+//                List<User> users = ZillaDB.getInstance().queryAll(User.class);
 //                for (User u : users) {
 //                    Log.i(u.toString());
 //                }
@@ -114,7 +112,7 @@ public class DBTestActivity extends BaseActivity {
             public void run() {
                 //query all rows
                 Log.d("===================================READ=======================================");
-                List<User> users = DBOperator.getInstance().queryAll(User.class);
+                List<User> users = ZillaDB.getInstance().queryAll(User.class);
                 Log.d("===================================READ_RESULT================================");
                 for (User u : users) {
                     Log.i("****" + u.toString());
