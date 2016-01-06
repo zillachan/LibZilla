@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zilla.libraryzilla.db;
+package com.zilla.libraryzilla.test.db;
 
 import android.os.Handler;
 import android.os.Message;
@@ -25,11 +25,11 @@ import zilla.libcore.db.ZillaDB;
 import zilla.libcore.lifecircle.LifeCircleInject;
 import zilla.libcore.ui.InjectLayout;
 import zilla.libcore.util.Util;
+import zilla.libzilla.dialog.LoadingDialog;
 
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
-import com.zilla.libraryzilla.db.po.User;
-import com.zilla.libraryzilla.dialog.LoadingDialog;
+import com.zilla.libraryzilla.test.db.po.User;
 
 import java.util.List;
 

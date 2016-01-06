@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zilla.libraryzilla.adapter;
+package com.zilla.libraryzilla.test.adapter;
 
 import android.view.View;
 import android.widget.ListView;
@@ -24,7 +24,7 @@ import zilla.libcore.ui.ZillaAdapter;
 import zilla.libcore.ui.InjectLayout;
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
-import com.zilla.libraryzilla.db.po.User;
+import com.zilla.libraryzilla.test.db.po.User;
 
 import java.util.ArrayList;
 import java.util.List;

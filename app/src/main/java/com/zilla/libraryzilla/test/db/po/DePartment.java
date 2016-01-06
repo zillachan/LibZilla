@@ -14,30 +14,23 @@
  * limitations under the License.
  */
 
-package com.zilla.libraryzilla.db.po;
-
-import zilla.libcore.db.Id;
-import zilla.libcore.db.M2O;
-import zilla.libcore.db.Table;
+package com.zilla.libraryzilla.test.db.po;
 
 import java.io.Serializable;
 
+import zilla.libcore.db.Id;
+
 /**
- * Created by zilla on 10/9/15.
+ * Created by zilla on 11/27/15.
  */
-@Table("t_user")
-public class User implements Serializable {
+public class DePartment implements Serializable {
 
     @Id
     private int id;
 
     private String name;
 
-    private String email;
-
-    private String address;
-
-    public User() {
+    public DePartment() {
 
     }
 
@@ -57,29 +50,11 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     @Override
     public String toString() {
-        return "User{" +
+        return "DePartment{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
                 '}';
     }
 }

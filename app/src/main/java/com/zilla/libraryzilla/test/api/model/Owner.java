@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zilla.libraryzilla.api.model;
+package com.zilla.libraryzilla.test.api.model;
 
 import java.io.Serializable;
 

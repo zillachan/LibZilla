@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.zilla.libraryzilla.api;
+package com.zilla.libraryzilla.test.api;
 
-import com.zilla.libraryzilla.api.model.Org;
+import com.zilla.libraryzilla.test.api.model.Org;
 
 import java.util.List;
 

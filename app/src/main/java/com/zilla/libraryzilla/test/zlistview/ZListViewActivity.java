@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.zilla.libraryzilla.zlistview;
+package com.zilla.libraryzilla.test.zlistview;
 
 import android.view.View;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.zilla.libraryzilla.R;
-import com.zilla.libraryzilla.api.GitHubService;
-import com.zilla.libraryzilla.api.model.Org;
+import com.zilla.libraryzilla.test.api.GitHubService;
+import com.zilla.libraryzilla.test.api.model.Org;
 import com.zilla.libraryzilla.common.BaseActivity;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -31,7 +31,6 @@ import zilla.libcore.api.ZillaApi;
 import zilla.libcore.ui.InjectLayout;
 import zilla.libzilla.listview.ZListViewWraper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @InjectLayout(R.layout.activity_zlistviewtest)

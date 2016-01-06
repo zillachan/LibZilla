@@ -30,22 +30,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".adapter.ListViewTestActivity"
+            android:name=".test.adapter.ListViewTestActivity"
             android:label="@string/activity_listview" />
-        <activity android:name=".db.DBTestActivity" >
+        <activity android:name=".test.db.DBTestActivity" >
         </activity>
-        <activity android:name=".api.APIActivity" >
+        <activity android:name=".test.api.APIActivity" >
         </activity>
         <activity
-            android:name=".binding.BindingActivity"
+            android:name=".test.binding.BindingActivity"
             android:label="@string/title_activity_binding" >
         </activity>
         <activity
-            android:name=".zlistview.ZListViewActivity"
+            android:name=".test.zlistview.ZListViewActivity"
             android:label="@string/title_activity_zlistview" >
         </activity>
         <activity
-            android:name=".validate.ValidateActivity"
+            android:name=".test.validate.ValidateActivity"
             android:label="@string/title_activity_validate" >
         </activity>
     </application>

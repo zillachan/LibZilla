@@ -14,23 +14,29 @@
  * limitations under the License.
  */
 
-package com.zilla.libraryzilla.api.model;
+package com.zilla.libraryzilla.test.db.po;
+
+import zilla.libcore.db.Id;
+import zilla.libcore.db.Table;
 
 import java.io.Serializable;
 
 /**
  * Created by zilla on 10/9/15.
  */
-public class Org implements Serializable {
+@Table("t_user")
+public class User implements Serializable {
+
+    @Id
     private int id;
+
     private String name;
-    private String full_name;
-    private Owner owner;
-    private String html_url;
 
-    private Permission permissions;
+    private String email;
 
-    public Org() {
+    private String address;
+
+    public User() {
 
     }
 
@@ -50,47 +56,29 @@ public class Org implements Serializable {
         this.name = name;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Owner getOwner() {
-        return owner;
+    public String getAddress() {
+        return address;
     }
 
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
-    public String getHtml_url() {
-        return html_url;
-    }
-
-    public void setHtml_url(String html_url) {
-        this.html_url = html_url;
-    }
-
-    public Permission getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Permission permissions) {
-        this.permissions = permissions;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
     public String toString() {
-        return "Org{" +
+        return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", full_name='" + full_name + '\'' +
-                ", owner=" + owner +
-                ", html_url='" + html_url + '\'' +
-                ", permissions=" + permissions +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

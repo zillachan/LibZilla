@@ -18,14 +18,14 @@ package com.zilla.libraryzilla;
 import android.content.Intent;
 import android.view.View;
 
-import com.zilla.libraryzilla.validate.ValidateActivity;
-import com.zilla.libraryzilla.zlistview.ZListViewActivity;
+import com.zilla.libraryzilla.test.validate.ValidateActivity;
+import com.zilla.libraryzilla.test.zlistview.ZListViewActivity;
 import zilla.libcore.ui.InjectLayout;
-import com.zilla.libraryzilla.api.APIActivity;
-import com.zilla.libraryzilla.binding.BindingActivity;
+import com.zilla.libraryzilla.test.api.APIActivity;
+import com.zilla.libraryzilla.test.binding.BindingActivity;
 import com.zilla.libraryzilla.common.BaseActivity;
-import com.zilla.libraryzilla.db.DBTestActivity;
-import com.zilla.libraryzilla.adapter.ListViewTestActivity;
+import com.zilla.libraryzilla.test.db.DBTestActivity;
+import com.zilla.libraryzilla.test.adapter.ListViewTestActivity;
 
 import butterknife.OnClick;
 

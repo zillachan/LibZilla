@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zilla.libraryzilla.api;
+package com.zilla.libraryzilla.test.api;
 
 import com.github.snowdream.android.util.Log;
 import zilla.libcore.api.ZillaApi;
@@ -22,15 +22,15 @@ import zilla.libcore.lifecircle.LifeCircleInject;
 import zilla.libcore.ui.InjectLayout;
 import zilla.libcore.util.Util;
 import com.zilla.libraryzilla.R;
-import com.zilla.libraryzilla.api.model.Org;
+import com.zilla.libraryzilla.test.api.model.Org;
 import com.zilla.libraryzilla.common.BaseActivity;
-import com.zilla.libraryzilla.dialog.LoadingDialog;
 
 import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import zilla.libzilla.dialog.LoadingDialog;
 
 @InjectLayout(R.layout.activity_api)
 public class APIActivity extends BaseActivity {

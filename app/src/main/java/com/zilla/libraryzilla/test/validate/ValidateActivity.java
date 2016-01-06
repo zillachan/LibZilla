@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zilla.libraryzilla.validate;
+package com.zilla.libraryzilla.test.validate;
 
 import android.view.View;
 import android.widget.EditText;
