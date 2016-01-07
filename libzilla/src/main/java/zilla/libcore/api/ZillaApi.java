@@ -15,8 +15,12 @@ limitations under the License.
  */
 package zilla.libcore.api;
 
+import android.content.Context;
+
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import zilla.libcore.api.handler.DefaultApiErrorHandler;
 import zilla.libcore.file.AddressManager;
 import zilla.libcore.file.PropertiesManager;
 
@@ -80,6 +84,38 @@ public class ZillaApi {
             restAdapter.setLogLevel(RestAdapter.LogLevel.NONE);
         }
         return restAdapter;
+    }
+
+    private static IApiErrorHandler mIApiErrorHandler = null;
+
+    public static void setmIApiErrorHandler(IApiErrorHandler mIApiErrorHandler) {
+        ZillaApi.mIApiErrorHandler = mIApiErrorHandler;
+    }
+
+    /**
+     * deal custom error
+     *
+     * @param context
+     * @param object
+     * @return
+     */
+    public static boolean dealCustomError(Context context, IApiError object) {
+        if (mIApiErrorHandler == null) {
+            mIApiErrorHandler = new DefaultApiErrorHandler();
+        }
+        return mIApiErrorHandler.dealCustomError(context, object);
+    }
+
+    /**
+     * deal net error
+     *
+     * @param error
+     */
+    public static void dealNetError(RetrofitError error) {
+        if (mIApiErrorHandler == null) {
+            mIApiErrorHandler = new DefaultApiErrorHandler();
+        }
+        mIApiErrorHandler.dealNetError(error);
     }
 
 }
