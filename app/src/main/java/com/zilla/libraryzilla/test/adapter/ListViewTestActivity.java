@@ -17,11 +17,11 @@
 package com.zilla.libraryzilla.test.adapter;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import zilla.libcore.ui.ZillaAdapter;
-import zilla.libcore.ui.InjectLayout;
+import com.github.snowdream.android.util.Log;
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.test.db.po.User;
@@ -31,12 +31,14 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import zilla.libcore.ui.InjectLayout;
+import zilla.libcore.ui.ZillaAdapter;
 
 /**
  * Created by zilla on 10/9/15.
  */
 @InjectLayout(R.layout.activity_listviewtest)
-public class ListViewTestActivity extends BaseActivity {
+public class ListViewTestActivity extends BaseActivity implements ZillaAdapter.ZillaAdapterButtonClickListener {
     ZillaAdapter<User> adapter;
     List<User> userList = new ArrayList<User>();
 
@@ -59,6 +61,13 @@ public class ListViewTestActivity extends BaseActivity {
         }
         adapter = new ZillaAdapter<User>(this, userList, R.layout.user_item, ViewHolder.class);
         listView.setAdapter(adapter);
+        adapter.setZillaAdapterButtonClickListener(this);
+    }
+
+    @Override
+    public void onZillaAdapterButtonClick(Button button, int position) {
+        User user = (User) adapter.getItem(position);
+        Log.d(user.toString());
     }
 
     /**
@@ -74,6 +83,8 @@ public class ListViewTestActivity extends BaseActivity {
         TextView email;
         @InjectView(R.id.address)
         TextView address;
+        @InjectView(R.id.button)
+        Button button;
 
         ViewHolder(View view) {
             ButterKnife.inject(this, view);

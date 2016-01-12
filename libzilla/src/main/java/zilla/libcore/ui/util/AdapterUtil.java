@@ -20,18 +20,23 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.github.snowdream.android.util.Log;
 import com.squareup.picasso.Picasso;
-
-import zilla.libcore.ui.ZillaAdapter;
-import zilla.libcore.util.ReflectUtil;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.List;
+
+import zilla.libcore.ui.ZillaAdapter;
+import zilla.libcore.util.ReflectUtil;
 
 /**
  * Created by zilla on 14-7-14.
@@ -127,8 +132,9 @@ public class AdapterUtil<T> {
                     if (modelProperty != null) {
                         text = modelProperty.toString();
                     }
-                    if (TextUtils.isEmpty(text)) text = "";
-                    button.setText(text);
+                    if (!TextUtils.isEmpty(text)) {
+                        button.setText(text);
+                    }
 
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
