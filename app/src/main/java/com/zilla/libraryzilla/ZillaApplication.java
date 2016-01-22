@@ -20,6 +20,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.github.snowdream.android.util.Log;
+import com.zilla.libraryzilla.test.net.NetErrorHandler;
+
 import zilla.libcore.Zilla;
 import zilla.libcore.api.ZillaApi;
 import zilla.libcore.db.DBHelper;
@@ -57,6 +59,8 @@ public class ZillaApplication extends Application implements Zilla.InitCallback,
 //                requestFacade.addEncodedPathParam();
             }
         });
+
+        ZillaApi.setmIApiErrorHandler(new NetErrorHandler());
     }
 
     @Override
