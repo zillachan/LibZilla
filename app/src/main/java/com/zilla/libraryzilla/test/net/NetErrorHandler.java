@@ -1,6 +1,8 @@
 package com.zilla.libraryzilla.test.net;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.github.snowdream.android.util.Log;
 
@@ -19,23 +21,28 @@ import zilla.libcore.util.Util;
 public class NetErrorHandler implements IApiErrorHandler {
 
     @Override
-    public boolean dealCustomError(Context context, IApiError object) {
-        boolean isCustomError = true;
+    public boolean dealCustomError(Context context, @NonNull IApiError object) {
+        boolean isCustomError = false;
         try {
             int errorCode = object.getErrorCode();
             switch (errorCode) {
-                case 1:
+                case -1:
+                    isCustomError = true;
                     break;
                 default:
                     break;
             }
-            Util.toastMsg("" + object.getErrorMessage());
-            Log.e(object.toString());
+            String msg = object.getErrorMessage();
+            if (!TextUtils.isEmpty(msg)) {
+                Util.toastMsg("" + msg);
+            }
+
+            Log.d(object.toString());
         } catch (Exception e) {
             Log.e(e.getMessage());
             Util.toastMsg("" + object.toString());
         }
-        return false;
+        return isCustomError;
     }
 
     @Override
