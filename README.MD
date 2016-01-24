@@ -456,3 +456,7 @@ public class ZListViewActivity extends BaseActivity {
 ##Others
 ###BusProvider
 If you use otto before,then you can understand it easy.
+
+##TODO
+
+##ZillaAdapter ImageView's PlaceHolder
