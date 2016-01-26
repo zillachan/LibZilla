@@ -25,8 +25,8 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import zilla.libcore.ui.ZillaAdapter;
 import zilla.libcore.R;
+import zilla.libcore.ui.ZillaAdapter;
 
 public abstract class ZListViewWraper<T> {
     private View rootView;
@@ -49,6 +49,9 @@ public abstract class ZListViewWraper<T> {
     }
 
     public void init() {
+        if (this.onInitWrapper != null) {
+            this.onInitWrapper.beforeInitAdapter();
+        }
         adapter = new ZillaAdapter(rootView.getContext(), modelList, itemId, holderClass);
         zListView.setAdapter(adapter);
         zListView.setPullLoadEnable(false);
@@ -199,5 +202,18 @@ public abstract class ZListViewWraper<T> {
         public void onLoadMore() {
             loadMore();
         }
+    }
+
+    public void setOnInitWrapper(OnInitWrapper onInitWrapper) {
+        this.onInitWrapper = onInitWrapper;
+    }
+
+    private OnInitWrapper onInitWrapper;
+
+    /**
+     * This will be called before instance adapter
+     */
+    public interface OnInitWrapper {
+        void beforeInitAdapter();
     }
 }
