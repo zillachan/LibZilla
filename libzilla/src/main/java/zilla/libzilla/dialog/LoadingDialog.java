@@ -15,18 +15,20 @@
  */
 package zilla.libzilla.dialog;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import zilla.libcore.R;
+
 import com.github.snowdream.android.util.Log;
 
+import zilla.libcore.R;
 import zilla.libcore.lifecircle.ILifeCircle;
 
 /**
  * LoadingDialog
  */
-public class LoadingDialog implements ILifeCircle,IDialog {
+public class LoadingDialog implements ILifeCircle, IDialog {
 
     private Context context;
 
@@ -34,13 +36,14 @@ public class LoadingDialog implements ILifeCircle,IDialog {
         this.context = context;
     }
 
-    private LoadingDialogEntity dialogEntity;
+    private ProgressDialog dialogEntity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        dialogEntity = new LoadingDialogEntity(context, R.style.ZillaLoadingDialogTheme);
+        dialogEntity = new ProgressDialog(context);
 //        dialogEntity = new LoadingDialogEntity(context);
         dialogEntity.setCanceledOnTouchOutside(false);
+        dialogEntity.setTitle(context.getResources().getString(R.string.dialog_loading));
     }
 
     @Override

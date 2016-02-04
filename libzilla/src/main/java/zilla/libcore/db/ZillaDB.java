@@ -25,16 +25,16 @@ import android.text.TextUtils;
 
 import com.github.snowdream.android.util.Log;
 
-import zilla.libcore.db.util.AnnotationUtil;
-import zilla.libcore.db.util.TableHolder;
-import zilla.libcore.util.ReflectUtil;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import zilla.libcore.db.util.AnnotationUtil;
+import zilla.libcore.db.util.TableHolder;
+import zilla.libcore.util.ReflectUtil;
 
 /**
  * Manage the CURD of table,this is a singleton pattern.
@@ -238,7 +238,10 @@ public class ZillaDB {
             }
             ContentValues value = model2ContentValues(model, cursor);
             value.remove(key);
-            this.database.update(tableName, value, key + " = ? ", new String[]{keyValue});
+            int rowId = this.database.update(tableName, value, key + " = ? ", new String[]{keyValue});
+            if (0 == rowId) {
+                return false;
+            }
         } catch (Exception e) {
             Log.e("" + e.getMessage());
             return false;
@@ -273,7 +276,10 @@ public class ZillaDB {
             // 更新时不能更新主键,这是数据库主键设计原则{
             value.remove(key);
             // }
-            this.database.update(tableName, value, key + " = ? ", new String[]{keyValue});
+            int rows = this.database.update(tableName, value, key + " = ? ", new String[]{keyValue});
+            if (0 == rows) {
+                save(model);
+            }
         } catch (Exception e) {
             Log.e("更新表'" + tableName + "'数据出现异常,将执行添加操作:" + e);
             try {

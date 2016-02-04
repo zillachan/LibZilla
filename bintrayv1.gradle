@@ -2,10 +2,10 @@ apply plugin: 'com.jfrog.bintray'
 
 version = libraryVersion
 
-//task sourcesJar(type: Jar) {
-//    from android.sourceSets.main.java.srcDirs
-//    classifier = 'sources'
-//}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
 
 //task javadoc(type: Javadoc) {
 //    source = android.sourceSets.main.java.srcDirs
@@ -16,10 +16,10 @@ version = libraryVersion
 //    classifier = 'javadoc'
 //    from javadoc.destinationDir
 //}
-//artifacts {
+artifacts {
 //    archives javadocJar
-//    archives sourcesJar
-//}
+    archives sourcesJar
+}
 
 // Bintray
 Properties properties = new Properties()
