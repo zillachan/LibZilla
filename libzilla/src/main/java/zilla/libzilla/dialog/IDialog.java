@@ -22,7 +22,7 @@ public interface IDialog {
 
     void show();
 
-    void show(String title);
+    void show(String message);
 
     void dismiss();
 }

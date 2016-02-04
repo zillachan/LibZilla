@@ -41,9 +41,8 @@ public class LoadingDialog implements ILifeCircle, IDialog {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         dialogEntity = new ProgressDialog(context);
-//        dialogEntity = new LoadingDialogEntity(context);
         dialogEntity.setCanceledOnTouchOutside(false);
-        dialogEntity.setTitle(context.getResources().getString(R.string.dialog_loading));
+        dialogEntity.setMessage(context.getResources().getString(R.string.dialog_loading));
     }
 
     @Override
@@ -81,10 +80,10 @@ public class LoadingDialog implements ILifeCircle, IDialog {
     }
 
     @Override
-    public void show(String title) {
+    public void show(String message) {
         try {
             if (dialogEntity != null) {
-                dialogEntity.setTitle(title);
+                dialogEntity.setMessage(message);
                 dialogEntity.show();
             }
         } catch (Exception e) {
