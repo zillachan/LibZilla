@@ -1,10 +1,15 @@
-###This is an Android library for fast develope.
+#This is an Android library for fast development.
 
 ##Include
 
-```
-compile 'com.rainim:libzilla:1.0.16'
-```
+
+**compile 'com.rainim:libzilla:1.0.59'**
+
+
+## LibZilla
+
+
+If you want to know more about libzilla,please visit <https://github.com/zillachan/LibZilla>
 
 ##Application
 ```
@@ -57,7 +62,7 @@ public class ZillaApplication extends Application implements Zilla.InitCallback,
 ```
 ##DB
 ####Config
-1. assets/config/system.properties
+1. assets/config/system.properties 
 ```
 dbversion:if upgrade the database,dbversion+1.
 dbname:the name of database.
@@ -205,83 +210,6 @@ public class MainActivity extends Activity {
 
 
 And then you can call loadingDialog.show() or loadingDialog.dismiss() anywhere.
-
-
-LoadingDialog.java
-public class LoadingDialog implements ILifeCircle,IDialog {
-
-    private Context context;
-
-    public LoadingDialog(Context context) {
-        this.context = context;
-    }
-
-    private LoadingDialogEntity dialogEntity;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        dialogEntity = new LoadingDialogEntity(context, R.style.CustomProgressDialog);
-        dialogEntity.setCanceledOnTouchOutside(false);
-    }
-
-    @Override
-    public void onResume() {
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    }
-
-    @Override
-    public void onPause() {
-    }
-
-    @Override
-    public void onDestroy() {
-        dismiss();
-    }
-
-    /**
-     * 显示dialog
-     */
-    @Override
-    public void show() {
-        try {
-            if (dialogEntity != null) {
-                dialogEntity.show();
-            }
-        } catch (Exception e) {
-            Log.e(e.getMessage());
-        }
-    }
-
-    @Override
-    public void show(String title) {
-        try {
-            if (dialogEntity != null) {
-                dialogEntity.setTitle(title);
-                dialogEntity.show();
-            }
-        } catch (Exception e) {
-            Log.e(e.getMessage());
-        }
-    }
-
-    /**
-     * 隐藏dialog
-     */
-    @Override
-    public void dismiss() {
-        try {
-            if (dialogEntity != null) {
-                dialogEntity.dismiss();
-            }
-        } catch (Exception e) {
-            Log.e(e.getMessage());
-        }
-    }
-
-}
 ```
 
 ##ZillaApi
@@ -361,35 +289,9 @@ Binding:
     ZillaBinding.binding(this, user);
 
 ```
-##LoadingDialog
-
-```
-compile 'com.rainim:loading:1.0.16@aar'
-```
-How to use:
-
-```
-@LifeCircleInject
-LoadingDialog loadingDialog;
-    
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    LifeCircle.onCreate(this);
-}
-
-Other place call:
-
-loadingDialog.show();
-
-```
 
 ##ZListView
 
-```
-compile 'com.rainim:zlistview:1.0.16@aar'
-```
-How to use:
 
 ```
 @InjectLayout(R.layout.activity_zlistviewtest)
