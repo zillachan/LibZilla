@@ -56,7 +56,7 @@ public abstract class ZListViewWraper<T> {
         zListView.setAdapter(adapter);
         zListView.setPullLoadEnable(false);
         zListView.showRefreshProgress();
-        zListView.setXListViewListener(new XListViewListener());
+        zListView.setZListViewListener(new ZListViewListener());
         loadData();
     }
 
@@ -81,12 +81,12 @@ public abstract class ZListViewWraper<T> {
     }
 
     /**
-     * setXListViewListener
+     * setZListViewListener
      *
      * @param listViewListener the listener
      */
-    public void setXListViewListener(ZListView.IZEventListener listViewListener) {
-        zListView.setXListViewListener(listViewListener);
+    public void setZListViewListener(ZListView.IZEventListener listViewListener) {
+        zListView.setZListViewListener(listViewListener);
     }
 
     public void refreshSuccess() {
@@ -191,7 +191,7 @@ public abstract class ZListViewWraper<T> {
         return zListView.getVisibility();
     }
 
-    class XListViewListener implements ZListView.IZEventListener {
+    class ZListViewListener implements ZListView.IZEventListener {
 
         @Override
         public void onRefresh() {

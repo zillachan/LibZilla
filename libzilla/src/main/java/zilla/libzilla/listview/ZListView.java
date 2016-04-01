@@ -346,7 +346,7 @@ public class ZListView extends ListView implements OnScrollListener {
         }
     }
 
-    public void setXListViewListener(IZEventListener l) {
+    public void setZListViewListener(IZEventListener l) {
         mListViewListener = l;
     }
 

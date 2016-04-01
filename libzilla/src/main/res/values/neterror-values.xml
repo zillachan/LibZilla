@@ -21,7 +21,7 @@
     <string name="net.error.unknownhost">unknownhost error</string>
     <string name="net.error.neterror">net error</string>
 
-    <string name="net.http.401">user name or password error</string>
+    <string name="net.http.401">auth failed</string>
     <string name="net.http.404">not found error</string>
     <string name="net.http.500">server error</string>
     <string name="net.http.other">server other error</string>
