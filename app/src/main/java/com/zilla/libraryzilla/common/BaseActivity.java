@@ -29,6 +29,7 @@ import zilla.libcore.ui.LayoutInjectUtil;
 import com.zilla.libraryzilla.R;
 
 import butterknife.ButterKnife;
+import zilla.libzilla.dialog.LoadingDialog;
 
 /**
  * Created by zilla on 14/12/1.
@@ -40,6 +41,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
      */
     @LifeCircleInject
     public AppExitLife lifeCicleExit;
+
+    @LifeCircleInject
+    public LoadingDialog loadingDialog;
     /**
      * Toobar
      */
@@ -55,7 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setOnMenuItemClickListener(this);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         initViews();
         initDatas();
     }
@@ -74,7 +78,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     protected void onDestroy() {
         super.onDestroy();
         LifeCircle.onDestory(this);
-        ButterKnife.reset(this);
+        ButterKnife.unbind(this);
     }
 
     @Override

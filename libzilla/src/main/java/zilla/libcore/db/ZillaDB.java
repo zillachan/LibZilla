@@ -797,6 +797,12 @@ public class ZillaDB {
             Field[] fields = c.getDeclaredFields();
             String key = AnnotationUtil.getClassKey(c);
             sBuilder.append(" ( ");
+            List<Field> fieldList = new ArrayList<Field>();
+            for(Field field:fields){
+                if(field.getModifiers() != Modifier.VOLATILE){
+                    fieldList.add(field);
+                }
+            }
             for (int i = 0, l = fields.length; i < l; i++) {
                 Field field = fields[i];
                 String fieldName = field.getName();

@@ -53,7 +53,7 @@ public class ZillaApplication extends Application implements Zilla.InitCallback,
      * Config API info
      */
     private void initApi() {
-        ZillaApi.NormalRestAdapter = ZillaApi.getRESTAdapter(new RequestInterceptor() {
+        ZillaApi.normalRestAdapter = ZillaApi.getRESTAdapter(new RequestInterceptor() {
             @Override
             public void intercept(RequestFacade requestFacade) {
 //                requestFacade.addEncodedPathParam();

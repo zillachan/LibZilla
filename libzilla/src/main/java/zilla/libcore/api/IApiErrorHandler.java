@@ -25,7 +25,7 @@ import retrofit.RetrofitError;
  */
 public interface IApiErrorHandler {
 
-    boolean dealCustomError(Context context, IApiError object);
+    boolean dealCustomError(Context context, IApiModel object);
 
     void dealNetError(RetrofitError error);
 }

@@ -80,7 +80,7 @@ public abstract class BaseFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         contentView = inflater.inflate(LayoutInjectUtil.getInjectLayoutId(this), container, false);
         LifeCircle.onCreate(this);
-        ButterKnife.inject(this,contentView);
+        ButterKnife.bind(this,contentView);
         initView();
         return contentView;
     }
@@ -95,7 +95,7 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         LifeCircle.onDestory(this);
-        ButterKnife.reset(this);
+        ButterKnife.unbind(this);
     }
 
     /**

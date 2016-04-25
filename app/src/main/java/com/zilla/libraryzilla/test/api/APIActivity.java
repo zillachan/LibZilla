@@ -17,53 +17,85 @@
 package com.zilla.libraryzilla.test.api;
 
 import com.github.snowdream.android.util.Log;
-import zilla.libcore.api.ZillaApi;
-import zilla.libcore.lifecircle.LifeCircleInject;
-import zilla.libcore.ui.InjectLayout;
-import zilla.libcore.util.Util;
 import com.zilla.libraryzilla.R;
-import com.zilla.libraryzilla.test.api.model.Org;
 import com.zilla.libraryzilla.common.BaseActivity;
+import com.zilla.libraryzilla.common.CommonModel;
+import com.zilla.libraryzilla.test.api.model.Org;
 
 import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import zilla.libzilla.dialog.LoadingDialog;
+import zilla.libcore.api.SupportTip;
+import zilla.libcore.api.ZillaApi;
+import zilla.libcore.ui.InjectLayout;
+import zilla.libcore.ui.SupportLoading;
 
 @InjectLayout(R.layout.activity_api)
 public class APIActivity extends BaseActivity {
 
-    @LifeCircleInject
-    LoadingDialog loadingDialog;
 
     @Override
     protected void initViews() {
-        loadingDialog.show();
+
     }
 
     @Override
     protected void initDatas() {
-        GitHubService service = ZillaApi.NormalRestAdapter.create(GitHubService.class);
-        service.getRepos("octokit", new Callback<List<Org>>() {
+//        testLoading();
+        getDataByAPI1();
+    }
+
+    @SupportLoading
+    private void getDataByAPI1() {
+        GitHubService service = ZillaApi.create(GitHubService.class);
+        service.getRepos3("octokit", new Callback<CommonModel<List<Org>>>() {
+            @SupportTip
             @Override
-            public void success(List<Org> orgs, Response response) {
+            public void success(CommonModel<List<Org>> orgs, Response response) {
                 if (orgs != null) {
-                    for (Org org : orgs) {
+                    for (Org org : orgs.getData()) {
                         Log.i(org.toString());
                     }
                 }
-                Util.toastMsg("success");
-                loadingDialog.dismiss();
             }
 
+            @SupportTip
             @Override
             public void failure(RetrofitError error) {
-                Log.e(error.toString());
-                Util.toastMsg("failed"+error.getMessage());
-                loadingDialog.dismiss();
+                Log.d(error.getMessage());
             }
         });
     }
+
+//    private void getDataByAPI2() {
+//        GitHubService service = ZillaApi2.create(GitHubService.class);
+//        Call<List<Org>> call = service.getRepos("octokit");
+//        call.enqueue(new retrofit2.Callback<List<Org>>() {
+//            @Override
+//            public void onResponse(Call<List<Org>> call, retrofit2.Response<List<Org>> response) {
+//                if (response.isSuccessful()) {
+//                    List<Org> orgList = response.body();
+//                } else {
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Org>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+//
+//    private void getDataByRX() {
+//        final GitHubService service = ZillaApi2.create(GitHubService.class);
+//        service.getReposRx("octokit").subscribe(new Action1<List<Org>>() {
+//            @Override
+//            public void call(List<Org> orgs) {
+//
+//            }
+//        });
+//    }
 }

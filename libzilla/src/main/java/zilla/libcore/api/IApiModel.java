@@ -20,11 +20,11 @@ package zilla.libcore.api;
  * you should implements this interface to config ErrorModel
  * Created by zilla on 14/12/7.
  */
-public interface IApiError {
+public interface IApiModel {
 
-    int getErrorCode();
+//    boolean isError();
 
-    String getErrorMessage();
+    int getStatus();
 
-    String getErrorRequest();
+    String getMessage();
 }

@@ -18,11 +18,13 @@ package com.zilla.libraryzilla.common;
 
 import java.io.Serializable;
 
+import zilla.libcore.api.IApiModel;
+
 /**
  * the common interface model
  * Created by zilla on 14/12/7.
  */
-public class CommonModel<T> implements Serializable {
+public class CommonModel<T> implements Serializable, IApiModel {
 
     private int stat;
     private String error;
@@ -59,5 +61,15 @@ public class CommonModel<T> implements Serializable {
                 ", error='" + error + '\'' +
                 ", data=" + data +
                 '}';
+    }
+
+    @Override
+    public int getStatus() {
+        return stat;
+    }
+
+    @Override
+    public String getMessage() {
+        return "";
     }
 }

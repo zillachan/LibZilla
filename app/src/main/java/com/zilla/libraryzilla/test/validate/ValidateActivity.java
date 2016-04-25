@@ -18,23 +18,25 @@ package com.zilla.libraryzilla.test.validate;
 
 import android.view.View;
 import android.widget.EditText;
-import butterknife.InjectView;
-import butterknife.OnClick;
+
 import com.mobsandgeeks.saripaar.Rule;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Required;
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import zilla.libcore.lifecircle.LifeCircleInject;
 import zilla.libcore.lifecircle.validate.ValidateLife;
 import zilla.libcore.ui.InjectLayout;
 import zilla.libcore.util.Util;
 
 @InjectLayout(R.layout.activity_validate)
-public class ValidateActivity extends BaseActivity implements Validator.ValidationListener{
+public class ValidateActivity extends BaseActivity implements Validator.ValidationListener {
 
     @Required(order = 1, message = "Not Null")
-    @InjectView(R.id.editText)
+    @Bind(R.id.editText)
     EditText editText;
 
     @LifeCircleInject
@@ -68,6 +70,6 @@ public class ValidateActivity extends BaseActivity implements Validator.Validati
 
     @Override
     public void onValidationFailed(View failedView, Rule<?> failedRule) {
-        validateLife.onValidationFailed(failedView,failedRule);
+        validateLife.onValidationFailed(failedView, failedRule);
     }
 }

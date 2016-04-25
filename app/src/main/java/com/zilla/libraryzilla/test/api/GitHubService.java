@@ -16,13 +16,16 @@
 
 package com.zilla.libraryzilla.test.api;
 
+import com.zilla.libraryzilla.common.CommonModel;
 import com.zilla.libraryzilla.test.api.model.Org;
-
-import java.util.List;
-
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
+import retrofit2.Call;
+import rx.Observable;
+import zilla.libcore.api.CallbackProxy;
+
+import java.util.List;
 
 /**
  * Created by zilla on 10/9/15.
@@ -30,5 +33,37 @@ import retrofit.http.Path;
 public interface GitHubService {
 
     @GET("/orgs/{org}/repos")
-    public void getRepos(@Path("org") String org, Callback<List<Org>> callback);
+    void getRepos2(@Path("org") String org, Callback<List<Org>> callback);
+
+    @GET("/orgs/{org}/repos")
+    void getRepos3(@Path("org") String org, Callback<CommonModel<List<Org>>> callback);
+
+    /**
+     * API1 get
+     *
+     * @param org
+     * @param callback
+     */
+    @GET("/orgs/{org}/repos")
+    void getRepos(@Path("org") String org, Callback<List<Org>> callback);
+//    Callback<List<Org>> callback
+
+    /**
+     * API2 call
+     *
+     * @param org
+     * @return
+     */
+    @GET("/orgs/{org}/repos")
+    Call<List<Org>> getRepos(@Path("org") String org);
+
+    /**
+     * API2 RXjava
+     *
+     * @param org
+     * @return
+     */
+    @GET("/orgs/{org}/repos")
+    Observable<List<Org>> getReposRx(@Path("org") String org);
+
 }

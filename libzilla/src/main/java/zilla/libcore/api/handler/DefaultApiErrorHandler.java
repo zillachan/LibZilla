@@ -20,7 +20,7 @@ import android.content.Context;
 import com.github.snowdream.android.util.Log;
 import retrofit.RetrofitError;
 import zilla.libcore.R;
-import zilla.libcore.api.IApiError;
+import zilla.libcore.api.IApiModel;
 import zilla.libcore.api.IApiErrorHandler;
 import zilla.libcore.util.Util;
 
@@ -35,17 +35,17 @@ import java.net.UnknownHostException;
 public class DefaultApiErrorHandler implements IApiErrorHandler {
 
     @Override
-    public boolean dealCustomError(Context context, IApiError object) {
+    public boolean dealCustomError(Context context, IApiModel object) {
         boolean isCustomError = true;
         try {
-            int errorCode = object.getErrorCode();
+            int errorCode = object.getStatus();
             switch (errorCode) {
                 case 1:
                     break;
                 default:
                     break;
             }
-            Util.toastMsg("" + object.getErrorMessage());
+            Util.toastMsg("" + object.getMessage());
             Log.e(object.toString());
         } catch (Exception e) {
             Log.e(e.getMessage());

@@ -29,8 +29,8 @@ import com.zilla.libraryzilla.test.db.po.User;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import zilla.libcore.ui.InjectLayout;
 import zilla.libcore.ui.ZillaAdapter;
 
@@ -42,7 +42,7 @@ public class ListViewTestActivity extends BaseActivity implements ZillaAdapter.Z
     ZillaAdapter<User> adapter;
     List<User> userList = new ArrayList<User>();
 
-    @InjectView(R.id.listview)
+    @Bind(R.id.listview)
     ListView listView;
 
     @Override
@@ -77,17 +77,17 @@ public class ListViewTestActivity extends BaseActivity implements ZillaAdapter.Z
      * @author ButterKnifeZelezny, plugin for Android Studio by Avast Developers (http://github.com/avast)
      */
     static class ViewHolder {
-        @InjectView(R.id.name)
+        @Bind(R.id.name)
         TextView name;
-        @InjectView(R.id.email)
+        @Bind(R.id.email)
         TextView email;
-        @InjectView(R.id.address)
+        @Bind(R.id.address)
         TextView address;
-        @InjectView(R.id.button)
+        @Bind(R.id.button)
         Button button;
 
         ViewHolder(View view) {
-            ButterKnife.inject(this, view);
+            ButterKnife.bind(this, view);
         }
     }
 }

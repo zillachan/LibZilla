@@ -37,13 +37,13 @@ public class ZillaApi {
             .setEndpoint(AddressManager.getHost())
             .build();
 
-    public static RestAdapter NormalRestAdapter = new RestAdapter.Builder()
+    public static RestAdapter normalRestAdapter = new RestAdapter.Builder()
             .setLogLevel(RestAdapter.LogLevel.FULL)
             .setEndpoint(AddressManager.getHost())
             .build();
 
     public static <T> T create(Class<T> service) {
-        return NormalRestAdapter.create(service);
+        return normalRestAdapter.create(service);
     }
 
     /**
@@ -69,12 +69,12 @@ public class ZillaApi {
      * @return a default restAdapter
      */
     public static RestAdapter getRESTAdapter(RequestInterceptor requestInterceptor) {
-        RestAdapter restAdapter = new RestAdapter.Builder()
+        normalRestAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint(AddressManager.getHost())
                 .setRequestInterceptor(requestInterceptor)
                 .build();
-        return setLog(restAdapter);
+        return normalRestAdapter;
     }
 
     private static RestAdapter setLog(RestAdapter restAdapter) {
@@ -99,7 +99,7 @@ public class ZillaApi {
      * @param object
      * @return
      */
-    public static boolean dealCustomError(Context context, IApiError object) {
+    public static boolean dealCustomError(Context context, IApiModel object) {
         if (mIApiErrorHandler == null) {
             mIApiErrorHandler = new DefaultApiErrorHandler();
         }

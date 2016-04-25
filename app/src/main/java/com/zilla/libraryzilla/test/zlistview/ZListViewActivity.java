@@ -18,20 +18,22 @@ package com.zilla.libraryzilla.test.zlistview;
 
 import android.view.View;
 import android.widget.TextView;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+
 import com.zilla.libraryzilla.R;
+import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.test.api.GitHubService;
 import com.zilla.libraryzilla.test.api.model.Org;
-import com.zilla.libraryzilla.common.BaseActivity;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import zilla.libcore.api.ZillaApi;
 import zilla.libcore.ui.InjectLayout;
 import zilla.libzilla.listview.ZListViewWraper;
-
-import java.util.List;
 
 @InjectLayout(R.layout.activity_zlistviewtest)
 public class ZListViewActivity extends BaseActivity {
@@ -41,7 +43,7 @@ public class ZListViewActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        service = ZillaApi.NormalRestAdapter.create(GitHubService.class);
+        service = ZillaApi.normalRestAdapter.create(GitHubService.class);
         xListViewWraper = new ZListViewWraper<Org>(getWindow().getDecorView(), R.layout.item_zlistview, ViewHolder.class) {
             @Override
             public void loadData() {
@@ -88,13 +90,13 @@ public class ZListViewActivity extends BaseActivity {
      * @author ButterKnifeZelezny, plugin for Android Studio by Avast Developers (http://github.com/avast)
      */
     static class ViewHolder {
-        @InjectView(R.id.item_org_name)
+        @Bind(R.id.item_org_name)
         TextView name;
-        @InjectView(R.id.item_org_full_name)
+        @Bind(R.id.item_org_full_name)
         TextView full_name;
 
         ViewHolder(View view) {
-            ButterKnife.inject(this, view);
+            ButterKnife.bind(this, view);
         }
     }
 }

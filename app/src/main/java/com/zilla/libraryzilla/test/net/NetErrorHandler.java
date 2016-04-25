@@ -11,7 +11,7 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import retrofit.RetrofitError;
-import zilla.libcore.api.IApiError;
+import zilla.libcore.api.IApiModel;
 import zilla.libcore.api.IApiErrorHandler;
 import zilla.libcore.util.Util;
 
@@ -21,10 +21,10 @@ import zilla.libcore.util.Util;
 public class NetErrorHandler implements IApiErrorHandler {
 
     @Override
-    public boolean dealCustomError(Context context, @NonNull IApiError object) {
+    public boolean dealCustomError(Context context, @NonNull IApiModel object) {
         boolean isCustomError = false;
         try {
-            int errorCode = object.getErrorCode();
+            int errorCode = object.getStatus();
             switch (errorCode) {
                 case -1:
                     isCustomError = true;
@@ -32,7 +32,7 @@ public class NetErrorHandler implements IApiErrorHandler {
                 default:
                     break;
             }
-            String msg = object.getErrorMessage();
+            String msg = object.getMessage();
             if (!TextUtils.isEmpty(msg)) {
                 Util.toastMsg("" + msg);
             }
