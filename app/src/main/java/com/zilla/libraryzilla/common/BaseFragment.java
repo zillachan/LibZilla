@@ -24,14 +24,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.Serializable;
+
+import butterknife.ButterKnife;
 import zilla.libcore.lifecircle.LifeCircle;
 import zilla.libcore.lifecircle.LifeCircleInject;
 import zilla.libcore.lifecircle.exit.AppExitLife;
 import zilla.libcore.ui.LayoutInjectUtil;
-
-import java.io.Serializable;
-
-import butterknife.ButterKnife;
 
 /**
  * Fragment基类
@@ -80,7 +79,7 @@ public abstract class BaseFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         contentView = inflater.inflate(LayoutInjectUtil.getInjectLayoutId(this), container, false);
         LifeCircle.onCreate(this);
-        ButterKnife.bind(this,contentView);
+        ButterKnife.bind(this, contentView);
         initView();
         return contentView;
     }
@@ -103,7 +102,7 @@ public abstract class BaseFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.

@@ -29,8 +29,9 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import zilla.libcore.api.SupportTip;
 import zilla.libcore.api.ZillaApi;
+import zilla.libcore.ui.DismissLoading;
 import zilla.libcore.ui.InjectLayout;
-import zilla.libcore.ui.SupportLoading;
+import zilla.libcore.ui.SupportMethodLoading;
 
 @InjectLayout(R.layout.activity_api)
 public class APIActivity extends BaseActivity {
@@ -45,13 +46,21 @@ public class APIActivity extends BaseActivity {
     protected void initDatas() {
 //        testLoading();
         getDataByAPI1();
+//        testLoading("from apiactivity");
     }
 
-    @SupportLoading
+    @SupportMethodLoading()
+    private void testLoading(String message) {
+        Log.d("testLoading:" + message);
+    }
+
+//    @SupportMethodLoading(autoDismiss = false)
     private void getDataByAPI1() {
         GitHubService service = ZillaApi.create(GitHubService.class);
         service.getRepos3("octokit", new Callback<CommonModel<List<Org>>>() {
-            @SupportTip
+
+//            @SupportTip
+//            @DismissLoading
             @Override
             public void success(CommonModel<List<Org>> orgs, Response response) {
                 if (orgs != null) {
@@ -61,7 +70,8 @@ public class APIActivity extends BaseActivity {
                 }
             }
 
-            @SupportTip
+//            @SupportTip
+//            @DismissLoading
             @Override
             public void failure(RetrofitError error) {
                 Log.d(error.getMessage());

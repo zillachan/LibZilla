@@ -43,7 +43,7 @@ public class SupportInjectUtil {
         }
         Method[] methods = container.getClass().getDeclaredMethods();
         for (Method method : methods) {
-            if (method.getAnnotation(SupportLoading.class) != null) {
+            if (method.getAnnotation(SupportMethodLoading.class) != null) {
                 method.setAccessible(true);
             }
         }

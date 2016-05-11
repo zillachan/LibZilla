@@ -3,9 +3,9 @@
 //import zilla.libcore.ui.SupportInjectUtil;
 //
 ///**
-// * SupportLoading aspect
+// * SupportMethodLoading aspect
 // */
-//aspect SupportLoading {
+//aspect SupportMethodLoading {
 //    pointcut trackEvent(SupportInjectUtil analyticsTrackerHelper, String category, String action):
 //            execution(@me.egorand.cats.analytics.annotations.TrackEvent * *(..)) &&
 //                    args(analyticsTrackerHelper, category, action);

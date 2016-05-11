@@ -747,7 +747,16 @@ public class ZillaDB {
             ContentValues value = new ContentValues();
             String[] names = cursor.getColumnNames();//table fields
             Field[] modelProperties = c.getDeclaredFields();
+
+            List<Field> fieldList = new ArrayList<Field>();
             for (Field field : modelProperties) {
+                if (field.getModifiers() == Modifier.VOLATILE || field.getName().contains("change")) {
+                } else {
+                    fieldList.add(field);
+                }
+            }
+
+            for (Field field : fieldList) {
                 if (Modifier.FINAL == field.getModifiers()) break; //如果是final类型的，跳过
                 boolean contains = false;
                 for (String tableField : names) {
@@ -798,13 +807,14 @@ public class ZillaDB {
             String key = AnnotationUtil.getClassKey(c);
             sBuilder.append(" ( ");
             List<Field> fieldList = new ArrayList<Field>();
-            for(Field field:fields){
-                if(field.getModifiers() != Modifier.VOLATILE){
+            for (Field field : fields) {
+                if (field.getModifiers() == Modifier.VOLATILE || field.getName().contains("change")) {
+                } else {
                     fieldList.add(field);
                 }
             }
-            for (int i = 0, l = fields.length; i < l; i++) {
-                Field field = fields[i];
+            for (int i = 0, l = fieldList.size(); i < l; i++) {
+                Field field = fieldList.get(i);
                 String fieldName = field.getName();
                 if (Modifier.FINAL == field.getModifiers()) break; //如果是final类型的，跳过
                 if (fieldName.equals(key)) {

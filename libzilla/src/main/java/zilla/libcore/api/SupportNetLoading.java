@@ -1,4 +1,4 @@
-package zilla.libcore.ui;
+package zilla.libcore.api;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,20 +6,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Description:Loading support
+ * Description:Error Tip Annotation
  *
  * @author Zilla
  * @version 1.0
  * @date 2016-04-01
  */
 @Retention(RetentionPolicy.CLASS)
-@Target({ ElementType.CONSTRUCTOR, ElementType.METHOD })
-public @interface SupportLoading {
+@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER})
+public @interface SupportNetLoading {
     /**
-     * dialog auto dismiss when method finish
+     * default loading message
      *
      * @return
      */
-
-    boolean autoDismiss() default false;
+    String value() default "";
 }
