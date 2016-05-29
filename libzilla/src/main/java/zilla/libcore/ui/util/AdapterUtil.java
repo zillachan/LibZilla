@@ -33,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 import zilla.libcore.ui.ZillaAdapter;
@@ -82,9 +83,12 @@ public class AdapterUtil<T> {
         Field[] fields = viewHolder.getDeclaredFields();
         for (Field field : fields) {
             Class<?> dataType = field.getType();
-            if (dataType.isAssignableFrom(ImageView.class)) {
+            //if is static,break
+            if (Modifier.isStatic(field.getModifiers())) continue;
 
-            }
+//            if (dataType.isAssignableFrom(ImageView.class)) {
+//
+//            }
             //首先判断item中是否存在该字段
             Object modelProperty = "";
             try {
