@@ -37,6 +37,7 @@ public class PersistenceManager {
      * @return
      */
     public static Serializable readObj(String name) {
+        if(cache.get(name) == null) return null;
         Object obj = cache.get(name).get();
         if (obj == null) {
             obj = FileHelper.readObj(FileHelper.PATH_FILES + name + ".obj");
@@ -48,13 +49,34 @@ public class PersistenceManager {
     }
 
     /**
+     * 读取对象
+     *
+     * @param c
+     * @return
+     */
+    public static Serializable readObj(Class c) {
+
+        return readObj(c.getSimpleName());
+    }
+
+    /**
      * 保存对象
      *
      * @param obj
      * @return
      */
     public static boolean saveObj(Serializable obj) {
-        cache.put(obj.getClass().getSimpleName(), new WeakReference<Serializable>(obj));
-        return FileHelper.saveObj(obj, FileHelper.PATH_FILES + obj.getClass().getSimpleName() + ".obj");
+        return saveObj(obj, obj.getClass().getSimpleName());
+    }
+
+    /**
+     * save obj
+     * @param obj
+     * @param name
+     * @return
+     */
+    public static boolean saveObj(Serializable obj, String name) {
+        cache.put(name, new WeakReference<Serializable>(obj));
+        return FileHelper.saveObj(obj, FileHelper.PATH_FILES + name + ".obj");
     }
 }
