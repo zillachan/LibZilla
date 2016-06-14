@@ -3,7 +3,19 @@
 ##Include
 
 
-**compile 'com.rainim:libzilla:1.0.59'**
+```
+	allprojects {
+		repositories {
+			...
+			maven { url "https://jitpack.io" }
+		}
+	}
+	
+	and in your application use:
+	
+	compile 'com.github.zillachan:libzilla:1.0.70'
+	
+```
 
 
 ## LibZilla
@@ -181,7 +193,10 @@ Read file assets/config/system.properties,you can also add your own property in 
 ```
 The packaging of SharedPreference,you only need call put or get
 ```
-
+### PersistenceManager
+```
+support java object persistence.
+```
 ##LifeCircle
 LifeCircle Manager,It provide the life circle manager for any object implements the ILifeCircle interface.
 
@@ -361,4 +376,5 @@ If you use otto before,then you can understand it easy.
 
 ##TODO
 
-##ZillaAdapter ImageView's PlaceHolder
+### ZillaAdapter ImageView's PlaceHolder
+### AspectJ Support to simplify lifecicle.
