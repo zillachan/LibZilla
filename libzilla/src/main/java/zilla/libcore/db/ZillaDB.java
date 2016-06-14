@@ -808,7 +808,8 @@ public class ZillaDB {
             sBuilder.append(" ( ");
             List<Field> fieldList = new ArrayList<Field>();
             for (Field field : fields) {
-                if (field.getModifiers() == Modifier.VOLATILE || field.getName().contains("change")) {
+                int modifiers = field.getModifiers();
+                if (Modifier.isStatic(modifiers) || Modifier.isVolatile(modifiers) || Modifier.isTransient(modifiers) || field.getName().contains("change")) {
                 } else {
                     fieldList.add(field);
                 }
