@@ -13,7 +13,9 @@
 	
 	and in your application use:
 	
-	compile 'com.github.zillachan:libzilla:1.0.70'
+	dependencies {
+	        compile 'com.github.zillachan:libzilla:v1.0.70'
+	}
 	
 ```
 
