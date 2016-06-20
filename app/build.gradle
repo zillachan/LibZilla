@@ -54,7 +54,7 @@ dependencies {
 //    compile project(':zlistview')
 //    compile project(':loading')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:+'
+    compile 'com.android.support:appcompat-v7:24.0.0'
 }
 
 
