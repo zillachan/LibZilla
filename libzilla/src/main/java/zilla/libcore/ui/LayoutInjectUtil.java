@@ -23,16 +23,32 @@ import com.github.snowdream.android.util.Log;
  */
 public class LayoutInjectUtil {
     /**
-     * 获取容器的布局id
+     * get id of layout
+     *
      * @param container the container of InjectLayout
      * @return the layout id
      */
-    public static int getInjectLayoutId(Object container){
+    public static int getInjectLayoutId(Object container) {
         InjectLayout injectLayout = container.getClass().getAnnotation(InjectLayout.class);
-        if(injectLayout == null) {
-            Log.d("Can not find annotation 'InjectLayout' on "+container.getClass().getName()+".");
+        if (injectLayout == null) {
+            Log.d("Can not find annotation 'InjectLayout' on " + container.getClass().getName() + ".");
             return 0;
         }
         return injectLayout.value();
+    }
+
+    /**
+     * get id of menu
+     *
+     * @param container
+     * @return
+     */
+    public static int getInjectMenuId(Object container) {
+        InjectLayout injectLayout = container.getClass().getAnnotation(InjectLayout.class);
+        if (injectLayout == null) {
+            Log.d("Can not find annotation 'InjectLayout' on " + container.getClass().getName() + ".");
+            return 0;
+        }
+        return injectLayout.menu();
     }
 }

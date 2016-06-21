@@ -21,14 +21,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.zilla.libraryzilla.R;
+
+import butterknife.ButterKnife;
 import zilla.libcore.Zilla;
 import zilla.libcore.lifecircle.LifeCircle;
 import zilla.libcore.lifecircle.LifeCircleInject;
 import zilla.libcore.lifecircle.exit.AppExitLife;
 import zilla.libcore.ui.LayoutInjectUtil;
-import com.zilla.libraryzilla.R;
-
-import butterknife.ButterKnife;
 import zilla.libzilla.dialog.LoadingDialog;
 
 /**
@@ -81,8 +81,28 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
         ButterKnife.unbind(this);
     }
 
+    protected abstract void initViews();
+
+    protected abstract void initDatas();
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        onMenuClick(item);
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        onMenuClick(menuItem);
+        return false;
+    }
+
+    /**
+     * 如果使用菜单栏,重写该方法
+     *
+     * @param item
+     */
+    public void onMenuClick(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
@@ -90,28 +110,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
             default:
                 break;
         }
-        return super.onOptionsItemSelected(item);
-    }
-
-    protected abstract void initViews();
-
-    protected abstract void initDatas();
-
-    @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            default:
-                break;
-        }
-        return false;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.setting, menu);
+        int menuId = LayoutInjectUtil.getInjectMenuId(this);
+        if (menuId != 0) {
+            getMenuInflater().inflate(menuId, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 }

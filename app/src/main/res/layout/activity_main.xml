@@ -36,4 +36,9 @@
             android:layout_height="wrap_content"
             android:text="Go Validate"
             android:id="@+id/govalidate" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go Toolbar"
+        android:id="@+id/gotoolbar" />
 </LinearLayout>

@@ -18,6 +18,7 @@ package com.zilla.libraryzilla;
 import android.content.Intent;
 import android.view.View;
 
+import com.zilla.libraryzilla.test.toolbar.CustomToolBarActivity;
 import com.zilla.libraryzilla.test.validate.ValidateActivity;
 import com.zilla.libraryzilla.test.zlistview.ZListViewActivity;
 import zilla.libcore.ui.InjectLayout;
@@ -43,7 +44,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.goadapter, R.id.godb, R.id.goapi, R.id.gobinding,R.id.gozlistview,R.id.govalidate})
+    @OnClick({R.id.goadapter, R.id.godb, R.id.goapi, R.id.gobinding,R.id.gozlistview,R.id.govalidate,R.id.gotoolbar})
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.goadapter:
@@ -63,6 +64,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.govalidate:
                 startActivity(new Intent(this, ValidateActivity.class));
+                break;
+            case R.id.gotoolbar:
+                startActivity(new Intent(this, CustomToolBarActivity.class));
                 break;
             default:
                 break;

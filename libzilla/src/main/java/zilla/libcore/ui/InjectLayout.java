@@ -21,9 +21,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 布局注解,用于SetContentView；Activity和Fragment通用
- * 用法：
- * //@InjectLayout(id=R.layout.xxx)
+ * annotation for layout.eg. Activity.setContentView();also for Fragment
+ * usage：
+ * //@InjectLayout(id=R.layout.activity_welcome)
  * public class WelcomeActivity extends AppCompatActivity {
  * ...
  * }
@@ -32,5 +32,17 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface InjectLayout {
+    /**
+     * layout of activity/fragment
+     *
+     * @return
+     */
     int value();
+
+    /**
+     * activity menu
+     *
+     * @return
+     */
+    int menu() default 0;
 }
