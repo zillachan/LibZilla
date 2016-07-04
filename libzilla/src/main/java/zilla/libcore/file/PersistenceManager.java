@@ -82,4 +82,11 @@ public class PersistenceManager {
         cache.put(name, new WeakReference<Serializable>(obj));
         return FileHelper.saveObj(obj, FileHelper.PATH_FILES + name + ".obj");
     }
+
+    /**
+     * clear cache
+     */
+    public static void clearCache(){
+        cache.clear();
+    }
 }
