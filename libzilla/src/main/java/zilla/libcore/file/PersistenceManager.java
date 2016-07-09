@@ -68,25 +68,33 @@ public class PersistenceManager {
      * @return
      */
     public static boolean saveObj(Serializable obj) {
-        return saveObj(obj, obj.getClass().getSimpleName());
+        return saveObj(obj.getClass().getSimpleName(), obj);
     }
 
     /**
      * save obj
      *
+     * @param key
      * @param obj
-     * @param name
      * @return
      */
-    public static boolean saveObj(Serializable obj, String name) {
-        cache.put(name, new WeakReference<Serializable>(obj));
-        return FileHelper.saveObj(obj, FileHelper.PATH_FILES + name + ".obj");
+    public static boolean saveObj(String key, Serializable obj) {
+        cache.put(key, new WeakReference<Serializable>(obj));
+        return FileHelper.saveObj(obj, FileHelper.PATH_FILES + key + ".obj");
+    }
+
+    /**
+     * clear the key cache
+     * @param key
+     */
+    public static void clearKeyCache(String key) {
+        cache.put(key, null);
     }
 
     /**
      * clear cache
      */
-    public static void clearCache(){
+    public static void clearCache() {
         cache.clear();
     }
 }
