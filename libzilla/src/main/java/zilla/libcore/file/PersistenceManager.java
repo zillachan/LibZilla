@@ -15,6 +15,8 @@ limitations under the License.
  */
 package zilla.libcore.file;
 
+import com.github.snowdream.android.util.Log;
+
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -85,10 +87,27 @@ public class PersistenceManager {
 
     /**
      * clear the key cache
+     *
      * @param key
      */
     public static void clearKeyCache(String key) {
         cache.put(key, null);
+    }
+
+    /**
+     * persistence a obj that in memory
+     * @param key
+     * @return
+     */
+    public static boolean persistence(String key) {
+        try {
+            Serializable serializable = readObj(key);
+            saveObj(serializable);
+            return true;
+        } catch (Exception e) {
+            Log.e(e.getMessage());
+            return false;
+        }
     }
 
     /**
