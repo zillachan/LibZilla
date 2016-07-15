@@ -23,13 +23,31 @@ import android.widget.TextView;
  */
 public class UIValueUtil {
 
+    /**
+     * getTextValue
+     * @param editText
+     * @return
+     */
     public static String getTextViewValue(TextView editText) {
         String result = "";
-        if(editText == null) return result;
+        if (editText == null) return result;
         return editText.getText().toString().trim();
     }
 
-    public static boolean isEmpty(TextView textView){
+    /**
+     * setTextValue
+     * @param textValue
+     * @param value
+     */
+    public static void setTextValue(TextView textValue, String value) {
+        if (TextUtils.isEmpty(value)) {
+            textValue.setText("");
+        } else {
+            textValue.setText(value);
+        }
+    }
+
+    public static boolean isEmpty(TextView textView) {
         return TextUtils.isEmpty(getTextViewValue(textView));
     }
 }
