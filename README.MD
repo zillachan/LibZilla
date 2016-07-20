@@ -14,7 +14,7 @@
 	and in your application use:
 	
 	dependencies {
-	        compile 'com.github.zillachan:libzilla:1.0.71'
+	        compile 'com.github.zillachan:libzilla:1.0.76'
 	}
 	
 ```
@@ -380,3 +380,4 @@ If you use otto before,then you can understand it easy.
 
 ### ZillaAdapter ImageView's PlaceHolder
 ### AspectJ Support to simplify lifecicle.
+### @LifeCircleInject error in Fragment
