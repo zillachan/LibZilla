@@ -27,6 +27,7 @@ import zilla.libcore.api.ZillaApi;
 import zilla.libcore.db.DBHelper;
 
 import retrofit.RequestInterceptor;
+import zilla.libcore.util.CrashHandler;
 
 /**
  * Created by zilla on 9/8/15.
@@ -36,6 +37,7 @@ public class ZillaApplication extends Application implements Zilla.InitCallback,
     public void onCreate() {
         super.onCreate();
         new Zilla().setCallBack(this).initSystem(this);
+        CrashHandler.getInstance().init(this);
     }
 
     /**

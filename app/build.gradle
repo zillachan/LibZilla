@@ -51,6 +51,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':libzilla')
+    compile project(':libjerry')
 //    compile project(':zlistview')
 //    compile project(':loading')
     testCompile 'junit:junit:4.12'
