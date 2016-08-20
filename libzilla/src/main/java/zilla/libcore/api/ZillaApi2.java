@@ -147,6 +147,7 @@
 //     * @param error
 //     */
 //    public static void dealNetError(RetrofitError error) {
+//
 //        if (mIApiErrorHandler == null) {
 //            mIApiErrorHandler = new DefaultApiErrorHandler();
 //        }
