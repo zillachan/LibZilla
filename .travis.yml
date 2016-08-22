@@ -2,7 +2,7 @@ language: android
 android:
   components:
     - build-tools-24.0.0
-    - android-24
+    - android-23
     - extra
 
     # Uncomment the lines below if you want to
