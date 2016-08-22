@@ -15,11 +15,6 @@ android {
         versionName VERSION_NAME
     }
     signingConfigs {
-
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
 //        release {
 //            try {
 //                storeFile file("zilla.jks")
@@ -45,10 +40,14 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
     buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+//        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
     }
 }
@@ -61,7 +60,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.0.0'
 }
-
 
 
 import org.aspectj.bridge.IMessage
