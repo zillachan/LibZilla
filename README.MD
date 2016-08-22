@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/zillachan/LibZilla.svg?branch=master)](https://travis-ci.org/zillachan/LibZilla)
 #This is an Android library for fast development.
 
 ##Include
