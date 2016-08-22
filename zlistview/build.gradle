@@ -61,5 +61,5 @@ dependencies {
     compile project(':libzilla')
 }
 
-apply from: '../installv1.gradle'
-apply from: '../bintrayv1.gradle'
+//apply from: '../installv1.gradle'
+//apply from: '../bintrayv1.gradle'

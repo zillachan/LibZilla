@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//Properties properties = new Properties()
+//properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
@@ -15,17 +15,17 @@ android {
         versionName VERSION_NAME
     }
     signingConfigs {
-        release {
-            try {
-                storeFile file("zilla.jks")
-                storePassword properties.getProperty("keystore.password")
-                keyAlias "zilla"
-                keyPassword properties.getProperty("key.password")
-            }
-            catch (ex) {
-                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in local.properties.")
-            }
-        }
+//        release {
+//            try {
+//                storeFile file("zilla.jks")
+//                storePassword properties.getProperty("keystore.password")
+//                keyAlias "zilla"
+//                keyPassword properties.getProperty("key.password")
+//            }
+//            catch (ex) {
+//                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in local.properties.")
+//            }
+//        }
     }
 
     lintOptions {
@@ -40,10 +40,14 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
     buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+//        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
     }
 }
@@ -55,9 +59,8 @@ dependencies {
 //    compile project(':zlistview')
 //    compile project(':loading')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:appcompat-v7:'+SUPPORT_VERSIOM
 }
-
 
 
 import org.aspectj.bridge.IMessage
