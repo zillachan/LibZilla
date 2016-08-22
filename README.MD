@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/zillachan/LibZilla.svg?branch=master)](https://travis-ci.org/zillachan/LibZilla)
+# LibZilla [![Build Status](https://travis-ci.org/zillachan/LibZilla.svg?branch=master)](https://travis-ci.org/zillachan/LibZilla) [![Coverage Status](https://coveralls.io/repos/github/zillachan/LibZilla/badge.svg?branch=master)](https://coveralls.io/github/zillachan/LibZilla?branch=master)
 #This is an Android library for fast development.
 
 ##Include
