@@ -1,6 +1,10 @@
 language: android
 android:
   components:
+    - build-tools-24.0.0
+    - android-24
+    - extra
+
     # Uncomment the lines below if you want to
     # use the latest revision of Android SDK Tools
     # - platform-tools
