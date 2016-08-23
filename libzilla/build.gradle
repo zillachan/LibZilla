@@ -49,17 +49,17 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.github.snowdream.android.util:log:1.0.4'
     compile 'joda-time:joda-time:2.3'
-    compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
-    compile 'com.squareup.okhttp:okhttp:2.0.0'
-    compile 'com.squareup.retrofit:retrofit:1.8.0'
+//    compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
+//    compile 'com.squareup.okhttp:okhttp:2.0.0'
+//    compile 'com.squareup.retrofit:retrofit:1.8.0'
 
-//    compile 'com.google.code.gson:gson:2.5' // gson
-//    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
-//    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.1'//rxjava support
+    compile 'com.google.code.gson:gson:2.5' // gson
+    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.1'//rxjava support
     //retrofit 2.0 support
-//    compile 'com.squareup.retrofit2:retrofit:2.0.1'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
     //logLevel
-//    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     compile 'com.mobsandgeeks:android-saripaar:1.0.3'
     compile 'com.squareup.picasso:picasso:2.4.0'
 //    compile 'com.jakewharton:butterknife:6.0.0'

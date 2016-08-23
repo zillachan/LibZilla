@@ -20,13 +20,18 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.github.snowdream.android.util.Log;
-import com.zilla.libraryzilla.test.net.NetErrorHandler;
 
+import java.io.IOException;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import zilla.libcore.Zilla;
-import zilla.libcore.api.ZillaApi;
+import zilla.libcore.api.RetrofitAPI;
 import zilla.libcore.db.DBHelper;
-
-import retrofit.RequestInterceptor;
+import zilla.libcore.util.CrashHandler;
 
 /**
  * Created by zilla on 9/8/15.
@@ -36,6 +41,7 @@ public class ZillaApplication extends Application implements Zilla.InitCallback,
     public void onCreate() {
         super.onCreate();
         new Zilla().setCallBack(this).initSystem(this);
+        CrashHandler.getInstance().init(this);
     }
 
     /**
@@ -53,14 +59,23 @@ public class ZillaApplication extends Application implements Zilla.InitCallback,
      * Config API info
      */
     private void initApi() {
-        ZillaApi.normalRestAdapter = ZillaApi.getRESTAdapter(new RequestInterceptor() {
-            @Override
-            public void intercept(RequestFacade requestFacade) {
-//                requestFacade.addEncodedPathParam();
-            }
-        });
-
-        ZillaApi.setmIApiErrorHandler(new NetErrorHandler());
+        RetrofitAPI.okHttpClient=new OkHttpClient.Builder()
+                .addInterceptor(new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+                    @Override
+                    public void log(String message) {
+                        System.out.println(message);
+                    }
+                }))
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request original=chain.request();
+                        //自定义请求体
+                        Request.Builder builder=original.newBuilder();
+                        //builder.addHeader("appid","176B381904E6E56E");
+                        return chain.proceed(builder.build());
+                    }
+                }).build();
     }
 
     @Override

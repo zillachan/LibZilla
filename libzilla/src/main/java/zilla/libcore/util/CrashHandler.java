@@ -114,6 +114,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         }
         //收集设备参数信息
         collectDeviceInfo(mContext);
+        ex.printStackTrace();
         //使用Toast来显示异常信息
         new Thread() {
             @Override

@@ -17,15 +17,14 @@
 package zilla.libcore.api;
 
 import android.content.Context;
-import retrofit.RetrofitError;
 
 /**
  * Error Handler
  * Created by Zilla on 19/12/2015.
  */
-public interface IApiErrorHandler {
+public  abstract class IApiErrorHandler<T> {
 
-    boolean dealCustomError(Context context, IApiModel object);
+    protected abstract void dealCustomError(T error);
 
-    void dealNetError(RetrofitError error);
+    protected abstract void dealNetError(Throwable error);
 }

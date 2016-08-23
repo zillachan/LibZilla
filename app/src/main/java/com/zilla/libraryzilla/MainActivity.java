@@ -16,8 +16,11 @@ limitations under the License.
 package com.zilla.libraryzilla;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.ggx.libjerry.imagefileselector.ImageFileCropSelector;
+import com.github.snowdream.android.util.Log;
 import com.zilla.libraryzilla.test.toolbar.CustomToolBarActivity;
 import com.zilla.libraryzilla.test.validate.ValidateActivity;
 import com.zilla.libraryzilla.test.zlistview.ZListViewActivity;
@@ -26,17 +29,45 @@ import com.zilla.libraryzilla.test.api.APIActivity;
 import com.zilla.libraryzilla.test.binding.BindingActivity;
 import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.test.db.DBTestActivity;
-import com.zilla.libraryzilla.test.adapter.ListViewTestActivity;
 
 import butterknife.OnClick;
 
 @InjectLayout(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
-
+    ImageFileCropSelector selector;
     @Override
     protected void initViews() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ImageFileCropSelector selector=new ImageFileCropSelector(this);
+        selector.setQuality(80);//图片的压缩质量
+        selector.setOutPutImageSize(100,100);//图片压缩后的输出大小
+        selector.setOpenCrop(this);//开启裁减
+        selector.setCropOutWH(100,100);//设置裁减的最大宽高
+        selector.setAspectXY(1,1);//设置裁减框的比例
 
+        selector.setCallback(new ImageFileCropSelector.Callback() {
+            @Override
+            public void onSuccess(String file) {
+                Log.i("图片返回成功"+file);
+            }
+
+            @Override
+            public void onError() {
+                Log.i("图片返回失败");
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        selector.onActivityResult(requestCode,resultCode,data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        selector.onRequestPermissionsResult(requestCode,permissions,grantResults);
     }
 
     @Override
@@ -48,7 +79,8 @@ public class MainActivity extends BaseActivity {
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.goadapter:
-                startActivity(new Intent(this, ListViewTestActivity.class));
+                //startActivity(new Intent(this, ListViewTestActivity.class));
+                selector.takePhoto(this);
                 break;
             case R.id.godb:
                 startActivity(new Intent(this, DBTestActivity.class));

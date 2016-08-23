@@ -16,92 +16,38 @@
 
 package zilla.libcore.api.handler;
 
-import android.content.Context;
-import com.github.snowdream.android.util.Log;
-import retrofit.RetrofitError;
-import zilla.libcore.R;
-import zilla.libcore.api.IApiModel;
-import zilla.libcore.api.IApiErrorHandler;
-import zilla.libcore.util.Util;
-
 import java.io.InterruptedIOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+
+import zilla.libcore.R;
+import zilla.libcore.api.APIError;
+import zilla.libcore.api.IApiErrorHandler;
+import zilla.libcore.util.Util;
 
 /**
  * Default error handler
  * Created by zilla on 14/12/17.
  */
-public class DefaultApiErrorHandler implements IApiErrorHandler {
+    public class DefaultApiErrorHandler extends IApiErrorHandler<APIError> {
+
 
     @Override
-    public boolean dealCustomError(Context context, IApiModel object) {
-        boolean isCustomError = true;
-        try {
-            int errorCode = object.getStatus();
-            switch (errorCode) {
-                case 1:
-                    break;
-                default:
-                    break;
-            }
-            Util.toastMsg("" + object.getMessage());
-            Log.e(object.toString());
-        } catch (Exception e) {
-            Log.e(e.getMessage());
-            Util.toastMsg("" + object.toString());
-        }
-        return false;
+    protected void dealCustomError(APIError error) {
+
     }
 
     @Override
-    public void dealNetError(RetrofitError error) {
-        switch (error.getKind()) {
-            case NETWORK:
-                Throwable throwable = error.getCause();
-                if (throwable instanceof SocketTimeoutException) {
-                    Util.toastMsg(R.string.net_error_timeout);
-                } else if (throwable instanceof UnknownHostException) {
-                    Util.toastMsg(R.string.net_error_unknownhost);
-                } else if (throwable instanceof InterruptedIOException) {
-                    Util.toastMsg(R.string.net_error_timeout);
-                } else {
-                    Util.toastMsg(R.string.net_error_neterror);
-                }
-                break;
-            case HTTP:
-                int statusCode = error.getResponse().getStatus();
-                switch (statusCode) {
-                    case 401:
-                        Util.toastMsg(R.string.net_http_401);
-                        break;
-                    case 403:
-                        Util.toastMsg(R.string.net_http_403);
-                        break;
-                    case 404:
-                        Util.toastMsg(R.string.net_http_404);
-                        break;
-                    case 500:
-                        Util.toastMsg(R.string.net_http_500);
-                        break;
-                    case 502:
-                        Util.toastMsg(R.string.net_http_502);
-                        break;
-                    default:
-                        Util.toastMsg(R.string.net_http_other);
-                        break;
-                }
-                break;
-            case CONVERSION:
-                Util.toastMsg(R.string.net_parse_error);
-                Log.e("Parse error", error);
-                break;
-            case UNEXPECTED:
-                Util.toastMsg(R.string.net_other);
-                Log.e("UnKnuown error", error);
-                break;
-            default:
-                break;
+    protected void dealNetError(Throwable error) {
+        Throwable throwable = error.getCause();
+        if (throwable instanceof SocketTimeoutException) {
+            Util.toastMsg(R.string.net_error_timeout);
+        } else if (throwable instanceof UnknownHostException) {
+            Util.toastMsg(R.string.net_error_unknownhost);
+        } else if (throwable instanceof InterruptedIOException) {
+            Util.toastMsg(R.string.net_error_timeout);
+        } else {
+            Util.toastMsg(R.string.net_error_neterror);
         }
     }
 }

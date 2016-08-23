@@ -16,47 +16,27 @@
 
 package com.zilla.libraryzilla.test.api;
 
-import com.zilla.libraryzilla.common.CommonModel;
 import com.zilla.libraryzilla.test.api.model.Org;
-import retrofit.Callback;
-import retrofit.http.GET;
-import retrofit.http.Path;
-//import retrofit2.Call;
-//import rx.Observable;
-//import zilla.libcore.api.CallbackProxy;
-import zilla.libcore.api.SupportNetLoading;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * Created by zilla on 10/9/15.
  */
 public interface GitHubService {
 
-    @GET("/orgs/{org}/repos")
-    void getRepos2(@Path("org") String org, Callback<List<Org>> callback);
-
-    @GET("/orgs/{org}/repos")
-    void getRepos3(@Path("org") String org, @SupportNetLoading Callback<CommonModel<List<Org>>> callback);
-
     /**
-     * API1 get
+     * API2 call
      *
      * @param org
-     * @param callback
+     * @return
      */
-    @GET("/orgs/{org}/repos")
-    void getRepos(@Path("org") String org, Callback<List<Org>> callback);
-//    Callback<List<Org>> callback
-
-//    /**
-//     * API2 call
-//     *
-//     * @param org
-//     * @return
-//     */
-//    @GET("/orgs/{org}/repos")
-//    Call<List<Org>> getRepos(@Path("org") String org);
+    @GET("orgs/{org}/repos")
+    Call<List<Org>> getRepos(@Path("org") String org);
 //
 //    /**
 //     * API2 RXjava

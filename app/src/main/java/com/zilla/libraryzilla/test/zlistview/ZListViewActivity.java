@@ -28,34 +28,39 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
-import zilla.libcore.api.ZillaApi;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import zilla.libcore.api.RetrofitAPI;
 import zilla.libcore.ui.InjectLayout;
 import zilla.libzilla.listview.ZListViewWraper;
+
+//import zilla.libcore.api.ZillaApi;
 
 @InjectLayout(R.layout.activity_zlistviewtest)
 public class ZListViewActivity extends BaseActivity {
 
     private ZListViewWraper<Org> xListViewWraper;
-    GitHubService service;
+
 
     @Override
     protected void initViews() {
-        service = ZillaApi.normalRestAdapter.create(GitHubService.class);
+        final GitHubService service = RetrofitAPI.createService(GitHubService.class);
+        final Call<List<Org>> call=service.getRepos("octokit");
         xListViewWraper = new ZListViewWraper<Org>(getWindow().getDecorView(), R.layout.item_zlistview, ViewHolder.class) {
             @Override
             public void loadData() {
-                service.getRepos("octokit", new Callback<List<Org>>() {
+
+                call.enqueue(new Callback<List<Org>>() {
                     @Override
-                    public void success(List<Org> orgs, Response response) {
-                        xListViewWraper.setModelList(orgs);
-//                        xListViewWraper.setModelList(new ArrayList<Org>());
+                    public void onResponse(Call<List<Org>> call, Response<List<Org>> response) {
+                        if(response.isSuccessful()){
+                            xListViewWraper.setModelList(response.body());
+                        }
                     }
 
                     @Override
-                    public void failure(RetrofitError error) {
+                    public void onFailure(Call<List<Org>> call, Throwable t) {
                         xListViewWraper.refreshFail();
                     }
                 });
@@ -63,14 +68,16 @@ public class ZListViewActivity extends BaseActivity {
 
             @Override
             public void loadMore() {
-                service.getRepos("octokit", new Callback<List<Org>>() {
+                call.enqueue(new Callback<List<Org>>() {
                     @Override
-                    public void success(List<Org> orgs, Response response) {
-                        xListViewWraper.addModelList(orgs);
+                    public void onResponse(Call<List<Org>> call, Response<List<Org>> response) {
+                        if(response.isSuccessful()){
+                            xListViewWraper.setModelList(response.body());
+                        }
                     }
 
                     @Override
-                    public void failure(RetrofitError error) {
+                    public void onFailure(Call<List<Org>> call, Throwable t) {
                         xListViewWraper.refreshFail();
                     }
                 });
