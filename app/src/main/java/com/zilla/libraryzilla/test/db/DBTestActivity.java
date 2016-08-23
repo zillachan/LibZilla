@@ -93,13 +93,13 @@ public class DBTestActivity extends BaseActivity {
 //
 //
 //                //Query
-//                User user1 = ZillaDB.getInstance().query(User.class, "address = ?", new String[]{"address1"});
+//                User user1 = ZillaDB.getInstance().find(User.class, "address = ?", new String[]{"address1"});
 //                Log.i("user1:" + user1.toString());
 //
 //                ZillaDB.getInstance().update(user1);
 //
-//                //query all rows
-//                List<User> users = ZillaDB.getInstance().queryAll(User.class);
+//                //find all rows
+//                List<User> users = ZillaDB.getInstance().findAll(User.class);
 //                for (User u : users) {
 //                    Log.i(u.toString());
 //                }
@@ -110,9 +110,9 @@ public class DBTestActivity extends BaseActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //query all rows
+                //find all rows
                 Log.d("===================================READ=======================================");
-                List<User> users = ZillaDB.getInstance().queryAll(User.class);
+                List<User> users = ZillaDB.getInstance().findAll(User.class);
                 Log.d("===================================READ_RESULT================================");
                 for (User u : users) {
                     Log.i("****" + u.toString());

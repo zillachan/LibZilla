@@ -333,7 +333,7 @@ public class ZillaDB {
      */
     public boolean merge(Object model, String whereClause, String[] whereArgs) {
 //        lock.writeLock().lock();
-        Object local = query(model.getClass(), whereClause, whereArgs);
+        Object local = find(model.getClass(), whereClause, whereArgs);
         if (local == null) {
             return save(model);
         }
@@ -516,14 +516,14 @@ public class ZillaDB {
     }
 
     /**
-     * query all rows from table
+     * find all rows from table
      * <br>
      * 查询表中所有记录，并转化成model数组
      *
      * @param c Type
      * @return model list
      */
-    public <T> List<T> queryAll(Class<T> c) {
+    public <T> List<T> findAll(Class<T> c) {
         lock.readLock().lock();
         filter(c);
         String tableName = AnnotationUtil.getClassName(c);
@@ -549,7 +549,7 @@ public class ZillaDB {
     }
 
     /**
-     * query one row form table by key
+     * find one row form table by key
      * <br>
      * 查询单条记录
      *
@@ -557,7 +557,7 @@ public class ZillaDB {
      * @param id id
      * @return Object 没有查找到返回null
      */
-    public <T> T queryById(Class<T> c, String id) {
+    public <T> T findById(Class<T> c, String id) {
         lock.readLock().lock();
         filter(c);
         String tableName = AnnotationUtil.getClassName(c);
@@ -580,12 +580,12 @@ public class ZillaDB {
         return result;
     }
 
-    public <T> List<T> query(Class<T> c, String condition) {
+    public <T> List<T> find(Class<T> c, String condition) {
         lock.readLock().lock();
         List<T> result = null;
         try {
             filter(c);
-            result = query(c, condition, null, null, null);
+            result = find(c, condition, null, null, null);
         } catch (Exception e) {
             Log.e("Exception", e);
         } finally {
@@ -595,7 +595,7 @@ public class ZillaDB {
     }
 
     /**
-     * query first row by the given condition
+     * find first row by the given condition
      * <br>
      * 根据条件查询一条记录
      *
@@ -604,12 +604,12 @@ public class ZillaDB {
      * @param condition where list
      * @return Object 没有查找到返回null
      */
-    public <T> T query(Class<T> c, String selection, String[] condition) {
+    public <T> T find(Class<T> c, String selection, String[] condition) {
         lock.readLock().lock();
         T result = null;
         try {
             filter(c);
-            List<T> items = query(c, selection, condition, null, "1");
+            List<T> items = find(c, selection, condition, null, "1");
             if (items != null && items.size() > 0) {
                 result = items.get(0);
             }
@@ -622,7 +622,7 @@ public class ZillaDB {
     }
 
     /**
-     * query rows form table DESC
+     * find rows form table DESC
      * <br>
      * 数据库查询, 默认情况下采用ID降序排列
      *
@@ -632,12 +632,12 @@ public class ZillaDB {
      * @param limit     limit
      * @return model list
      */
-    public <T> List<T> query(Class<T> c, String selection, String[] condition, String limit) {
+    public <T> List<T> find(Class<T> c, String selection, String[] condition, String limit) {
         lock.readLock().lock();
         List<T> result = null;
         try {
             filter(c);
-            result = query(c, selection, condition, null, limit);
+            result = find(c, selection, condition, null, limit);
         } catch (Exception e) {
             Log.e("Exception", e);
         } finally {
@@ -647,7 +647,7 @@ public class ZillaDB {
 
     }
 
-    public <T> List<T> query(Class<T> c, String selection, String[] condition, String orderBy, String limit) {
+    public <T> List<T> find(Class<T> c, String selection, String[] condition, String orderBy, String limit) {
         lock.readLock().lock();
         filter(c);
         String tableName = AnnotationUtil.getClassName(c);
