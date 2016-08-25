@@ -13,6 +13,8 @@ android {
         targetSdkVersion COMPILE_SDK_VERSION as int
         versionCode VERSION_CODE as int
         versionName VERSION_NAME
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
 //        release {
@@ -59,7 +61,12 @@ dependencies {
 //    compile project(':zlistview')
 //    compile project(':loading')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:'+SUPPORT_VERSIOM
+    compile 'com.android.support:appcompat-v7:' + SUPPORT_VERSIOM
+
+    androidTestCompile 'com.android.support:support-annotations:' + SUPPORT_VERSIOM
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
 }
 
 

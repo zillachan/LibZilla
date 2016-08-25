@@ -62,4 +62,8 @@ public class BindingActivity extends BaseActivity {
 
         ZillaBinding.binding(this, user);
     }
+
+    public User getUser() {
+        return user;
+    }
 }
