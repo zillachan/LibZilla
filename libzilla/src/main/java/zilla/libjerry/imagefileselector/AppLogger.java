@@ -1,4 +1,4 @@
-package com.ggx.libjerry.imagefileselector;
+package zilla.libjerry.imagefileselector;
 
 /**
  * User: Jiang Qi

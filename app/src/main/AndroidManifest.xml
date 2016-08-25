@@ -32,18 +32,19 @@
         <activity
             android:name=".test.adapter.ListViewTestActivity"
             android:label="@string/activity_listview" />
-        <activity android:name=".test.db.DBTestActivity"></activity>
-        <activity android:name=".test.api.APIActivity"></activity>
+        <activity android:name=".test.db.DBTestActivity" />
+        <activity android:name=".test.api.APIActivity" />
         <activity
             android:name=".test.binding.BindingActivity"
-            android:label="@string/title_activity_binding"></activity>
+            android:label="@string/title_activity_binding" />
         <activity
             android:name=".test.zlistview.ZListViewActivity"
-            android:label="@string/title_activity_zlistview"></activity>
+            android:label="@string/title_activity_zlistview" />
         <activity
             android:name=".test.validate.ValidateActivity"
-            android:label="@string/title_activity_validate"></activity>
-        <activity android:name=".test.toolbar.CustomToolBarActivity"></activity>
+            android:label="@string/title_activity_validate" />
+        <activity android:name=".test.toolbar.CustomToolBarActivity" />
+        <activity android:name=".test.selectorphoto.SelectorPhotoActivity"></activity>
     </application>
 
 </manifest>

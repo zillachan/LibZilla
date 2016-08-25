@@ -1,4 +1,4 @@
-package com.ggx.libjerry.imagefileselector;
+package zilla.libjerry.imagefileselector;
 
 import android.Manifest;
 import android.app.Activity;

@@ -1,4 +1,4 @@
-package com.ggx.libjerry.imagefileselector;
+package zilla.libjerry.imagefileselector;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
