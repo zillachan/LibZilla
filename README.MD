@@ -1,30 +1,27 @@
 # LibZilla [![Build Status](https://travis-ci.org/zillachan/LibZilla.svg?branch=master)](https://travis-ci.org/zillachan/LibZilla) [![Coverage Status](https://coveralls.io/repos/github/zillachan/LibZilla/badge.svg?branch=master)](https://coveralls.io/github/zillachan/LibZilla?branch=master)
 #This is an Android library for fast development.
 
+If you want to know more about libzilla,please visit <https://github.com/zillachan/LibZilla>
+
 ##Include
 
 
 ```
-	allprojects {
-		repositories {
-			...
-			maven { url "https://jitpack.io" }
-		}
+allprojects {
+	repositories {
+		...
+		maven { url "https://jitpack.io" }
 	}
-	
-	and in your application use:
-	
-	dependencies {
-	        compile 'com.github.zillachan:libzilla:1.0.76'
-	}
+}
+
+and in your application use:
+
+dependencies {
+        compile 'com.github.zillachan:libzilla:1.0.76'
+}
 	
 ```
 
-
-## LibZilla
-
-
-If you want to know more about libzilla,please visit <https://github.com/zillachan/LibZilla>
 
 ##Application
 ```
@@ -376,6 +373,12 @@ public class ZListViewActivity extends BaseActivity {
 ##Others
 ###BusProvider
 If you use otto before,then you can understand it easy.
+
+##Test
+
+Run->Edit Configurations->Android Test->Specific instrumentation runner:android.support.test.runner.AndroidJUnitRunner
+
+refer:<https://google.github.io/android-testing-support-library/docs/espresso/index.html>
 
 ##TODO
 
