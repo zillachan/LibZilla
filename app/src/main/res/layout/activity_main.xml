@@ -47,4 +47,9 @@
         android:layout_height="wrap_content"
         android:text="Go Selector photo or selectImage"
         android:id="@+id/gophoto" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go Share Element activity"
+        android:id="@+id/shareele" />
 </LinearLayout>

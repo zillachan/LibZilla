@@ -45,6 +45,10 @@
             android:label="@string/title_activity_validate" />
         <activity android:name=".test.toolbar.CustomToolBarActivity" />
         <activity android:name=".test.selectorphoto.SelectorPhotoActivity"></activity>
+        <activity android:name=".test.activitytransition.TransitionActivity"
+            android:theme="@style/AppTheme.Base"/>
+        <activity android:name=".test.activitytransition.ImageDetailActivity"
+            />
     </application>
 
 </manifest>

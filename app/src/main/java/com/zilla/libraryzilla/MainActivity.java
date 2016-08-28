@@ -16,23 +16,21 @@ limitations under the License.
 package com.zilla.libraryzilla;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.ggx.libjerry.imagefileselector.ImageFileCropSelector;
-import com.github.snowdream.android.util.Log;
+import com.zilla.libraryzilla.common.BaseActivity;
+import com.zilla.libraryzilla.test.activitytransition.TransitionActivity;
 import com.zilla.libraryzilla.test.adapter.ListViewTestActivity;
+import com.zilla.libraryzilla.test.api.APIActivity;
+import com.zilla.libraryzilla.test.binding.BindingActivity;
+import com.zilla.libraryzilla.test.db.DBTestActivity;
 import com.zilla.libraryzilla.test.selectorphoto.SelectorPhotoActivity;
 import com.zilla.libraryzilla.test.toolbar.CustomToolBarActivity;
 import com.zilla.libraryzilla.test.validate.ValidateActivity;
 import com.zilla.libraryzilla.test.zlistview.ZListViewActivity;
-import zilla.libcore.ui.InjectLayout;
-import com.zilla.libraryzilla.test.api.APIActivity;
-import com.zilla.libraryzilla.test.binding.BindingActivity;
-import com.zilla.libraryzilla.common.BaseActivity;
-import com.zilla.libraryzilla.test.db.DBTestActivity;
 
 import butterknife.OnClick;
+import zilla.libcore.ui.InjectLayout;
 
 @InjectLayout(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
@@ -50,7 +48,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.gophoto,R.id.goadapter, R.id.godb, R.id.goapi, R.id.gobinding,R.id.gozlistview,R.id.govalidate,R.id.gotoolbar})
+    @OnClick({R.id.shareele,R.id.gophoto,R.id.goadapter, R.id.godb, R.id.goapi, R.id.gobinding,R.id.gozlistview,R.id.govalidate,R.id.gotoolbar})
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.goadapter:
@@ -76,6 +74,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.gophoto:
                 startActivity(new Intent(this, SelectorPhotoActivity.class));
+                break;
+            case R.id.shareele:
+                startActivity(new Intent(this, TransitionActivity.class));
                 break;
             default:
                 break;

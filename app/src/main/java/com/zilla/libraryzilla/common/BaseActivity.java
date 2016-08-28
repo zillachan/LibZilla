@@ -56,9 +56,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
         Zilla.ACTIVITY = this;
         LifeCircle.onCreate(this);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mToolbar.setOnMenuItemClickListener(this);
+        if(mToolbar!=null){
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mToolbar.setOnMenuItemClickListener(this);
+        }
         ButterKnife.bind(this);
         initViews();
         initDatas();
