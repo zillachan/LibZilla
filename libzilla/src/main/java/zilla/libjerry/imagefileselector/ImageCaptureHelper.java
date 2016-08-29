@@ -133,15 +133,14 @@ class ImageCaptureHelper {
             if (ActivityCompat.checkSelfPermission(fragment.getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
                     || ActivityCompat.checkSelfPermission(fragment.getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 //可以得到一个是否需要弹出解释申请该权限的提示给用户如果为true则表示可以弹
-                if (ActivityCompat.shouldShowRequestPermissionRationale(fragment.getActivity(), Manifest.permission.CAMERA)) {
+                if (fragment.shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)||
+                        fragment.shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     //允许弹出提示
-                    ActivityCompat.requestPermissions(fragment.getActivity(),
-                            new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PREMISSION);
+                    fragment.requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PREMISSION);
 
                 } else {
                     //不允许弹出提示
-                    ActivityCompat.requestPermissions(fragment.getActivity(),
-                            new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PREMISSION);
+                    fragment.requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PREMISSION);
                 }
             } else {
                 try {
