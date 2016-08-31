@@ -23,6 +23,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import zilla.libcore.api.annotation.Dialog;
 
 /**
  * Created by zilla on 10/9/15.
@@ -35,9 +36,11 @@ public interface GitHubService {
      * @param org
      * @return
      */
+
     @GET("orgs/{org}/repos")
+    @Dialog(value = "正在努力加载",layout = 0)
     Call<List<Org>> getRepos(@Path("org") String org);
-//
+
 //    /**
 //     * API2 RXjava
 //     *

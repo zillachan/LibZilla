@@ -57,6 +57,7 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.1'//rxjava support
     //retrofit 2.0 support
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
     //logLevel
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     compile 'com.mobsandgeeks:android-saripaar:1.0.3'

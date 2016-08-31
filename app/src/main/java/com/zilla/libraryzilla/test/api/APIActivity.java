@@ -27,6 +27,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import zilla.libcore.api.RetrofitAPI;
+import zilla.libcore.api.annotation.Dialog;
+import zilla.libcore.api.annotation.Dismiss;
 import zilla.libcore.ui.InjectLayout;
 
 @InjectLayout(R.layout.activity_api)
@@ -73,21 +75,27 @@ public class APIActivity extends BaseActivity {
         GitHubService service = RetrofitAPI.createService(GitHubService.class);
         Call<List<Org>> call = service.getRepos("octokit");
         call.enqueue(new Callback<List<Org>>() {
-            @Override
+            @Dismiss
             public void onResponse(Call<List<Org>> call, Response<List<Org>> response) {
                 if(response.isSuccessful()){
                     Log.i(response.body().toString());
                 }
             }
-
-            @Override
+            @Dismiss
             public void onFailure(Call<List<Org>> call, Throwable t) {
                 Log.i("请求失败");
                 t.fillInStackTrace();
             }
         });
     }
-//
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("请求界面销毁。。。。");
+    }
+
+    //
 //    private void getDataByRX() {
 //        final GitHubService service = ZillaApi2.create(GitHubService.class);
 //        service.getReposRx("octokit").subscribe(new Action1<List<Org>>() {

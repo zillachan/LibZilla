@@ -1,5 +1,9 @@
 package zilla.libcore.api;
 
+import android.content.Context;
+
+import java.lang.reflect.Proxy;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -28,7 +32,10 @@ public class RetrofitAPI {
     public static <S> S createService(Class<S> serviceClass) {
             if (okHttpClient!=null)
                 builder.client(okHttpClient);
-        return  builder.build().create(serviceClass);
+        S realS=builder.build().create(serviceClass);//真实角色
+        ServiceProxy proxy=new ServiceProxy(realS);
+        S s= (S) Proxy.newProxyInstance(proxy.getClass().getClassLoader(),realS.getClass().getInterfaces(),proxy);
+        return  s;
     }
 
     /**
