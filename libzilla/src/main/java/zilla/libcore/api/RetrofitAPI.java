@@ -1,6 +1,6 @@
 package zilla.libcore.api;
 
-import android.content.Context;
+import com.github.snowdream.android.util.Log;
 
 import java.lang.reflect.Proxy;
 
@@ -13,7 +13,8 @@ import zilla.libcore.api.handler.DefaultApiErrorHandler;
 import zilla.libcore.file.AddressManager;
 
 /**
- * Created by John on 2016/8/23.
+ * Created by Jerry.Guan on 2016/8/23.
+ *
  */
 public class RetrofitAPI {
 
@@ -32,29 +33,26 @@ public class RetrofitAPI {
     public static <S> S createService(Class<S> serviceClass) {
             if (okHttpClient!=null)
                 builder.client(okHttpClient);
-        S realS=builder.build().create(serviceClass);//真实角色
-        ServiceProxy proxy=new ServiceProxy(realS);
-        S s= (S) Proxy.newProxyInstance(proxy.getClass().getClassLoader(),realS.getClass().getInterfaces(),proxy);
-        return  s;
+            S realS=builder.build().create(serviceClass);//真实角色
+            ServiceProxy proxy=new ServiceProxy(realS);
+            S s= (S) Proxy.newProxyInstance(proxy.getClass().getClassLoader(),realS.getClass().getInterfaces(),proxy);
+            return  s;
     }
 
     /**
      * 创建指定拦截器的Service
      * @param serviceClass
-     * @param interceptor 如果拦截器为null则创建普通的Service
+     * @param interceptor 如果拦截器为null则创建无拦截器的普通的Service
      * @param <S>
      * @return
      */
     public static <S>S createCustomService(Class<S> serviceClass,Interceptor interceptor){
         if(interceptor!=null){
-            okHttpClient=new OkHttpClient.Builder()
+            OkHttpClient okHttpClient=new OkHttpClient.Builder()
                     .addInterceptor(getLogger())
                     .addInterceptor(interceptor).build();
-        }else{
-            okHttpClient=new OkHttpClient.Builder()
-                    .addInterceptor(getLogger()).build();
+            builder.client(okHttpClient);
         }
-        builder.client(okHttpClient);
         return builder.build().create(serviceClass);
     }
 
@@ -66,7 +64,7 @@ public class RetrofitAPI {
         return new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                //Log.d(message);
+                Log.d(message);
             }
         });
     }

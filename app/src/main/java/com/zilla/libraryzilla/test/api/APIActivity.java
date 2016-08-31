@@ -27,7 +27,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import zilla.libcore.api.RetrofitAPI;
-import zilla.libcore.api.annotation.Dialog;
 import zilla.libcore.api.annotation.Dismiss;
 import zilla.libcore.ui.InjectLayout;
 
