@@ -1,6 +1,5 @@
 package zilla.libcore.api;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 
 import org.greenrobot.eventbus.EventBus;
@@ -16,22 +15,23 @@ import retrofit2.Call;
 import zilla.libcore.Zilla;
 import zilla.libcore.api.annotation.Dialog;
 import zilla.libcore.api.eventModel.EventModel;
+import zilla.libjerry.ui.CustomProgress;
 
 /**
  * Created by Jerry.Guan on 2016/8/30.
  *
  */
-public class ServiceProxy implements InvocationHandler,DialogInterface.OnDismissListener{
+public class ServiceProxy implements InvocationHandler,DialogInterface.OnCancelListener{
 
     private Object obj;
-    ProgressDialog progressDialog;
+    CustomProgress progressDialog;
     EventBus eventBus;
     private List<Call> callList;
 
     public ServiceProxy(Object obj) {
         this.obj = obj;
-        progressDialog=new ProgressDialog(Zilla.ACTIVITY);
-        progressDialog.setOnDismissListener(this);
+        progressDialog=CustomProgress.build(Zilla.ACTIVITY,null);
+        progressDialog.setOnCancelListener(this);
         eventBus=EventBus.getDefault();
         callList=new ArrayList<>();
     }
@@ -44,7 +44,8 @@ public class ServiceProxy implements InvocationHandler,DialogInterface.OnDismiss
             }
             Dialog dialog=method.getAnnotation(Dialog.class);
             progressDialog.setMessage(dialog.value());
-            progressDialog.show();
+            if(!progressDialog.isShowing())
+                progressDialog.show();
         }
         //代理方法返回值
         Object realObj=method.invoke(obj,objects);
@@ -57,17 +58,19 @@ public class ServiceProxy implements InvocationHandler,DialogInterface.OnDismiss
 
     @Subscribe
     public void onEvent(EventModel model){
+        EventBus.getDefault().unregister(this);
         if(progressDialog!=null&&progressDialog.isShowing()){
             progressDialog.dismiss();
         }
-
+        callList.clear();
     }
 
     @Override
-    public void onDismiss(DialogInterface dialogInterface) {
+    public void onCancel(DialogInterface dialogInterface) {
         EventBus.getDefault().unregister(this);
         for (Call call:callList){
             call.cancel();
         }
+        callList.clear();
     }
 }

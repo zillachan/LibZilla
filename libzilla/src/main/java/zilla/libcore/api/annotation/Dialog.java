@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import zilla.libcore.R;
+
 /**
  *
  * @author jerry.Guan
@@ -15,5 +17,4 @@ import java.lang.annotation.Target;
 public @interface Dialog {
 
     String value() default "加载中...";
-    int layout();
 }
