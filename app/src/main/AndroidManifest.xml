@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
+    <!-- <uses-permission android:name="android.permission.CAMERA"/> -->
     <application
         android:name=".ZillaApplication"
         android:allowBackup="true"
@@ -44,11 +45,12 @@
             android:name=".test.validate.ValidateActivity"
             android:label="@string/title_activity_validate" />
         <activity android:name=".test.toolbar.CustomToolBarActivity" />
-        <activity android:name=".test.selectorphoto.SelectorPhotoActivity"></activity>
-        <activity android:name=".test.activitytransition.TransitionActivity"
-            android:theme="@style/AppTheme.Base"/>
-        <activity android:name=".test.activitytransition.ImageDetailActivity"
-            />
+        <activity android:name=".test.selectorphoto.SelectorPhotoActivity" />
+        <activity
+            android:name=".test.activitytransition.TransitionActivity"
+            android:theme="@style/AppTheme.Base" />
+        <activity android:name=".test.activitytransition.ImageDetailActivity" />
+        <activity android:name=".test.permission.PermissionActivity"></activity>
     </application>
 
 </manifest>

@@ -370,6 +370,40 @@ public class ZListViewActivity extends BaseActivity {
 
 ```
 
+##Android M Permission
+This is a tool for managing dynamic permissions.
+#for Activity and Fragment, you can
+```
+    //Call it anywhere you want it to.
+    MPermission.with(this)
+            .setPermission(Manifest.permission.READ_EXTERNAL_STORAGE
+            ,Manifest.permission.WRITE_EXTERNAL_STORAGE...)
+            .requestPermission();
+            
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        MPermission.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
+    }
+
+    @PermissionOK
+    private void valdateSuccess(){
+        Log.i("权限通过");
+
+    }
+
+    @PermissionFail
+    public void validateFail(){
+        Log.i("没有相应的权限");
+    }
+```
+Now, this is ok! it's very simple.
+
+####@PermissionOK
+Define a method and add to it,After successed of the callback
+####@PermissionFail
+Define a method and add to it,After failed of the callback
+
 ##Others
 ###BusProvider
 If you use otto before,then you can understand it easy.

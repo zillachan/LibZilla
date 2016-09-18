@@ -9,5 +9,6 @@
         android:id="@+id/image1"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:transitionName="@string/image"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>

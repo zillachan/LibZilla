@@ -8,4 +8,8 @@
     <string name="dialog_loading">Loading...</string>
     <string name="title_activity_zlistview">ZListView</string>
     <string name="title_activity_validate">ValidateActivity</string>
+    <string name="image">image</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

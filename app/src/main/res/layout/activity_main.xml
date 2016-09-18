@@ -52,4 +52,9 @@
         android:layout_height="wrap_content"
         android:text="Go Share Element activity"
         android:id="@+id/shareele" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试动态权限"
+        android:id="@+id/permission" />
 </LinearLayout>

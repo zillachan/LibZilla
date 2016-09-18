@@ -1,6 +1,7 @@
 package com.zilla.libraryzilla.test.activitytransition;
 
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
@@ -21,6 +22,7 @@ public class ImageDetailActivity extends BaseActivity {
     @Override
     protected void initViews() {
         receiver=ActivityTransitionReceiver.with(this).to(image2).start();
+
     }
 
     @Override
@@ -32,6 +34,5 @@ public class ImageDetailActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         receiver.exit();
-
     }
 }
