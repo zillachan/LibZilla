@@ -372,7 +372,7 @@ public class ZListViewActivity extends BaseActivity {
 
 ##Android M Permission
 This is a tool for managing dynamic permissions.
-#for Activity and Fragment, you can
+####for Activity and Fragment, you can
 ```
     //Call it anywhere you want it to.
     MPermission.with(this)
