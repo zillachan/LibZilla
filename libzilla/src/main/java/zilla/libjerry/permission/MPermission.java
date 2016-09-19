@@ -7,7 +7,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -22,7 +21,7 @@ import zilla.libcore.Zilla;
  */
 public class MPermission {
 
-    private static final int PERMISSION_CODE = -0x100;
+    private static final int PERMISSION_CODE = 0x100;
     private Object obj;
     private static Method methodOK, methodFail;
 
@@ -30,6 +29,8 @@ public class MPermission {
 
     private MPermission(Object obj) {
         this.obj=obj;
+        methodOK=null;
+        methodFail=null;
         findMethod(obj);
     }
 
@@ -95,19 +96,20 @@ public class MPermission {
                 }
             }
         }
+
     }
 
     @TargetApi(Build.VERSION_CODES.M)
     private void requestPermissionApi23(){
         if(obj instanceof Activity){
             ((Activity)obj).requestPermissions(permissions,PERMISSION_CODE);
-        }else if(obj instanceof android.app.Fragment){
-            ((android.app.Fragment)obj).requestPermissions(permissions,PERMISSION_CODE);
+        }else if(obj instanceof Fragment){
+            ((Fragment)obj).requestPermissions(permissions,PERMISSION_CODE);
         }
     }
     private void requestPermissionApi(int[] grantResults){
 
-        if(obj instanceof AppCompatActivity){
+        if(obj instanceof ActivityCompat.OnRequestPermissionsResultCallback){
             ((ActivityCompat.OnRequestPermissionsResultCallback)obj).onRequestPermissionsResult(PERMISSION_CODE,permissions,grantResults);
         }else if(obj instanceof Fragment){
             ((Fragment)obj).onRequestPermissionsResult(PERMISSION_CODE,permissions,grantResults);
@@ -120,7 +122,7 @@ public class MPermission {
             if (ActivityCompat.checkSelfPermission(Zilla.APP.getApplicationContext(), permissions[i])
                     != PackageManager.PERMISSION_GRANTED) {
                 index=i;
-                return index;
+                break;
             }
         }
         return index;

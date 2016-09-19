@@ -20,6 +20,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.github.snowdream.android.util.Log;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.io.IOException;
 
@@ -37,11 +39,18 @@ import zilla.libcore.util.CrashHandler;
  * Created by zilla on 9/8/15.
  */
 public class ZillaApplication extends Application implements Zilla.InitCallback, DBHelper.DBUpgradeListener {
+
+    public static RefWatcher getRefWatcher(Context context) {
+        ZillaApplication application = (ZillaApplication) context.getApplicationContext();
+        return application.refWatcher;
+    }
+    private RefWatcher refWatcher;
     @Override
     public void onCreate() {
         super.onCreate();
         new Zilla().setCallBack(this).initSystem(this);
         CrashHandler.getInstance().init(this);
+        refWatcher= LeakCanary.install(this);
     }
 
     /**

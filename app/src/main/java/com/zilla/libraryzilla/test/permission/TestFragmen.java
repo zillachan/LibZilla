@@ -1,7 +1,9 @@
 package com.zilla.libraryzilla.test.permission;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 
 import com.github.snowdream.android.util.Log;
 import com.zilla.libraryzilla.R;
@@ -18,18 +20,26 @@ public class TestFragmen extends BaseFragment {
         // Required empty public constructor
     }
 
+    String[] a={Manifest.permission.CAMERA};
     @Override
     protected void initView() {
-
+//        if(ActivityCompat.checkSelfPermission(getContext(),Manifest.permission.CAMERA)
+//                != PackageManager.PERMISSION_GRANTED){
+//            Log.i("没有相机权限");
+//            requestPermissions(a,100);
+//            //ActivityCompat.requestPermissions(getActivity(),a,100);
+//
+//        }
     }
 
     @Override
     protected void initData() {
-        MPermission.with(this).setPermission(Manifest.permission.CAMERA).requestPermission();
+        //MPermission.with(this).setPermission(Manifest.permission.CAMERA).requestPermission();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.i("requestCode===="+requestCode);
         MPermission.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
     }
 

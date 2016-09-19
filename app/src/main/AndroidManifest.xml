@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
-    <!-- <uses-permission android:name="android.permission.CAMERA"/> -->
+     <uses-permission android:name="android.permission.CAMERA"/>
     <application
         android:name=".ZillaApplication"
         android:allowBackup="true"

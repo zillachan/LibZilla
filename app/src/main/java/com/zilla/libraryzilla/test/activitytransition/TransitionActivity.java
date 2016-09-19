@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.github.snowdream.android.util.Log;
 import com.zilla.libraryzilla.R;
+import com.zilla.libraryzilla.ZillaApplication;
 
 import zilla.libjerry.activitytransition.transition.ActivityTransitionSender;
 import zilla.libjerry.permission.MPermission;
@@ -39,6 +40,7 @@ public class TransitionActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.i("dsadadada");
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         MPermission.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
     }
@@ -52,5 +54,11 @@ public class TransitionActivity extends AppCompatActivity {
     @PermissionFail
     public void validateFail(){
         Log.i("没有获取拍照权限");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ZillaApplication.getRefWatcher(this).watch(this);
     }
 }
