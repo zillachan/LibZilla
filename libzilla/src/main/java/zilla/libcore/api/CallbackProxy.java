@@ -1,10 +1,7 @@
 package zilla.libcore.api;
 
-import com.github.snowdream.android.util.Log;
-
 import org.greenrobot.eventbus.EventBus;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import retrofit2.Call;
@@ -36,6 +33,9 @@ public class CallbackProxy<T> implements Callback<T>{
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
+        if(!response.isSuccessful()){
+            RetrofitAPI.dealCustomError(response);
+        }
         this.callback.onResponse(call,response);
     }
 
@@ -50,6 +50,7 @@ public class CallbackProxy<T> implements Callback<T>{
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
+        RetrofitAPI.dealNetError(t);
         this.callback.onFailure(call,t);
     }
 }

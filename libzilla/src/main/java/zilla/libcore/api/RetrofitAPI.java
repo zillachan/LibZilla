@@ -7,6 +7,7 @@ import java.lang.reflect.Proxy;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import zilla.libcore.api.handler.DefaultApiErrorHandler;
@@ -70,11 +71,17 @@ public class RetrofitAPI {
     }
 
     private static IApiErrorHandler apiErrorHandler;
-    private static void dealNetError(Throwable error){
+    public static void dealNetError(Throwable error){
         if(apiErrorHandler==null){
             apiErrorHandler=new DefaultApiErrorHandler();
         }
         apiErrorHandler.dealNetError(error);
 
+    }
+    public static void dealCustomError(Response response){
+        if(apiErrorHandler==null){
+            apiErrorHandler=new DefaultApiErrorHandler();
+        }
+        apiErrorHandler.dealCustomError(response);
     }
 }

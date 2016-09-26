@@ -20,8 +20,8 @@ import java.io.InterruptedIOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
+import retrofit2.Response;
 import zilla.libcore.R;
-import zilla.libcore.api.APIError;
 import zilla.libcore.api.IApiErrorHandler;
 import zilla.libcore.util.Util;
 
@@ -29,11 +29,11 @@ import zilla.libcore.util.Util;
  * Default error handler
  * Created by zilla on 14/12/17.
  */
-    public class DefaultApiErrorHandler extends IApiErrorHandler<APIError> {
+    public class DefaultApiErrorHandler extends IApiErrorHandler {
 
 
     @Override
-    protected void dealCustomError(APIError error) {
+    protected void dealCustomError(Response error) {
 
     }
 

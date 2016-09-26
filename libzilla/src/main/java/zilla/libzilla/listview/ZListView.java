@@ -114,9 +114,9 @@ public class ZListView extends ListView implements OnScrollListener {
                 new OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        mHeaderViewHeight = mHeaderViewContent.getHeight();
                         getViewTreeObserver()
                                 .removeGlobalOnLayoutListener(this);
+                        mHeaderViewHeight = mHeaderViewContent.getHeight();
                     }
                 });
 

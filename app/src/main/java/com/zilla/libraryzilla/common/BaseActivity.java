@@ -53,7 +53,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(LayoutInjectUtil.getInjectLayoutId(this));
-        Zilla.ACTIVITY = this;
         LifeCircle.onCreate(this);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if(mToolbar!=null){
@@ -68,6 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
 
     public void onResume() {
         super.onResume();
+        Zilla.ACTIVITY = this;
         LifeCircle.onResume(this);
     }
 

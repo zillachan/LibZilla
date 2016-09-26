@@ -57,8 +57,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':libzilla')
-//    compile project(':zlistview')
-//    compile project(':loading')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:' + SUPPORT_VERSIOM
 
@@ -70,6 +68,7 @@ dependencies {
     //leak
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
+    //compile project(path: ':lib')
 }
 
 

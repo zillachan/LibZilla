@@ -1,1 +1,1 @@
-include ':app','libzilla'//, ':loading', ':zlistview'
+include ':app', ':lib', 'libzilla'//, ':loading', ':zlistview'

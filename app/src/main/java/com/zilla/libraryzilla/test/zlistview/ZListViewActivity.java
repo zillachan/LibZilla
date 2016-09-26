@@ -46,14 +46,14 @@ public class ZListViewActivity extends BaseActivity {
     @Override
     protected void initViews() {
         final GitHubService service = RetrofitAPI.createService(GitHubService.class);
-        final Call<List<Org>> call=service.getRepos("octokit");
         xListViewWraper = new ZListViewWraper<Org>(getWindow().getDecorView(), R.layout.item_zlistview, ViewHolder.class) {
             @Override
             public void loadData() {
-
+                Call<List<Org>> call=service.getRepos("octokit");
                 call.enqueue(new Callback<List<Org>>() {
                     @Override
                     public void onResponse(Call<List<Org>> call, Response<List<Org>> response) {
+                        
                         if(response.isSuccessful()){
                             xListViewWraper.setModelList(response.body());
                         }
@@ -61,6 +61,7 @@ public class ZListViewActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Call<List<Org>> call, Throwable t) {
+                        RetrofitAPI.dealNetError(t);
                         xListViewWraper.refreshFail();
                     }
                 });
@@ -68,6 +69,7 @@ public class ZListViewActivity extends BaseActivity {
 
             @Override
             public void loadMore() {
+                Call<List<Org>> call=service.getRepos("octokit");
                 call.enqueue(new Callback<List<Org>>() {
                     @Override
                     public void onResponse(Call<List<Org>> call, Response<List<Org>> response) {

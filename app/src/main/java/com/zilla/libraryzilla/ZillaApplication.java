@@ -85,6 +85,7 @@ public class ZillaApplication extends Application implements Zilla.InitCallback,
                         return chain.proceed(builder.build());
                     }
                 }).build();
+
     }
 
     @Override

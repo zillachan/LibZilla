@@ -13,8 +13,8 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
-     <uses-permission android:name="android.permission.CAMERA"/>
     <application
         android:name=".ZillaApplication"
         android:allowBackup="true"
@@ -50,7 +50,8 @@
             android:name=".test.activitytransition.TransitionActivity"
             android:theme="@style/AppTheme.Base" />
         <activity android:name=".test.activitytransition.ImageDetailActivity" />
-        <activity android:name=".test.permission.PermissionActivity"></activity>
+        <activity android:name=".test.permission.PermissionActivity" />
+        <activity android:name=".test.annotation.AnnotationActivity"></activity>
     </application>
 
 </manifest>
