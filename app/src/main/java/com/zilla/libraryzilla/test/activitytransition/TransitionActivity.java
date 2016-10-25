@@ -58,8 +58,8 @@ public class TransitionActivity extends BaseActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //ActivityTransitionSender.build(TransitionActivity.this).from(imageView,R.drawable.avatar).launch(new Intent(TransitionActivity.this,ImageDetailActivity.class));
-                finish();
+                ActivityTransitionSender.build(TransitionActivity.this).from(imageView,R.drawable.avatar).launch(new Intent(TransitionActivity.this,ImageDetailActivity.class));
+                //finish();
             }
         });
     }
