@@ -22,6 +22,7 @@ import android.view.View;
 import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.test.activitytransition.TransitionActivity;
 import com.zilla.libraryzilla.test.adapter.ListViewTestActivity;
+import com.zilla.libraryzilla.test.adapter.ListViewTestActivity2;
 import com.zilla.libraryzilla.test.api.APIActivity;
 import com.zilla.libraryzilla.test.binding.BindingActivity;
 import com.zilla.libraryzilla.test.db.DBTestActivity;
@@ -53,7 +54,7 @@ public class MainActivity extends BaseActivity {
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.goadapter:
-                startActivity(new Intent(this, ListViewTestActivity.class));
+                startActivity(new Intent(this, ListViewTestActivity2.class));
                 break;
             case R.id.godb:
                 startActivity(new Intent(this, DBTestActivity.class));

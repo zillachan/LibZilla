@@ -51,7 +51,7 @@
             android:theme="@style/AppTheme.Base" />
         <activity android:name=".test.activitytransition.ImageDetailActivity" />
         <activity android:name=".test.permission.PermissionActivity" />
-        <activity android:name=".test.annotation.AnnotationActivity"></activity>
+        <activity android:name=".test.adapter.ListViewTestActivity2"/>
     </application>
 
 </manifest>
