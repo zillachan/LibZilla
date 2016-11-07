@@ -18,6 +18,7 @@ package com.zilla.libraryzilla;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.Button;
 
 import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.test.activitytransition.TransitionActivity;
@@ -32,6 +33,7 @@ import com.zilla.libraryzilla.test.toolbar.CustomToolBarActivity;
 import com.zilla.libraryzilla.test.validate.ValidateActivity;
 import com.zilla.libraryzilla.test.zlistview.ZListViewActivity;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 import zilla.libcore.ui.InjectLayout;
 
@@ -41,7 +43,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initViews() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
     }
 
 

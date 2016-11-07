@@ -12,7 +12,7 @@ import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.ZillaApplication;
 import com.zilla.libraryzilla.common.BaseActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import zilla.libcore.ui.InjectLayout;
 import zilla.libjerry.activitytransition.transition.ActivityTransitionSender;
 import zilla.libjerry.permission.MPermission;
@@ -22,7 +22,7 @@ import zilla.libjerry.permission.PermissionOK;
 @InjectLayout(R.layout.activity_transition)
 public class TransitionActivity extends BaseActivity {
 
-    @Bind(R.id.image1)
+    @BindView(R.id.image1)
     ImageView imageView;
 
 

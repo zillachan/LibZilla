@@ -25,7 +25,7 @@ import com.mobsandgeeks.saripaar.annotation.Required;
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import zilla.libcore.lifecircle.LifeCircleInject;
 import zilla.libcore.lifecircle.validate.ValidateLife;
@@ -36,7 +36,7 @@ import zilla.libcore.util.Util;
 public class ValidateActivity extends BaseActivity implements Validator.ValidationListener {
 
     @Required(order = 1, message = "Not Null")
-    @Bind(R.id.editText)
+    @BindView(R.id.editText)
     EditText editText;
 
     @LifeCircleInject

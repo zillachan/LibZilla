@@ -26,7 +26,7 @@ import com.zilla.libraryzilla.test.api.model.Org;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -99,9 +99,9 @@ public class ZListViewActivity extends BaseActivity {
      * @author ButterKnifeZelezny, plugin for Android Studio by Avast Developers (http://github.com/avast)
      */
     static class ViewHolder {
-        @Bind(R.id.item_org_name)
+        @BindView(R.id.item_org_name)
         TextView name;
-        @Bind(R.id.item_org_full_name)
+        @BindView(R.id.item_org_full_name)
         TextView full_name;
 
         ViewHolder(View view) {
