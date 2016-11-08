@@ -29,7 +29,7 @@ import com.zilla.libraryzilla.test.db.po.User;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import zilla.libcore.ui.InjectLayout;
 import zilla.libjerry.adapter.EasyAdapter;
 import zilla.libjerry.adapter.ViewHolder;
@@ -42,7 +42,7 @@ public class ListViewTestActivity2 extends BaseActivity {
     private EasyAdapter adapter;
     List<User> userList = new ArrayList<User>();
 
-    @Bind(R.id.listview)
+    @BindView(R.id.listview)
     ListView listView;
 
     @Override

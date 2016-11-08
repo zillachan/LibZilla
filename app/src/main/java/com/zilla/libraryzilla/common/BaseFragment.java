@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import java.io.Serializable;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import zilla.libcore.lifecircle.LifeCircle;
 import zilla.libcore.lifecircle.LifeCircleInject;
 import zilla.libcore.lifecircle.exit.AppExitLife;
@@ -50,7 +51,7 @@ public abstract class BaseFragment extends Fragment {
     private static final String ARG_PARAM = "PARAM";
 
     private OnFragmentInteractionListener mListener;
-
+    private Unbinder unbind;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -80,7 +81,7 @@ public abstract class BaseFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         contentView = inflater.inflate(LayoutInjectUtil.getInjectLayoutId(this), container, false);
         LifeCircle.onCreate(this);
-        ButterKnife.bind(this, contentView);
+        unbind=ButterKnife.bind(this, contentView);
         initView();
         return contentView;
     }
@@ -94,7 +95,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbind.unbind();
     }
 
     @Override
