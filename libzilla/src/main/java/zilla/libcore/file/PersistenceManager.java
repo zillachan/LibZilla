@@ -40,16 +40,15 @@ public class PersistenceManager {
      */
     public static Serializable readObj(String name) {
 //        if(cache.get(name) == null) return null;
-        Object o = cache.get(name);
-        if (o == null) {
+        WeakReference<Serializable> o = cache.get(name);
+        if (o == null || o.get() == null) {
             Object tempfileObj = FileHelper.readObj(FileHelper.PATH_FILES + name + ".obj");
             if (tempfileObj == null) return null;
             Serializable serializable = (Serializable) tempfileObj;
             cache.put(name, new WeakReference<Serializable>(serializable));
             return serializable;
         }
-        WeakReference<Serializable> weakReference = (WeakReference<Serializable>) o;
-        return weakReference.get();
+        return cache.get(name).get();
     }
 
     /**
@@ -96,6 +95,7 @@ public class PersistenceManager {
 
     /**
      * persistence a obj that in memory
+     *
      * @param key
      * @return
      */
