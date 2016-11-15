@@ -233,6 +233,7 @@ A packaging of retrofit.
 ##ZillaAdapter
 This provide a very effictive function for AdapterView(ListView,ExpandableView,GridView)
 
+#Old
 ```
 When you use ListView,you need only 3 things
 1.Create your listView item Model
@@ -269,6 +270,46 @@ static class ViewHolder {
     
 ```
 This can also support checkbox,button event,linearlayout hide/visiable,image,ratingbar.
+
+#New
+
+But now, you can:
+```
+When you use ListView,you need only 2 things
+1.Create your listView item Model
+2.Create your adapter by ZillaAdapter and implement convert method
+3.set listview's adapter
+
+     protected void initDatas() {
+        for (int i = 0; i <20; i++) {
+            User user = new User();
+            user.setName("User" + i);
+            user.setEmail("user" + i + "@example.com");
+            user.setAddress("address" + i);
+            userList.add(user);
+        }
+        adapter=new EasyAdapter<User>(this,userList,R.layout.user_item) {
+            @Override
+            public void convert(ViewHolder holder, final User data, int position) {
+                // Your business logic... 
+                TextView tv_name= holder.getView(R.id.name);
+                tv_name.setText(data.getName());
+                TextView tv_email= holder.getView(R.id.email);
+                tv_email.setText(data.getEmail());
+                TextView tv_address= holder.getView(R.id.address);
+                tv_address.setText(data.getAddress());
+                Button btn= holder.getView(R.id.button);
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i("user="+data);
+                    }
+                });
+            }
+        };
+        listView.setAdapter(adapter);
+    }
+```
 
 ##ZillaBinding
 

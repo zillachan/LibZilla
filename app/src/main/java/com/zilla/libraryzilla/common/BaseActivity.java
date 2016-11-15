@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import com.zilla.libraryzilla.R;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import zilla.libcore.Zilla;
 import zilla.libcore.lifecircle.LifeCircle;
 import zilla.libcore.lifecircle.LifeCircleInject;
@@ -49,6 +50,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
      */
     protected Toolbar mToolbar;
 
+    private Unbinder unbind;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +63,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mToolbar.setOnMenuItemClickListener(this);
         }
-        ButterKnife.bind(this);
+        unbind=ButterKnife.bind(this);
+
         initViews();
         initDatas();
     }
@@ -80,7 +84,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     protected void onDestroy() {
         super.onDestroy();
         LifeCircle.onDestory(this);
-        ButterKnife.unbind(this);
+        unbind.unbind();
     }
 
     protected abstract void initViews();
