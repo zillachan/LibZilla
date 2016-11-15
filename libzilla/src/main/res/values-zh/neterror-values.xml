@@ -19,7 +19,7 @@
 <resources>
     <string name="net.error.timeout">网络连接超时</string>
     <string name="net.error.unknownhost">无法连接到服务器</string>
-    <string name="net.error.neterror">网络链接错误</string>
+    <string name="net.error.neterror">网络连接错误</string>
 
     <string name="net.http.401">授权失败</string>
     <string name="net.http.404">接口无法找到</string>
