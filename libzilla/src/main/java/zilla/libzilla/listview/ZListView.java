@@ -19,6 +19,7 @@ package zilla.libzilla.listview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -30,6 +31,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
+
+import com.github.snowdream.android.util.Log;
+
 import zilla.libcore.R;
 
 public class ZListView extends ListView implements OnScrollListener {
@@ -98,7 +102,20 @@ public class ZListView extends ListView implements OnScrollListener {
         headerHeight = typedArray.getDimensionPixelSize(R.styleable.ZListViewProperties_header_height,
                 getResources().getDimensionPixelSize(R.dimen.zlist_header_height));
         int header = typedArray.getResourceId(R.styleable.ZListViewProperties_header, R.layout.zlistview_header);
+
         this.setSelector(selector);
+
+        //Add customer header
+        int customerHeader = typedArray.getResourceId(R.styleable.ZListViewProperties_customer_header, 0);
+        if (customerHeader != 0) {
+            try {
+                View customerHeaderView = LayoutInflater.from(getContext()).inflate(customerHeader, null);
+                addHeaderView(customerHeaderView);
+            } catch (Exception e) {
+                Log.e(e.getMessage());
+            }
+        }
+
 
         mHeaderView = new ZListViewHeader(context, header);
         mHeaderViewContent = (RelativeLayout) mHeaderView
