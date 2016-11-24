@@ -40,6 +40,14 @@ public abstract class ZListViewWraper<T> {
      */
     public static int PAGE_SIZE = 20;
 
+    public ZListViewWraper(View rootView, int listViewId, int resItem, Class<?> holderClass) {
+        this.rootView = rootView;
+        this.itemId = resItem;
+        this.holderClass = holderClass;
+        zListView = (ZListView) rootView.findViewById(listViewId);
+        init();
+    }
+
     public ZListViewWraper(View rootView, int resItem, Class<?> holderClass) {
         this.rootView = rootView;
         this.itemId = resItem;
