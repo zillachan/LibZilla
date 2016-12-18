@@ -9,9 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.sw926.imagefileselector.R;
 
 import java.util.List;
+
+import zilla.libcore.R;
 
 public class ImageAdapter extends BaseAdapter {
 

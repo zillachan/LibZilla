@@ -10,9 +10,10 @@ import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sw926.imagefileselector.R;
 
 import java.util.List;
+
+import zilla.libcore.R;
 
 public class ImageBucketAdapter extends BaseAdapter {
 
