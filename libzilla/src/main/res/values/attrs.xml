@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2015. Zilla Chen
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,8 +17,9 @@
 <resources>
 
     <declare-styleable name="ZListViewProperties">
-        <attr name="header_height" format="dimension"/>
-        <attr name="header" format="reference"/>
-        <attr name="item_selector" format="reference"/>
+        <attr name="header_height" format="dimension" />
+        <attr name="header" format="reference" />
+        <attr name="customer_header" format="reference" />
+        <attr name="item_selector" format="reference" />
     </declare-styleable>
 </resources>
