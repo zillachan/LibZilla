@@ -1,6 +1,7 @@
 package zilla.libcore.api;
 
 import android.content.DialogInterface;
+import android.database.Observable;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

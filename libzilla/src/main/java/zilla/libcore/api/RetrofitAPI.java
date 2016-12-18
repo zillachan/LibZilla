@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import zilla.libcore.api.handler.DefaultApiErrorHandler;
 import zilla.libcore.file.AddressManager;
@@ -24,7 +25,11 @@ public class RetrofitAPI {
                         new Retrofit.Builder()
                                 .baseUrl(AddressManager.getHost())
                                 .addConverterFactory(GsonConverterFactory.create());
-
+    private static Retrofit.Builder rxbuilder=
+                        new Retrofit.Builder()
+                                .baseUrl(AddressManager.getHost())
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
     /**
      * 创建请求对象
      * @param serviceClass

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#191918">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:navigationIcon="?attr/homeAsUpIndicator">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="相册"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/completed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/completed"
+            android:gravity="center"
+            android:text="完成"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <GridView
+        android:id="@+id/gv_album"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:gravity="center"
+        android:horizontalSpacing="5dp"
+        android:verticalSpacing="5dp"
+        android:numColumns="3"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#393A3E">
+        <LinearLayout
+            android:id="@+id/choose"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp">
+            <TextView
+                android:id="@+id/tip"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="所有图片"
+                android:textSize="16sp"
+                android:textColor="#ffffff"/>
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/jiao"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

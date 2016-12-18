@@ -21,8 +21,16 @@ import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.test.api.model.Org;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,33 +50,95 @@ public class APIActivity extends BaseActivity {
     @Override
     protected void initDatas() {
         //getDataByAPI();
-        getDataByAPI2();
-    }
 
-//    @SupportMethodLoading(autoDismiss = false)
-//    private void getDataByAPI1() {
-//        GitHubService service = ZillaApi.create(GitHubService.class);
-//        service.getRepos3("octokit", new Callback<CommonModel<List<Org>>>() {
-//
-////            @SupportTip
-////            @DismissLoading
-//            @Override
-//            public void success(CommonModel<List<Org>> orgs, Response response) {
-//                if (orgs != null) {
-//                    for (Org org : orgs.getData()) {
-//                        Log.i(org.toString());
-//                    }
-//                }
-//            }
-//
-////            @SupportTip
-////            @DismissLoading
-//            @Override
-//            public void failure(RetrofitError error) {
-//                Log.d(error.getMessage());
-//            }
-//        });
-//    }
+        //getDataByAPI2();
+        String data="I am a string to be prepared";
+        /*Observable.just(data)
+                .subscribe(str->Log.i(str));
+
+        String[] strs={"I","am","a","person"};
+        Observable.fromArray(strs).subscribe(str->Log.i(str));*/
+        List<String> list=new ArrayList<>();
+        list.add("I");
+        list.add("am");
+        list.add("a");
+        list.add("person");
+        Observable.fromIterable(list)
+                .map(str->str.hashCode())
+                .subscribe(num->Log.i(num+""));
+        Observable.fromArray(1,2,3,4,5)
+                .filter(integer -> integer>3)
+                .subscribe(integer -> Log.i(integer+""));
+
+        /*Observable.interval(0,1, TimeUnit.SECONDS)
+        .subscribe(num->Log.i(num+""));*/
+//        Observable.timer(3,TimeUnit.SECONDS).subscribe(num->Log.i(num+""));
+        Observable.range(2,5).subscribe(num->{Log.i(num+"");});
+        /*Flowable.just("Hello,I am China!")
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        Log.i("accept="+s);
+                    }
+                });*/
+        /*Flowable.fromArray("Hello,I am China!")
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        Log.i("accept="+s);
+                    }
+                });*/
+        Flowable.just("Hello,I am China!")
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) throws Exception {
+                        return s+"add_char";
+                    }
+                })
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        Log.i("accept="+s);
+                    }
+                });
+
+        //简便方法
+/*        Flowable.fromIterable(list)
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        Log.i("accept="+s);
+                    }
+                });*/
+        //传统使用
+
+        Flowable.just(list)
+                .flatMap(stringList->Flowable.fromIterable(stringList))
+                .filter(str->!str.startsWith("a"))
+                .take(2)
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
 
     private void getDataByAPI2() {
         GitHubService service = RetrofitAPI.createService(GitHubService.class);
@@ -82,7 +152,6 @@ public class APIActivity extends BaseActivity {
             }
             @Dismiss
             public void onFailure(Call<List<Org>> call, Throwable t) {
-                Log.i("请求失败");
                 t.fillInStackTrace();
             }
         });
@@ -91,7 +160,6 @@ public class APIActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("请求界面销毁。。。。");
     }
 
     //

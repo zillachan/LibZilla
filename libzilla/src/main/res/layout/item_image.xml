@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.sw926.imagefileselector.ablum.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        />
+    <FrameLayout
+        android:id="@+id/fl_selected"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#8ee1e1e1">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_data_select"
+            />
+    </FrameLayout>
+</com.sw926.imagefileselector.ablum.SquareFrameLayout>

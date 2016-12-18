@@ -51,7 +51,6 @@ dependencies {
     compile 'com.github.snowdream.android.util:log:1.0.4'
     compile 'joda-time:joda-time:2.3'
     compile 'com.android.support:appcompat-v7:'+ SUPPORT_VERSIOM
-    compile 'com.yalantis:ucrop:2.1.2'
     compile 'com.google.code.gson:gson:2.5' // gson
     compile 'com.squareup.retrofit2:converter-gson:2.0.1'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.1'//rxjava support
@@ -62,12 +61,13 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     compile 'com.mobsandgeeks:android-saripaar:1.0.3'
     compile 'com.squareup.picasso:picasso:2.4.0'
-    //butterknife 7 support
-    //compile 'com.jakewharton:butterknife:7.0.1'
+    //butterknife 8 support
     compile 'com.jakewharton:butterknife:8.4.0'
-    compile 'com.squareup:otto:1.3.5'
+
     //aspectj
     compile 'org.aspectj:aspectjrt:1.8.1'
+    compile 'com.android.support:design:25.0.0'
+    compile 'com.yalantis:ucrop:2.2.0'
 
 }
 //apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
