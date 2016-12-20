@@ -489,8 +489,8 @@ public class ZillaDB {
                 try {
                     colneModelField = cloneModel.getClass().getDeclaredField(columnName);
                 } catch (NoSuchFieldException e) {
-                    Log.e("模型中没有该字段" + columnName);
-                    break;
+                    Log.e("Can't find field '" + columnName + "' in model " + c.getName() + ",continue...");
+                    continue;
                 }
                 Class<?> type = colneModelField.getType();
                 if (type == String.class) {
