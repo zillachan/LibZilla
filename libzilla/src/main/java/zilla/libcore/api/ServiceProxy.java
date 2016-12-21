@@ -26,23 +26,23 @@ public class ServiceProxy implements InvocationHandler,DialogInterface.OnCancelL
 
     private Object obj;
     CustomProgress progressDialog;
-    EventBus eventBus;
+//    EventBus eventBus;
     private List<Call> callList;
 
     public ServiceProxy(Object obj) {
         this.obj = obj;
         progressDialog=CustomProgress.build(Zilla.ACTIVITY,null);
         progressDialog.setOnCancelListener(this);
-        eventBus=EventBus.getDefault();
+//        eventBus=EventBus.getDefault();
         callList=new ArrayList<>();
     }
 
     @Override
     public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
         if(method.isAnnotationPresent(Dialog.class)){
-            if(!eventBus.isRegistered(this)){
-                EventBus.getDefault().register(this);
-            }
+//            if(!eventBus.isRegistered(this)){
+//                EventBus.getDefault().register(this);
+//            }
             Dialog dialog=method.getAnnotation(Dialog.class);
             progressDialog.setMessage(dialog.value());
             if(!progressDialog.isShowing())
@@ -53,13 +53,13 @@ public class ServiceProxy implements InvocationHandler,DialogInterface.OnCancelL
         if(realObj instanceof Call){
             callList.add((Call) realObj);
         }
-        InvocationHandler handler=new CallProxy(realObj);
+        InvocationHandler handler=new CallProxy(realObj,progressDialog);
         return Proxy.newProxyInstance(handler.getClass().getClassLoader(),realObj.getClass().getInterfaces(),handler);
     }
 
     @Subscribe
     public void onEvent(EventModel model){
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
         if(progressDialog!=null&&progressDialog.isShowing()){
             progressDialog.dismiss();
         }
@@ -68,7 +68,7 @@ public class ServiceProxy implements InvocationHandler,DialogInterface.OnCancelL
 
     @Override
     public void onCancel(DialogInterface dialogInterface) {
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
         for (Call call:callList){
             call.cancel();
         }

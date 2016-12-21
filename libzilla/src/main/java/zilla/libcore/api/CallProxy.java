@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 
 import retrofit2.Callback;
 import zilla.libcore.api.eventModel.EventModel;
+import zilla.libjerry.ui.CustomProgress;
 
 /**
  * Created by jerry.guan on 2016/8/30.
@@ -15,8 +16,10 @@ public class CallProxy implements InvocationHandler{
 
     private Object realObj;
 
-    public CallProxy(Object realObj) {
+    private CustomProgress progress;
+    public CallProxy(Object realObj,CustomProgress progress) {
         this.realObj = realObj;
+        this.progress=progress;
     }
 
     @Override
@@ -29,14 +32,15 @@ public class CallProxy implements InvocationHandler{
          */
         if(objects.length>0){
             Callback callback= (Callback) objects[0];
-            /*InvocationHandler callbackHandler=new CallbackProxy(callback);
-            Object callProxy= Proxy.newProxyInstance(callbackHandler.getClass().getClassLoader(),callback.getClass().getInterfaces(),callbackHandler);*/
-            return method.invoke(realObj,new Object[]{new CallbackProxy(callback)});
+            return method.invoke(realObj,new Object[]{new CallbackProxy(callback,progress)});
         }else {
             String name=method.getName();
+            //如果调用的是同步执行的代码
             if(name.equals("execute")) {
                 Object result=method.invoke(realObj,objects);
-                EventBus.getDefault().post(new EventModel());
+                if(progress!=null&&progress.isShowing()){
+                    progress.dismiss();
+                }
                 return result;
             }
             return method.invoke(realObj,objects);

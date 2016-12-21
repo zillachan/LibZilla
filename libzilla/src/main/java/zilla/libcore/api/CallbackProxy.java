@@ -1,14 +1,12 @@
 package zilla.libcore.api;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.lang.reflect.Method;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import zilla.libcore.api.annotation.Dismiss;
-import zilla.libcore.api.eventModel.EventModel;
+import zilla.libjerry.ui.CustomProgress;
 
 /**
  * @author jerry.Guan
@@ -17,26 +15,34 @@ import zilla.libcore.api.eventModel.EventModel;
 public class CallbackProxy<T> implements Callback<T>{
 
     private Callback callback;
+    private CustomProgress progress;
 
-    public CallbackProxy(Callback callback) {
+    public CallbackProxy(Callback callback,CustomProgress progress) {
         this.callback = callback;
+        this.progress=progress;
     }
 
     @Override
     public void onResponse(Call<T> call, Response<T> response)  {
+
         try {
             Method method=this.callback.getClass().getMethod("onResponse",new Class[]{Call.class,Response.class});
             if(method.isAnnotationPresent(Dismiss.class)){
-                EventBus.getDefault().post(new EventModel());
+                if(progress!=null&&progress.isShowing()){
+                    progress.dismiss();
+                }
             }
             //method.invoke(callback,call,response);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
         }
         if(!response.isSuccessful()){
             RetrofitAPI.dealCustomError(response);
+        }else {
+            this.callback.onResponse(call,response);
         }
-        this.callback.onResponse(call,response);
     }
 
     @Override
@@ -44,7 +50,9 @@ public class CallbackProxy<T> implements Callback<T>{
         try {
             Method method=this.callback.getClass().getMethod("onFailure",new Class[]{Call.class,Throwable.class});
             if(method.isAnnotationPresent(Dismiss.class)){
-                EventBus.getDefault().post(new EventModel());
+                if(progress!=null&&progress.isShowing()){
+                    progress.dismiss();
+                }
             }
             //method.invoke(callback,call,t);
         } catch (NoSuchMethodException e) {
