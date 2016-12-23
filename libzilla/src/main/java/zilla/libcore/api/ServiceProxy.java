@@ -2,6 +2,9 @@ package zilla.libcore.api;
 
 import android.content.DialogInterface;
 import android.database.Observable;
+import android.view.WindowManager;
+
+import com.github.snowdream.android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -26,52 +29,40 @@ public class ServiceProxy implements InvocationHandler,DialogInterface.OnCancelL
 
     private Object obj;
     CustomProgress progressDialog;
-//    EventBus eventBus;
     private List<Call> callList;
 
     public ServiceProxy(Object obj) {
         this.obj = obj;
-        progressDialog=CustomProgress.build(Zilla.ACTIVITY,null);
+        progressDialog=CustomProgress.build(Zilla.APP,null);
         progressDialog.setOnCancelListener(this);
-//        eventBus=EventBus.getDefault();
         callList=new ArrayList<>();
     }
 
     @Override
     public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
-        if(method.isAnnotationPresent(Dialog.class)){
-//            if(!eventBus.isRegistered(this)){
-//                EventBus.getDefault().register(this);
-//            }
-            Dialog dialog=method.getAnnotation(Dialog.class);
-            progressDialog.setMessage(dialog.value());
-            if(!progressDialog.isShowing())
-                progressDialog.show();
-        }
+
         //代理方法返回值
         Object realObj=method.invoke(obj,objects);
         if(realObj instanceof Call){
             callList.add((Call) realObj);
         }
-        InvocationHandler handler=new CallProxy(realObj,progressDialog);
+        CallProxy handler=new CallProxy(realObj,progressDialog);
+        if(method.isAnnotationPresent(Dialog.class)){
+            Dialog dialog=method.getAnnotation(Dialog.class);
+            progressDialog.setMessage(dialog.value());
+            handler.setShow(true);
+
+        }
         return Proxy.newProxyInstance(handler.getClass().getClassLoader(),realObj.getClass().getInterfaces(),handler);
     }
 
-    @Subscribe
-    public void onEvent(EventModel model){
-//        EventBus.getDefault().unregister(this);
-        if(progressDialog!=null&&progressDialog.isShowing()){
-            progressDialog.dismiss();
-        }
-        callList.clear();
-    }
 
     @Override
     public void onCancel(DialogInterface dialogInterface) {
-//        EventBus.getDefault().unregister(this);
         for (Call call:callList){
             call.cancel();
         }
+        Log.i("dialog 被取消啦啦啦啦啦啦啦");
         callList.clear();
     }
 }

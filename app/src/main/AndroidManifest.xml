@@ -51,7 +51,8 @@
             android:theme="@style/AppTheme.Base" />
         <activity android:name=".test.activitytransition.ImageDetailActivity" />
         <activity android:name=".test.permission.PermissionActivity" />
-        <activity android:name=".test.adapter.ListViewTestActivity2"/>
+        <activity android:name=".test.adapter.ListViewTestActivity2" />
+        <activity android:name=".test.api.APIActivity2"></activity>
     </application>
 
 </manifest>

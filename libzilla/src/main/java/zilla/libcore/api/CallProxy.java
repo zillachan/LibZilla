@@ -1,12 +1,9 @@
 package zilla.libcore.api;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 import retrofit2.Callback;
-import zilla.libcore.api.eventModel.EventModel;
 import zilla.libjerry.ui.CustomProgress;
 
 /**
@@ -16,6 +13,7 @@ public class CallProxy implements InvocationHandler{
 
     private Object realObj;
 
+    private boolean isShow;
     private CustomProgress progress;
     public CallProxy(Object realObj,CustomProgress progress) {
         this.realObj = realObj;
@@ -30,6 +28,8 @@ public class CallProxy implements InvocationHandler{
          * 注意：这里需要判断同步和异步请求
          * 只有异步请求才需要重新设置方法参数
          */
+        if(isShow&&progress!=null&&!progress.isShowing())
+            progress.show();
         if(objects.length>0){
             Callback callback= (Callback) objects[0];
             return method.invoke(realObj,new Object[]{new CallbackProxy(callback,progress)});
@@ -45,5 +45,13 @@ public class CallProxy implements InvocationHandler{
             }
             return method.invoke(realObj,objects);
         }
+    }
+
+    public boolean isShow() {
+        return isShow;
+    }
+
+    public void setShow(boolean show) {
+        isShow = show;
     }
 }

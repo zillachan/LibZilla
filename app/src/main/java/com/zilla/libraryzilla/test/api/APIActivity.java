@@ -51,13 +51,13 @@ public class APIActivity extends BaseActivity {
     protected void initDatas() {
         //getDataByAPI();
 
-        //getDataByAPI2();
-        String data="I am a string to be prepared";
-        /*Observable.just(data)
+        getDataByAPI2();
+        /*String data="I am a string to be prepared";
+        *//*Observable.just(data)
                 .subscribe(str->Log.i(str));
 
         String[] strs={"I","am","a","person"};
-        Observable.fromArray(strs).subscribe(str->Log.i(str));*/
+        Observable.fromArray(strs).subscribe(str->Log.i(str));*//*
         List<String> list=new ArrayList<>();
         list.add("I");
         list.add("am");
@@ -70,24 +70,24 @@ public class APIActivity extends BaseActivity {
                 .filter(integer -> integer>3)
                 .subscribe(integer -> Log.i(integer+""));
 
-        /*Observable.interval(0,1, TimeUnit.SECONDS)
-        .subscribe(num->Log.i(num+""));*/
+        *//*Observable.interval(0,1, TimeUnit.SECONDS)
+        .subscribe(num->Log.i(num+""));*//*
 //        Observable.timer(3,TimeUnit.SECONDS).subscribe(num->Log.i(num+""));
         Observable.range(2,5).subscribe(num->{Log.i(num+"");});
-        /*Flowable.just("Hello,I am China!")
+        *//*Flowable.just("Hello,I am China!")
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         Log.i("accept="+s);
                     }
-                });*/
-        /*Flowable.fromArray("Hello,I am China!")
+                });*//*
+        *//*Flowable.fromArray("Hello,I am China!")
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         Log.i("accept="+s);
                     }
-                });*/
+                });*//*
         Flowable.just("Hello,I am China!")
                 .map(new Function<String, String>() {
                     @Override
@@ -102,14 +102,14 @@ public class APIActivity extends BaseActivity {
                     }
                 });
 
-        //ç®€ä¾¿æ–¹æ³•
-/*        Flowable.fromIterable(list)
+        //ç®?ä¾¿æ–¹æ³?
+*//*        Flowable.fromIterable(list)
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         Log.i("accept="+s);
                     }
-                });*/
+                });*//*
         //ä¼ ç»Ÿä½¿ç”¨
 
         Flowable.just(list)
@@ -136,7 +136,7 @@ public class APIActivity extends BaseActivity {
                     public void onComplete() {
 
                     }
-                });
+                });*/
 
     }
 
@@ -152,7 +152,8 @@ public class APIActivity extends BaseActivity {
             }
             @Dismiss
             public void onFailure(Call<List<Org>> call, Throwable t) {
-                t.fillInStackTrace();
+                Log.i("dialog ±»È¡ÏûÁËÑ½?t===="+(t==null));
+                t.printStackTrace();
             }
         });
     }

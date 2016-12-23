@@ -72,6 +72,7 @@ public class CustomProgress extends Dialog{
         dialog.setCanceledOnTouchOutside(false);
         // 设置居中
         dialog.getWindow().getAttributes().gravity = Gravity.CENTER;
+        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
         WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
         // 设置背景层透明度
         lp.dimAmount = 0.2f;

@@ -16,7 +16,6 @@
 
 package com.zilla.libraryzilla.test.api;
 
-import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.test.api.model.Org;
 
 import java.util.List;
@@ -39,7 +38,7 @@ public interface GitHubService {
      */
 
     @GET("orgs/{org}/repos")
-    @Dialog("正在努力加载")
+    @Dialog("loading...")
     Call<List<Org>> getRepos(@Path("org") String org);
 
 //    /**

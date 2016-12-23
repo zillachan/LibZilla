@@ -25,6 +25,7 @@ import com.zilla.libraryzilla.test.activitytransition.TransitionActivity;
 import com.zilla.libraryzilla.test.adapter.ListViewTestActivity;
 import com.zilla.libraryzilla.test.adapter.ListViewTestActivity2;
 import com.zilla.libraryzilla.test.api.APIActivity;
+import com.zilla.libraryzilla.test.api.APIActivity2;
 import com.zilla.libraryzilla.test.binding.BindingActivity;
 import com.zilla.libraryzilla.test.db.DBTestActivity;
 import com.zilla.libraryzilla.test.permission.PermissionActivity;
@@ -61,7 +62,7 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(this, DBTestActivity.class));
                 break;
             case R.id.goapi:
-                startActivity(new Intent(this, APIActivity.class));
+                startActivity(new Intent(this, APIActivity2.class));
                 break;
             case R.id.gobinding:
                 startActivity(new Intent(this, BindingActivity.class));
