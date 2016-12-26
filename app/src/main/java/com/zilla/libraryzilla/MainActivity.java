@@ -28,6 +28,7 @@ import com.zilla.libraryzilla.test.api.APIActivity;
 import com.zilla.libraryzilla.test.api.APIActivity2;
 import com.zilla.libraryzilla.test.binding.BindingActivity;
 import com.zilla.libraryzilla.test.db.DBTestActivity;
+import com.zilla.libraryzilla.test.gallery.GalleryActivity;
 import com.zilla.libraryzilla.test.permission.PermissionActivity;
 import com.zilla.libraryzilla.test.selectorphoto.SelectorPhotoActivity;
 import com.zilla.libraryzilla.test.toolbar.CustomToolBarActivity;
@@ -56,7 +57,8 @@ public class MainActivity extends BaseActivity {
     public void onViewClick(View view) {
         switch (view.getId()) {
             case R.id.goadapter:
-                startActivity(new Intent(this, ListViewTestActivity2.class));
+//                startActivity(new Intent(this, ListViewTestActivity2.class));
+                startActivity(new Intent(this, GalleryActivity.class));
                 break;
             case R.id.godb:
                 startActivity(new Intent(this, DBTestActivity.class));

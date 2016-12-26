@@ -52,7 +52,8 @@
         <activity android:name=".test.activitytransition.ImageDetailActivity" />
         <activity android:name=".test.permission.PermissionActivity" />
         <activity android:name=".test.adapter.ListViewTestActivity2" />
-        <activity android:name=".test.api.APIActivity2"></activity>
+        <activity android:name=".test.api.APIActivity2" />
+        <activity android:name=".test.gallery.GalleryActivity"></activity>
     </application>
 
 </manifest>
