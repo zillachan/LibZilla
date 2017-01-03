@@ -3,9 +3,12 @@ package zilla.libjerry.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +25,9 @@ public abstract class EasyAdapter<T> extends BaseAdapter {
     private int resource;//布局资源文件
 
     public EasyAdapter(Context context, List<T> datas, int resource) {
+        if(datas==null){
+            datas=new ArrayList<>(0);
+        }
         this.datas = datas;
         this.context = context;
         this.resource = resource;
@@ -57,7 +63,7 @@ public abstract class EasyAdapter<T> extends BaseAdapter {
      * @param listView 要更新的listview
      * @param position 要更新的位置
      */
-    public void notifyDataSetChanged(ListView listView, int position) {
+    public void notifyDataSetChanged(AbsListView listView, int position) {
         /**第一个可见的位置**/
         int firstVisiblePosition = listView.getFirstVisiblePosition();
         /**最后一个可见的位置**/
@@ -72,6 +78,14 @@ public abstract class EasyAdapter<T> extends BaseAdapter {
             View view = listView.getChildAt(position - firstVisiblePosition);
             getView(position, view, listView);
         }
+    }
+
+    public void setList(List<T> datas) {
+        if(datas==null){
+            datas=new ArrayList<>(0);
+        }
+        this.datas = datas;
+        notifyDataSetChanged();
     }
 
 }
