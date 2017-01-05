@@ -1,12 +1,8 @@
 package com.zilla.libraryzilla.test.api;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import com.github.snowdream.android.util.Log;
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
-import com.zilla.libraryzilla.test.api.GitHubService;
 import com.zilla.libraryzilla.test.api.model.Org;
 
 import java.util.List;
@@ -19,7 +15,7 @@ import zilla.libcore.api.annotation.Dismiss;
 import zilla.libcore.ui.InjectLayout;
 
 @InjectLayout(R.layout.activity_api2)
-public class APIActivity2 extends BaseActivity {
+public class APIActivity2 extends BaseActivity{
 
     @Override
     protected void initViews() {
@@ -46,4 +42,7 @@ public class APIActivity2 extends BaseActivity {
             }
         });
     }
+
+
+
 }
