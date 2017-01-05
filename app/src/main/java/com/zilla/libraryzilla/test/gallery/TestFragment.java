@@ -89,12 +89,16 @@ public class TestFragment extends Fragment {
             }
 
             @Override
+            public int getItemPosition(Object object) {
+                return POSITION_NONE;
+            }
+
+            @Override
             public float getPageWidth(int position) {
                 return super.getPageWidth(position);
             }
 
         });
-
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
