@@ -1,50 +1,82 @@
 package com.example;
 
 import com.google.auto.service.AutoService;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeSpec;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.Filer;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 
-@AutoService(Processor.class)//自动生成META-INF配置信息
-@SupportedAnnotationTypes("com.example.MyAnnotation")//列出支持的注解
+@AutoService(Processor.class)
+@SupportedAnnotationTypes("com.example.MyAnnotation")
+@SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class MyProcessor extends AbstractProcessor{
 
+    private Filer filer;
+
     @Override
-    public Set<String> getSupportedAnnotationTypes() {
-        return super.getSupportedAnnotationTypes();
+    public synchronized void init(ProcessingEnvironment processingEnvironment) {
+        super.init(processingEnvironment);
+        filer=processingEnvironment.getFiler();
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        //取出每一个用MyAnnotation注解的元素
-        for (Element element:roundEnv.getElementsAnnotatedWith(MyAnnotation.class)) {
-            //如果这个元素是一个方法
-            if(element.getKind()== ElementKind.METHOD){
-                //强转成方法对应的element，同理，如果你的注解是一个类，那你可以强转成TypeElement
-                ExecutableElement exEl= (ExecutableElement) element;
-                //打印方法的返回类型
-                System.out.println(exEl.getReturnType().toString());
+        MethodSpec main=MethodSpec.methodBuilder("main")
+                .addModifiers(Modifier.PUBLIC,Modifier.STATIC)
+                .returns(void.class)
+                .addParameter(String[].class,"args")
+                .addCode("System.out.println(\"Hello APT!\");")
+                /*.addStatement("$T.out.println($s)",System.class,"Hello APT")*/
+                .build();
+        TypeSpec helloword=TypeSpec.classBuilder("HelloWorld")
+                .addModifiers(Modifier.PUBLIC,Modifier.FINAL)
+                .addMethod(main).build();
 
-                //获取方法所有的参数
+        JavaFile javaFile=JavaFile.builder("com.zilla.libraryzilla",helloword).build();
+        try {
+            javaFile.writeTo(filer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (Element element:roundEnv.getElementsAnnotatedWith(MyAnnotation.class)) {
+
+            if(element.getKind()== ElementKind.METHOD){
+
+                ExecutableElement exEl= (ExecutableElement) element;
+
+                System.out.println("method return type="+exEl.getReturnType().toString());
+
+                System.out.println("method name="+exEl.getSimpleName());
+
                 List<? extends VariableElement> params = exEl.getParameters();
-                //逐个打印参数名
+
                 for(VariableElement variableElement : params){
-                    System.out.println(variableElement.getSimpleName());
+                    System.out.println("method parameter name="+variableElement.getSimpleName());
                 }
 
-                //打印注解的值
-                System.out.println(exEl.getAnnotation(MyAnnotation.class).value());
+
+                System.out.println("annotation value="+exEl.getAnnotation(MyAnnotation.class).value());
             }
         }
         return false;

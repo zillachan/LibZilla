@@ -18,6 +18,7 @@ package com.zilla.libraryzilla;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.multidex.MultiDex;
 
 import com.github.snowdream.android.util.Log;
 import com.squareup.leakcanary.LeakCanary;
@@ -51,6 +52,12 @@ public class ZillaApplication extends Application implements Zilla.InitCallback,
         new Zilla().setCallBack(this).initSystem(this);
         CrashHandler.getInstance().init(this);
         refWatcher= LeakCanary.install(this);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     /**

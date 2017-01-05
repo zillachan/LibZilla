@@ -31,6 +31,10 @@ android {
         versionName VERSION_NAME
     }
 
+    dataBinding{
+        enabled true
+    }
+
     buildTypes {
         release {
             minifyEnabled false

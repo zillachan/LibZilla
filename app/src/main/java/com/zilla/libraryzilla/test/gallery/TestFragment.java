@@ -49,7 +49,7 @@ public class TestFragment extends Fragment {
         viewPager= (ViewPager) view.findViewById(R.id.viewpage);
         relativeLayout= (MyRelative) view.findViewById(R.id.activity_gallery);
         viewPager.setOffscreenPageLimit(8);
-        int px=getResources().getDisplayMetrics().widthPixels/4;
+        final int px=getResources().getDisplayMetrics().widthPixels/4;
         Log.i("dev="+(px*4));
         RelativeLayout.LayoutParams params= (RelativeLayout.LayoutParams) viewPager.getLayoutParams();
         params.width=px;
@@ -66,7 +66,7 @@ public class TestFragment extends Fragment {
             }
 
             @Override
-            public Object instantiateItem(ViewGroup container, int position) {
+            public Object instantiateItem(ViewGroup container, final int position) {
                 ImageView iv=new ImageView(getContext());
                 ViewPager.LayoutParams params=new ViewPager.LayoutParams();
                 params.width=px;
