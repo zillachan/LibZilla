@@ -23,6 +23,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import rx.Observable;
 import zilla.libcore.api.annotation.Dialog;
 
 /**
@@ -41,13 +42,13 @@ public interface GitHubService {
     @Dialog("loading...")
     Call<List<Org>> getRepos(@Path("org") String org);
 
-//    /**
-//     * API2 RXjava
-//     *
-//     * @param org
-//     * @return
-//     */
-//    @GET("/orgs/{org}/repos")
-//    Observable<List<Org>> getReposRx(@Path("org") String org);
+    /**
+     * API2 RXjava
+     *
+     * @param org
+     * @return
+     */
+    @GET("/orgs/{org}/repos")
+    Observable<List<Org>> getReposRx(@Path("org") String org);
 
 }
