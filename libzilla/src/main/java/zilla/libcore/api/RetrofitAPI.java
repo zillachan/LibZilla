@@ -30,40 +30,56 @@ public class RetrofitAPI {
                                 .baseUrl(AddressManager.getHost())
                                 .addConverterFactory(GsonConverterFactory.create())
                                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
-    /**
-     * 创建请求对象
-     * @param serviceClass
-     * @param <S>
-     * @return
-     */
-    public static <S> S createService(Class<S> serviceClass) {
-            if (okHttpClient!=null)
-                builder.client(okHttpClient);
-            S realS=builder.build().create(serviceClass);//真实角色
-            ServiceProxy proxy=new ServiceProxy(realS);
-            S s= (S) Proxy.newProxyInstance(proxy.getClass().getClassLoader(),realS.getClass().getInterfaces(),proxy);
-            return  s;
+    public enum Build{
+        NormalService{
+            @Override
+            public <S> S create(Class<S> serviceClass) {
+                if (okHttpClient!=null)
+                    builder.client(okHttpClient);
+                return builder.build().create(serviceClass);
+            }
+
+        },
+        ProxyService{
+            @Override
+            public <S> S create(Class<S> serviceClass) {
+                if (okHttpClient!=null)
+                    builder.client(okHttpClient);
+                S realS=builder.build().create(serviceClass);//真实角色
+                ServiceProxy proxy=new ServiceProxy(realS);
+                S s= (S) Proxy.newProxyInstance(proxy.getClass().getClassLoader(),realS.getClass().getInterfaces(),proxy);
+                return  s;
+            }
+        },
+        RxService{
+            @Override
+            public <S> S create(Class<S> serviceClass) {
+                if (okHttpClient!=null)
+                    builder.client(okHttpClient);
+                return  rxbuilder.build().create(serviceClass);
+            }
+        };
+        public abstract <S>S create(Class<S> serviceClass);
     }
 
+
     /**
-     * 创建指定拦截器的Service
-     * @param serviceClass
-     * @param interceptor 如果拦截器为null则创建无拦截器的普通的Service
-     * @param <S>
+     * 创建指定拦截器的Retrofit
+     * @param url
+     * @param interceptor 如果拦截器为null则创建无拦截器的Retrofit
      * @return
      */
-    public static <S>S createCustomService(Class<S> serviceClass,Interceptor interceptor){
+    public static Retrofit.Builder createCustomRetroft(String url,Interceptor interceptor){
+        Retrofit.Builder builder =
+                new Retrofit.Builder()
+                        .baseUrl(url);
         if(interceptor!=null){
             OkHttpClient okHttpClient=new OkHttpClient.Builder()
                     .addInterceptor(getLogger())
                     .addInterceptor(interceptor).build();
             builder.client(okHttpClient);
         }
-        return builder.build().create(serviceClass);
-    }
-
-    public static Retrofit retrofit() {
-        return builder.build();
+        return builder;
     }
 
     private static HttpLoggingInterceptor getLogger() {

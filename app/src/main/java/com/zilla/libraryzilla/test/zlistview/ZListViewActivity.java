@@ -45,7 +45,7 @@ public class ZListViewActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        final GitHubService service = RetrofitAPI.createService(GitHubService.class);
+        final GitHubService service = RetrofitAPI.Build.NormalService.create(GitHubService.class);
         xListViewWraper = new ZListViewWraper<Org>(getWindow().getDecorView(), R.layout.item_zlistview, ViewHolder.class) {
             @Override
             public void loadData() {

@@ -24,7 +24,7 @@ public class APIActivity2 extends BaseActivity{
 
     @Override
     protected void initDatas() {
-        GitHubService service= RetrofitAPI.createService(GitHubService.class);
+        GitHubService service= RetrofitAPI.Build.ProxyService.create(GitHubService.class);
         Call<List<Org>> call=service.getRepos("octokit");
         call.enqueue(new Callback<List<Org>>() {
             @Override
