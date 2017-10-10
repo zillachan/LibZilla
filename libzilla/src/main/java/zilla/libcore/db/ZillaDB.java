@@ -897,4 +897,13 @@ public class ZillaDB {
         }
         return t;
     }
+
+    /**
+     * export SQLiteDatabase obj
+     *
+     * @return
+     */
+    public SQLiteDatabase getDatabase() {
+        return database;
+    }
 }
