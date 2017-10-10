@@ -6,18 +6,18 @@
 
 
 ```
-	allprojects {
-		repositories {
-			...
-			maven { url "https://jitpack.io" }
-		}
-	}
-	
-	and in your application use:
-	
-	dependencies {
-	        compile 'com.github.zillachan:libzilla:1.0.76'
-	}
+allprojects {
+    repositories {
+        ...
+        maven { url "https://jitpack.io" }
+    }
+}
+
+and in your application use:
+
+dependencies {
+        compile 'com.github.zillachan:libzilla:1.1.4'
+}
 	
 ```
 
