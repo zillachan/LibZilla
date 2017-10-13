@@ -63,7 +63,7 @@ public abstract class ZListViewWraper<T> {
         adapter = new ZillaAdapter(rootView.getContext(), modelList, itemId, holderClass);
         zListView.setAdapter(adapter);
         zListView.setPullLoadEnable(false);
-        zListView.showRefreshProgress();
+//        zListView.showRefreshProgress();
         zListView.setZListViewListener(new ZListViewListener());
         loadData();
     }
