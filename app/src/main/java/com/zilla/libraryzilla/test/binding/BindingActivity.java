@@ -18,7 +18,7 @@ package com.zilla.libraryzilla.test.binding;
 
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import zilla.libcore.ui.InjectBinding;
 import zilla.libcore.ui.InjectLayout;
 import zilla.libcore.ui.ZillaBinding;
@@ -29,19 +29,19 @@ import com.zilla.libraryzilla.test.db.po.User;
 @InjectLayout(R.layout.activity_binding)
 public class BindingActivity extends BaseActivity {
 
-    @Bind(R.id.user_id)
+    @BindView(R.id.user_id)
     @InjectBinding("id")
     TextView userId;
 
-    @Bind(R.id.user_name)
+    @BindView(R.id.user_name)
     @InjectBinding("name")
     TextView userName;
 
-    @Bind(R.id.user_email)
+    @BindView(R.id.user_email)
     @InjectBinding("email")
     TextView userEmail;
 
-    @Bind(R.id.user_address)
+    @BindView(R.id.user_address)
     @InjectBinding("address")
     TextView userAddress;
 

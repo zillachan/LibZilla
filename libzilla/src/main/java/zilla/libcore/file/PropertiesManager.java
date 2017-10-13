@@ -16,7 +16,7 @@ limitations under the License.
 package zilla.libcore.file;
 
 import android.content.Context;
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 import zilla.libcore.Zilla;
 import zilla.libcore.util.Util;
 

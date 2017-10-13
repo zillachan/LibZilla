@@ -18,7 +18,7 @@ package zilla.libcore.lifecircle.exit;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 
 import java.util.Stack;
 

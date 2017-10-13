@@ -27,7 +27,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;

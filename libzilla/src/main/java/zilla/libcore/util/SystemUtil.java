@@ -19,7 +19,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 
 /**
  * Created by zilla on 14-7-28.

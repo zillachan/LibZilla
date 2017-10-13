@@ -17,7 +17,7 @@
 package zilla.libcore.api.handler;
 
 import android.content.Context;
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 import retrofit.RetrofitError;
 import zilla.libcore.R;
 import zilla.libcore.api.IApiModel;

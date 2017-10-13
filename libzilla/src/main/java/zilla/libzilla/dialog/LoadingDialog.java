@@ -20,7 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 
 import zilla.libcore.R;
 import zilla.libcore.lifecircle.ILifeCircle;

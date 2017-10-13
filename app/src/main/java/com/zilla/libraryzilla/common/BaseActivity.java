@@ -78,7 +78,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     protected void onDestroy() {
         super.onDestroy();
         LifeCircle.onDestory(this);
-        ButterKnife.unbind(this);
+//        ButterKnife.unbind(this);
     }
 
     protected abstract void initViews();

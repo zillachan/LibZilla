@@ -18,7 +18,7 @@ package zilla.libcore.lifecircle;
 import android.content.Context;
 import android.content.Intent;
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

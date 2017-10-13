@@ -16,7 +16,7 @@ limitations under the License.
 package zilla.libcore.module;
 
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 import zilla.libcore.module.exception.MalformedZillaURLException;
 
 /**

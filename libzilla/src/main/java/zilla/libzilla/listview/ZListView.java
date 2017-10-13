@@ -32,7 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 
 import zilla.libcore.R;
 
@@ -208,9 +208,9 @@ public class ZListView extends ListView implements OnScrollListener {
     }
 
     private void invokeOnScrolling() {
-        if (mScrollListener instanceof OnXScrollListener) {
-            OnXScrollListener l = (OnXScrollListener) mScrollListener;
-            l.onXScrolling(this);
+        if (mScrollListener instanceof OnZScrollListener) {
+            OnZScrollListener l = (OnZScrollListener) mScrollListener;
+            l.onZScrolling(this);
         }
     }
 
@@ -367,8 +367,8 @@ public class ZListView extends ListView implements OnScrollListener {
         mListViewListener = l;
     }
 
-    public interface OnXScrollListener extends OnScrollListener {
-        public void onXScrolling(View view);
+    public interface OnZScrollListener extends OnScrollListener {
+        public void onZScrolling(View view);
     }
 
     public interface IZEventListener {

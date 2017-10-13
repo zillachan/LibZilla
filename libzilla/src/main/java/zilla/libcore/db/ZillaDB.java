@@ -23,7 +23,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.text.TextUtils;
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

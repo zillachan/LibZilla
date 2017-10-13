@@ -18,7 +18,7 @@ package zilla.libcore.module;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 import zilla.libcore.Zilla;
 import zilla.libcore.module.exception.MalformedZillaURLException;
 import zilla.libcore.module.exception.ModuleTypeException;

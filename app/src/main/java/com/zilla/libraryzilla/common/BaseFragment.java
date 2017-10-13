@@ -94,7 +94,7 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         LifeCircle.onDestory(this);
-        ButterKnife.unbind(this);
+//        ButterKnife.unbind(this);
     }
 
     /**

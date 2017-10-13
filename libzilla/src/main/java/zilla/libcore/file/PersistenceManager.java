@@ -15,7 +15,7 @@ limitations under the License.
  */
 package zilla.libcore.file;
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 
 import java.io.Serializable;
 import java.lang.ref.WeakReference;

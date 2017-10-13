@@ -18,17 +18,16 @@ package com.zilla.libraryzilla;
 import android.content.Intent;
 import android.view.View;
 
-import com.zilla.libraryzilla.test.toolbar.CustomToolBarActivity;
-import com.zilla.libraryzilla.test.validate.ValidateActivity;
-import com.zilla.libraryzilla.test.zlistview.ZListViewActivity;
-import zilla.libcore.ui.InjectLayout;
+import com.zilla.libraryzilla.common.BaseActivity;
+import com.zilla.libraryzilla.test.adapter.ListViewTestActivity;
 import com.zilla.libraryzilla.test.api.APIActivity;
 import com.zilla.libraryzilla.test.binding.BindingActivity;
-import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.test.db.DBTestActivity;
-import com.zilla.libraryzilla.test.adapter.ListViewTestActivity;
+import com.zilla.libraryzilla.test.toolbar.CustomToolBarActivity;
+import com.zilla.libraryzilla.test.zlistview.ZListViewActivity;
 
 import butterknife.OnClick;
+import zilla.libcore.ui.InjectLayout;
 
 @InjectLayout(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
@@ -63,7 +62,7 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(this, ZListViewActivity.class));
                 break;
             case R.id.govalidate:
-                startActivity(new Intent(this, ValidateActivity.class));
+//                startActivity(new Intent(this, ValidateActivity.class));
                 break;
             case R.id.gotoolbar:
                 startActivity(new Intent(this, CustomToolBarActivity.class));

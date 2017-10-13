@@ -32,7 +32,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Looper;
 import android.widget.Toast;
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 import zilla.libcore.file.FileHelper;
 import zilla.libcore.lifecircle.exit.AppManager;
 import org.joda.time.DateTime;

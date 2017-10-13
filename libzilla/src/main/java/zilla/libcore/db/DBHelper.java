@@ -20,7 +20,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 import zilla.libcore.file.FileHelper;
 
 import java.util.ArrayList;

@@ -19,7 +19,7 @@ import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 import com.zilla.libraryzilla.test.net.NetErrorHandler;
 
 import zilla.libcore.Zilla;

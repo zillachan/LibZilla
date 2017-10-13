@@ -15,7 +15,7 @@ limitations under the License.
  */
 package zilla.libcore.util;
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

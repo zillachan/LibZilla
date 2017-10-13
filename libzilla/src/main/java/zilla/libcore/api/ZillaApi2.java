@@ -16,7 +16,7 @@
 //package zilla.libcore.api;
 //
 //import android.content.Context;
-//import com.github.snowdream.android.util.Log;
+//import pub.zilla.logzilla.Log;
 //
 //import okhttp3.Interceptor;
 //import okhttp3.OkHttpClient;

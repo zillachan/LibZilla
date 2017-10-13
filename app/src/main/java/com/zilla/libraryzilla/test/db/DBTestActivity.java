@@ -19,7 +19,7 @@ package com.zilla.libraryzilla.test.db;
 import android.os.Handler;
 import android.os.Message;
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 
 import zilla.libcore.db.ZillaDB;
 import zilla.libcore.lifecircle.LifeCircleInject;

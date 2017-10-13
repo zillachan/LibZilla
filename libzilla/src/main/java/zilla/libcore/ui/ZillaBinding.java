@@ -20,7 +20,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.*;
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 import com.squareup.picasso.Picasso;
 
 import zilla.libcore.Zilla;

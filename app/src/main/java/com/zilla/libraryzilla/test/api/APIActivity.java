@@ -16,7 +16,7 @@
 
 package com.zilla.libraryzilla.test.api;
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 import com.zilla.libraryzilla.R;
 import com.zilla.libraryzilla.common.BaseActivity;
 import com.zilla.libraryzilla.common.CommonModel;

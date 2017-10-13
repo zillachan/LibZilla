@@ -19,7 +19,9 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.util.DisplayMetrics;
-import com.github.snowdream.android.util.Log;
+
+import pub.zilla.logzilla.Log;
+import pub.zilla.logzilla.imp.LoggerLog;
 import zilla.libcore.db.DBHelper;
 import zilla.libcore.file.AddressManager;
 import zilla.libcore.file.FileHelper;
@@ -82,8 +84,9 @@ public class Zilla {
     }
 
     private void initLog() {
-        Log.setEnabled(Boolean.parseBoolean(PropertiesManager.get("log")));
-        Log.setTag(PropertiesManager.get("appname"));
+        new Log.Builder().client(new LoggerLog()).logStatus(true);
+//        Log.setEnabled(Boolean.parseBoolean(PropertiesManager.get("log")));
+//        Log.setTag(PropertiesManager.get("appname"));
     }
 
     /**

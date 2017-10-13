@@ -17,7 +17,7 @@ package zilla.libcore.db.util;
 
 import android.text.TextUtils;
 
-import com.github.snowdream.android.util.Log;
+import pub.zilla.logzilla.Log;
 
 import zilla.libcore.db.Id;
 import zilla.libcore.db.Table;
