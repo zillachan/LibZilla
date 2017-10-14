@@ -94,7 +94,7 @@ public class AdapterUtil<T> {
             try {
                 modelProperty = ReflectUtil.getObj(item, field.getName());
             } catch (Exception e) {
-                Log.e(e.getMessage());
+//                Log.e(e.getMessage());
                 //如果item中不存在该字段，跳过
                 continue;
             }
@@ -107,7 +107,7 @@ public class AdapterUtil<T> {
                 View view = (View) field.get(holder);
                 view.setTag(item);
             } catch (Exception e) {
-                Log.e(e.getMessage());
+//                Log.e(e.getMessage());
             }
 
             //CheckBox
@@ -125,7 +125,7 @@ public class AdapterUtil<T> {
                         checkBox.setOnCheckedChangeListener(onCheckedChangeListener);
                     }
                 } catch (Exception e) {
-                    Log.e(e.getMessage());
+//                    Log.e(e.getMessage());
                 }
             }
             //Button
@@ -151,7 +151,7 @@ public class AdapterUtil<T> {
                     });
 
                 } catch (IllegalAccessException e) {
-                    Log.e(e.getMessage());
+//                    Log.e(e.getMessage());
                 }
             }
             //TextView
@@ -164,7 +164,7 @@ public class AdapterUtil<T> {
                     if (TextUtils.isEmpty(text)) text = "";
                     ((TextView) field.get(holder)).setText(text);
                 } catch (IllegalAccessException e) {
-                    Log.e(e.getMessage());
+//                    Log.e(e.getMessage());
                 }
             }
             //ImageView
@@ -186,7 +186,7 @@ public class AdapterUtil<T> {
                         }
                     }
                 } catch (Exception e) {
-                    Log.e(e.getMessage());
+//                    Log.e(e.getMessage());
                 }
             }
             //RatingBar
@@ -194,7 +194,7 @@ public class AdapterUtil<T> {
                 try {
                     ((RatingBar) field.get(holder)).setRating((Integer) modelProperty);
                 } catch (Exception e) {
-                    Log.e(e.getMessage());
+//                    Log.e(e.getMessage());
                 }
             }
             //ViewGroup
@@ -217,7 +217,7 @@ public class AdapterUtil<T> {
                             break;
                     }
                 } catch (Exception e) {
-                    Log.e(e.getMessage());
+//                    Log.e(e.getMessage());
                 }
             }
             //其它
