@@ -1,4 +1,5 @@
 <resources>
     <drawable name="app_pressed">#0093c1</drawable>
     <drawable name="transparent">#00000000</drawable>
+    <color name="zlist_title_color">#AA000000</color>
 </resources>
