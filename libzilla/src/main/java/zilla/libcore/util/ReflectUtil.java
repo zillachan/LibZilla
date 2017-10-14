@@ -64,9 +64,9 @@ public class ReflectUtil {
             field.setAccessible(true);
             result = field.get(obj);
         } catch (NoSuchFieldException e) {
-            Log.e(e.getMessage());
+//            Log.e(e.getMessage());
         } catch (IllegalAccessException e) {
-            Log.e(e.getMessage());
+//            Log.e(e.getMessage());
         }
         return result;
     }
@@ -121,13 +121,13 @@ public class ReflectUtil {
             field.setAccessible(true);
             field.set(obj, value);
         } catch (NoSuchFieldException e) {
-            Log.e(e.getMessage());
+//            Log.e(e.getMessage());
         } catch (IllegalArgumentException e) {
 //            e.printStackTrace();
             if (field != null)
                 Log.e("IllegalArgumentException--" + "field:" + field.getName() + "-value:" + field.getType());
         } catch (IllegalAccessException e) {
-            Log.e(e.getMessage());
+//            Log.e(e.getMessage());
         }
     }
 
