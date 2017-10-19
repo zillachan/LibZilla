@@ -36,6 +36,14 @@ public abstract class ZListViewWraper<T> {
     protected int itemId;
     protected Class<?> holderClass;
     /**
+     * preferSize
+     */
+    protected int preferSize = PAGE_SIZE;
+    /**
+     * empty resource id
+     */
+    protected int emptyResource;
+    /**
      * prefer page size
      */
     public static int PAGE_SIZE = 20;
@@ -118,60 +126,41 @@ public abstract class ZListViewWraper<T> {
         return modelList;
     }
 
-    public void setModelList(List<T> modelList) {
-        this.modelList.clear();
-        this.modelList.addAll(modelList);
-        adapter.notifyDataSetChanged();
-        refreshSuccess();
-        if (modelList.size() < PAGE_SIZE) {
-            setPullLoadEnable(false);
-        } else {
-            setPullLoadEnable(true);
-        }
-        if (modelList.size() == 0) {
-            zListView.setBackgroundResource(R.drawable.xml_listview_no_data);
-        } else {
-            zListView.setBackgroundResource(R.drawable.transparent);
-        }
-    }
-
     /**
      * if preferSize is less than the size of modelList,stop pullLoad
      *
-     * @param modelList  list
-     * @param preferSize the size of a page
+     * @param modelList list
      */
-    public void setModelList(List<T> modelList, int preferSize) {
+    public void setModelList(List<T> modelList) {
         this.modelList.clear();
         this.modelList.addAll(modelList);
-        adapter.notifyDataSetChanged();
-        refreshSuccess();
-        if (modelList.size() < preferSize) {
-            setPullLoadEnable(false);
-        } else {
-            setPullLoadEnable(true);
-        }
+        this.setDataResponse();
     }
 
     public void addModelList(List<T> modelList) {
         this.modelList.addAll(modelList);
+        this.setDataResponse();
+    }
+
+    private void setDataResponse() {
         adapter.notifyDataSetChanged();
         refreshSuccess();
-        if (modelList.size() < PAGE_SIZE) {
+
+        if (this.modelList.size() < preferSize) {
             setPullLoadEnable(false);
         } else {
             setPullLoadEnable(true);
         }
-    }
-
-    public void addModelList(List<T> modelList, int preferSize) {
-        this.modelList.addAll(modelList);
-        adapter.notifyDataSetChanged();
-        refreshSuccess();
-        if (modelList.size() < preferSize) {
-            setPullLoadEnable(false);
+        if (this.modelList.size() == 0) {
+            if (emptyResource > 1) {
+                zListView.setBackgroundResource(emptyResource);
+            } else if (emptyResource == 0) {
+                zListView.setBackgroundResource(R.drawable.xml_listview_no_data);
+            } else {
+                zListView.setBackgroundResource(R.drawable.transparent);
+            }
         } else {
-            setPullLoadEnable(true);
+            zListView.setBackgroundResource(R.drawable.transparent);
         }
     }
 
@@ -197,6 +186,22 @@ public abstract class ZListViewWraper<T> {
 
     public int getVisibility() {
         return zListView.getVisibility();
+    }
+
+    public int getPreferSize() {
+        return preferSize;
+    }
+
+    public void setPreferSize(int preferSize) {
+        this.preferSize = preferSize;
+    }
+
+    public int getEmptyResource() {
+        return emptyResource;
+    }
+
+    public void setEmptyResource(int emptyResource) {
+        this.emptyResource = emptyResource;
     }
 
     class ZListViewListener implements ZListView.IZEventListener {
